@@ -24,6 +24,7 @@ root {
 	--small: 15px;
 
 	/* Semantic styles */
+	--description: var(--gruv-white);
 	--primary: var(--gruv-blue);
 	--secondary: var(--gruv-orange);
 	--accent: var(--gruv-yellow);
