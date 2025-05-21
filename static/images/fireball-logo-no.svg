@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120" height="108" viewBox="0 0 120 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M26 24.5C22.1667 38.3333 21.3 65.9 41.5 65.5C61.7 65.1 39.6667 23.6667 26 4.5" stroke="#FBBD2E" stroke-width="8"/>
+  <path d="M48 15C51.3333 24.6667 53.4 45.8 33 52C12.6 58.2 53 66.3333 75 68.5" stroke="#EA732F" stroke-width="8"/>
+  <path d="M59 34.5C58.6 45.7 49.3333 69.5 25 76.5C16.2 78.9 55.6667 84 77 86" stroke="#A13B1E" stroke-width="8"/>
+  <path d="M44 1.5C57.6 8.3 79.3333 31.1667 62.5 58.5C45.6667 85.8333 88.1667 73.1667 113 59" stroke="#CD241E" stroke-width="8"/>
+  <text x="55" y="93" font-family="'Kilimanjaro Sans Round1'" font-size="40" fill="#FFF4DB">Jn</text>
+</svg>

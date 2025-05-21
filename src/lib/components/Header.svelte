@@ -1,5 +1,20 @@
 <script>
   import Nav from '$lib/components/Nav.svelte';
+  import { onMount } from 'svelte';
+  
+  let scrollY = $state(0);
+  
+  onMount(() => {
+    const handleScroll = () => {
+      scrollY = window.scrollY;
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  });
 </script>
 
 <header class="site-header">
@@ -11,7 +26,7 @@
 <style>
   /* Site header (navbar) */
   .site-header {
-    position: absolute;
+    position: fixed;
     height: 86px;
     left: 0px;
     right: 0px;
@@ -19,9 +34,20 @@
     background: #a13b1e; /* gruv-darkorange */
     padding: 0;
     border-bottom: none;
+    z-index: 50;
   }
 
   .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
     padding: 13px 29px;
+    height: 100%;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .container {
+      padding: 13px 16px;
+    }
   }
 </style>

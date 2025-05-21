@@ -1,206 +1,393 @@
 <script>
-  // Footer-specific logic
+  import { onMount } from 'svelte';
+  import { fade, fly, scale } from 'svelte/transition';
+  import { quintOut, elasticOut } from 'svelte/easing';
+  
+  let visible = $state(false);
+  let year = new Date().getFullYear();
+  
+  // SVG path for the wave animation
+  const wavePath = "M0,128 C100,90 200,180 300,128 C400,76 500,180 600,128 C700,76 800,180 900,128 C1000,76 1100,180 1200,128 C1300,76 1400,180 1500,128 C1600,76 1700,180 1800,128 C1900,76 2000,180 2100,128 C2100,230 0,230 0,128 Z";
+  
+  // Intersection observer to trigger animations when the footer is in view
+  onMount(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          visible = true;
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.2 });
+    
+    const footer = document.querySelector('.site-footer');
+    if (footer) {
+      observer.observe(footer);
+    }
+    
+    return () => {
+      observer.disconnect();
+    };
+  });
 </script>
 
 <footer class="site-footer">
+  <div class="wave-container">
+    <svg viewBox="0 0 2100 230" preserveAspectRatio="none">
+      <path d={wavePath} class="wave" />
+      <path d={wavePath} class="wave wave2" />
+      <path d={wavePath} class="wave wave3" />
+    </svg>
+  </div>
+  
   <div class="container">
-    <div class="footer-content">
-      <div class="footer-branding">
-        <a href="/" class="footer-logo-link" aria-label="blazingfast.app">
-          <svg
-            width="67"
-            height="60"
-            viewBox="0 0 67 60"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M0 0H67V60H0V0Z" fill="#458588" />
-            <path
-              d="M50.6964 28.4884C53.3314 28.4884 55.4286 29.3488 56.9881 31.0696C58.5745 32.7635 59.3677 35.1028 59.3677 38.0873V51.2353H52.5113V39.0149C52.5113 37.5092 52.1215 36.3396 51.3417 35.5061C50.562 34.6725 49.5134 34.2558 48.1959 34.2558C46.8784 34.2558 45.8298 34.6725 45.05 35.5061C44.2703 36.3396 43.8804 37.5092 43.8804 39.0149V51.2353H36.9838V28.7304H43.8804V31.7149C44.5795 30.7201 45.5206 29.9403 46.7036 29.3757C47.8867 28.7842 49.2176 28.4884 50.6964 28.4884Z"
-              fill="#FFF4DB"
-            />
-            <path
-              d="M31.413 22.9227V42.2011C31.413 45.1856 30.566 47.4845 28.8721 49.0978C27.2051 50.711 24.9465 51.5177 22.0965 51.5177C19.1119 51.5177 16.7189 50.6707 14.9175 48.9768C13.116 47.2829 12.2153 44.8764 12.2153 41.7575H19.0716C19.0716 42.9405 19.3136 43.8413 19.7976 44.4597C20.2815 45.0512 20.9806 45.347 21.8948 45.347C22.7283 45.347 23.3736 45.0781 23.8307 44.5403C24.2878 44.0026 24.5163 43.2229 24.5163 42.2011V22.9227H31.413Z"
-              fill="#FFF4DB"
-            />
-          </svg>
-        </a>
-        <p class="footer-tagline">Building high performance web experiences</p>
+    {#if visible}
+      <div class="footer-content">
+        <div class="footer-left" transition:fly={{ y: 30, duration: 600, easing: quintOut }}>
+          <a href="/" class="footer-logo-link" aria-label="blazingfast.app">
+            <div class="footer-logo">Jn</div>
+          </a>
+          <p class="footer-tagline">Building high performance web experiences</p>
+        </div>
+        
+        <div class="footer-center" transition:fly={{ y: 30, duration: 600, delay: 100, easing: quintOut }}>
+          <div class="quick-links">
+            <h3>Quick Links</h3>
+            <ul aria-label="Footer Links">
+              <li><a href="/about">About</a></li>
+              <li><a href="/experience">Experience</a></li>
+              <li><a href="/work">Work</a></li>
+              <li><a href="/contact">Contact</a></li>
+              <li><a href="/resume.pdf" download aria-label="Résumé">Résumé</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="footer-right" transition:fly={{ y: 30, duration: 600, delay: 200, easing: quintOut }}>
+          <div class="contact-links">
+            <h3>Contact</h3>
+            <ul aria-label="Footer Contact">
+              <li>
+                <a
+                  href="https://github.com/Jamesn-dev"
+                  aria-label="JamesN on GitHub"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="social-link"
+                >
+                  <svg class="social-icon" viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" fill="#6e5494"/>
+                  </svg>
+                  <span>GitHub</span>
+                </a>
+              </li>
+              <li>
+                <a href="mailto:atetraxx@gmail.com" aria-label="Email atetraxx@gmail.com" class="social-link">
+                  <svg class="social-icon" viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z" fill="#EA732F"/>
+                  </svg>
+                  <span>atetraxx@gmail.com</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://linkedin.com/in/james-niemerg"
+                  aria-label="JamesN on LinkedIn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="social-link"
+                >
+                  <svg class="social-icon" viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill="#0077b5"/>
+                  </svg>
+                  <span>LinkedIn</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-
-      <div class="footer-links">
-        <h3>Quick Links</h3>
-        <ul aria-label="Footer Links">
-          <li><a href="/about">About</a></li>
-          <li><a href="/experience">Experience</a></li>
-          <li><a href="/work">Work</a></li>
-          <li><a href="/contact">Contact</a></li>
-          <li><a href="/resume.pdf" download aria-label="Résumé">Résumé</a></li>
-        </ul>
+      
+      <div class="footer-bottom" transition:fade={{ duration: 800, delay: 400 }}>
+        <p>&copy; {year} blazingfast.app. All rights reserved.</p>
+        <p class="made-with">Made with <span class="heart">❤</span> using SvelteKit</p>
       </div>
-      <div class="footer-contact">
-        <h3>Contact</h3>
-        <ul aria-label="Footer Contact">
-          <li>
-            <a
-              href="https://github.com/Jamesn-dev"
-              aria-label="JamesN on GitHub"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <svg
-                width="250"
-                height="250"
-                viewBox="0 0 1024 1024"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.59C5.87 15.66 6.02 15.42 6.02 15.21C6.02 15.02 6.01 14.39 6.01 13.72C4 14.09 3.48 13.23 3.32 12.78C3.23 12.55 2.84 11.84 2.5 11.65C2.22 11.5 1.82 11.13 2.49 11.12C3.12 11.11 3.57 11.7 3.72 11.94C4.44 13.15 5.59 12.81 6.05 12.6C6.12 12.08 6.33 11.73 6.56 11.53C4.78 11.33 2.92 10.64 2.92 7.58C2.92 6.71 3.23 5.99 3.74 5.43C3.66 5.23 3.38 4.41 3.82 3.31C3.82 3.31 4.49 3.1 6.02 4.13C6.66 3.95 7.34 3.86 8.02 3.86C8.7 3.86 9.38 3.95 10.02 4.13C11.55 3.09 12.22 3.31 12.22 3.31C12.66 4.41 12.38 5.23 12.3 5.43C12.81 5.99 13.12 6.7 13.12 7.58C13.12 10.65 11.25 11.33 9.47 11.53C9.76 11.78 10.01 12.26 10.01 13.01C10.01 14.08 10 14.94 10 15.21C10 15.42 10.15 15.67 10.55 15.59C13.71 14.53 16 11.53 16 8C16 3.58 12.42 0 8 0Z"
-                  transform="scale(64)"
-                  fill="#1B1F23"
-                />
-              </svg>
-              <span>GitHub</span></a
-            >
-          </li>
-          <li>
-            <a href="mailto:atetraxx@gmail.com" aria-label="Email atetraxx@gmail.com"
-              ><svg
-                class="w-6 h-6 text-gray-800 dark:text-white"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-width="2"
-                  d="m3.5 5.5 7.893 6.036a1 1 0 0 0 1.214 0L20.5 5.5M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"
-                />
-              </svg>
-              <span>atetraxx@gmail.com</span></a
-            >
-          </li>
-          <li>
-            <a
-              href="https://linkedin.com/in/james-niemerg"
-              aria-label="JamesN on LinkedIn"
-              target="_blank"
-              rel="noopener noreferrer"
-              ><svg
-                width="256"
-                height="256"
-                xmlns="http://www.w3.org/2000/svg"
-                preserveAspectRatio="xMidYMid"
-                viewBox="0 0 256 256"
-                ><path
-                  d="M218.123 218.127h-37.931v-59.403c0-14.165-.253-32.4-19.728-32.4-19.756 0-22.779 15.434-22.779 31.369v60.43h-37.93V95.967h36.413v16.694h.51a39.907 39.907 0 0 1 35.928-19.733c38.445 0 45.533 25.288 45.533 58.186l-.016 67.013ZM56.955 79.27c-12.157.002-22.014-9.852-22.016-22.009-.002-12.157 9.851-22.014 22.008-22.016 12.157-.003 22.014 9.851 22.016 22.008A22.013 22.013 0 0 1 56.955 79.27m18.966 138.858H37.95V95.967h37.97v122.16ZM237.033.018H18.89C8.58-.098.125 8.161-.001 18.471v219.053c.122 10.315 8.576 18.582 18.89 18.474h218.144c10.336.128 18.823-8.139 18.966-18.474V18.454c-.147-10.33-8.635-18.588-18.966-18.453"
-                  fill="#0A66C2"
-                /></svg
-              >
-              <span>LinkedIn</span></a
-            >
-          </li>
-        </ul>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; {new Date().getFullYear()} blazingfast.app. All rights reserved.</p>
-      </div>
-    </div>
+    {/if}
   </div>
 </footer>
 
 <style>
   /* Footer styles */
   .site-footer {
-    background-color: var(--gruv-blown);
-    color: var(--gruv-white);
-    padding: var(--space-8) 0 var(--space-4);
-    font-family: 'Inter', sans-serif;
+    background-color: #282828;
+    color: #FFF4DB;
+    padding: 80px 0 40px;
+    font-family: 'Nunito Sans', sans-serif;
+    position: relative;
+    overflow: hidden;
+    z-index: 10;
+    border-top: 1px solid rgba(251, 189, 46, 0.1);
+  }
+  
+  /* Wave animation */
+  .wave-container {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+  }
+  
+  .wave-container svg {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .wave {
+    fill: #A13B1E;
+    animation: wave 20s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+  }
+  
+  .wave2 {
+    fill: #CD241E;
+    opacity: 0.5;
+    animation: wave 15s cubic-bezier(0.36, 0.45, 0.63, 0.53) -5s infinite, swell 7s ease -1.25s infinite;
+  }
+  
+  .wave3 {
+    fill: #FBBD2E;
+    opacity: 0.3;
+    animation: wave 30s cubic-bezier(0.36, 0.45, 0.63, 0.53) -2s infinite;
+  }
+  
+  @keyframes wave {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes swell {
+    0%, 100% {
+      transform: translateY(-5px);
+    }
+    50% {
+      transform: translateY(5px);
+    }
   }
 
   .container {
-    padding: 13px 29px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
   }
 
   .footer-content {
     display: grid;
-    grid-template-columns: repeat(3, 200px);
-    width: fit-content;
-    gap: var(--space-32);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-bottom: 40px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  .footer-branding p {
+  /* Left column - Logo & Tagline */
+  .footer-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .footer-logo {
+    width: 67px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    margin-top: var(--space-2);
-    color: var(--gruv-darkwhite);
+    background: #458588;
+    font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
+    font-size: 32px;
+    color: #FFF4DB;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    transition: transform 0.3s ease;
+  }
+  
+  .footer-logo:hover {
+    transform: scale(1.1) rotate(-5deg);
   }
 
   .footer-tagline {
-    color: var(--gruv-darkwhite);
-    margin-top: var(--space-2);
+    color: #CCC2AB;
+    margin-top: 10px;
+    font-size: 14px;
   }
 
-  .footer-links h3,
-  .footer-contact h3 {
-    font-size: var(--p);
-    margin-bottom: var(--space-4);
+  /* Center column - Quick Links */
+  .quick-links h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+    color: #FBBD2E;
+  }
+  
+  .quick-links h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: #FBBD2E;
   }
 
-  .footer-links ul,
-  .footer-contact ul {
+  .quick-links ul {
     list-style: none;
     padding: 0;
     margin: 0;
   }
 
-  .footer-links li,
-  .footer-contact li {
-    margin-bottom: var(--space-2);
+  .quick-links li {
+    margin-bottom: 12px;
   }
 
-  .footer-links a,
-  .footer-contact a {
-    color: var(--gruv-darkwhite);
+  .quick-links a {
+    color: #CCC2AB;
     text-decoration: none;
-    transition: color var(--transition-fast);
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+    padding: 2px 0;
+  }
+
+  .quick-links a:hover {
+    color: #FFF4DB;
+    transform: translateX(5px);
+  }
+
+  /* Right column - Contact */
+  .contact-links h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+    color: #FBBD2E;
+  }
+  
+  .contact-links h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: #FBBD2E;
+  }
+  
+  .contact-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .contact-links li {
+    margin-bottom: 12px;
+  }
+  
+  .social-link {
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
+    color: #CCC2AB;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .social-link:hover {
+    color: #FFF4DB;
+    transform: translateX(5px);
+  }
+  
+  .social-icon {
+    transition: transform 0.3s ease;
+  }
+  
+  .social-link:hover .social-icon {
+    transform: scale(1.2);
+  }
+
+  /* Footer bottom */
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #CCC2AB;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .made-with {
+    margin-top: 10px;
     display: flex;
     align-items: center;
-    gap: var(--space-2);
+    justify-content: center;
+    gap: 5px;
   }
-
-  .footer-links a:hover,
-  .footer-contact a:hover {
-    color: var(--gruv-white);
+  
+  .heart {
+    color: #CD241E;
+    animation: pulse 1.5s ease infinite;
+    display: inline-block;
   }
-
-  .footer-contact a svg {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
-  }
-
-  .footer-bottom {
-    grid-column: 1 / -1;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: var(--space-4);
-    text-align: center;
-    font-size: var(--small);
-    color: var(--gruv-darkwhite);
-    margin-top: var(--space-8);
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.3);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
 
   /* Responsive styles */
   @media (max-width: 768px) {
     .footer-content {
       grid-template-columns: 1fr;
-      gap: var(--space-8);
+      text-align: center;
+      gap: 40px;
+    }
+    
+    .footer-left {
+      align-items: center;
+    }
+    
+    .quick-links h3::after,
+    .contact-links h3::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .quick-links a:hover,
+    .social-link:hover {
+      transform: translateX(0) scale(1.05);
+    }
+    
+    .social-link {
+      justify-content: center;
     }
   }
 </style>

@@ -1,3 +1,64 @@
+/* Animation classes */
+.animate-fade-up {
+	transform: translateY(30px);
+}
+
+.animate-fade-up.animated {
+	transform: translateY(0);
+}
+
+.animate-fade-right {
+	transform: translateX(-30px);
+}
+
+.animate-fade-right.animated {
+	transform: translateX(0);
+}
+
+.animate-fade-left {
+	transform: translateX(30px);
+}
+
+.animate-fade-left.animated {
+	transform: translateX(0);
+}
+
+.animate-width-grow {
+	width: 0 !important;
+}
+
+.animate-width-grow.animated {
+	width: 80px !important;
+}
+
+/* Parallax container */
+.parallax-container {
+	position: relative;
+	overflow: hidden;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.parallax-layer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+/* Mouse trail effect */
+.mouse-trail {
+	pointer-events: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 9998;
+}
 root {
 	/* Color styles */
 	--gruv-yellow: rgba(251, 189, 46, 1);
