@@ -387,13 +387,12 @@
     font-style: normal;
     font-weight: 400;
     font-size: 80px;
-    line-height: 1.15;
+    line-height: 1.25;
     margin: 0;
-    background: linear-gradient(135deg, #FFFFFF 0%, #FBBD2E 50%, #FF7A30 100%);
+    background: linear-gradient(135deg, #FBBD2E 0%, #EA732F 40%, #CD241E 100%);   
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-fill-color: transparent;
   }
 
   .tagline {
@@ -402,13 +401,12 @@
     font-style: normal;
     font-weight: 400;
     font-size: 80px;
-    line-height: 1.15;
+    line-height: 1.25;
     margin: 0 0 8px 0;
-    background: linear-gradient(135deg, #FF7A30 0%, #EA732F 60%, #CD241E 100%);
+    background: linear-gradient(135deg, #FF7A30 0%, #EA4A2C 50%, #CD241E 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-fill-color: transparent;
   }
   
   .typed-text {
@@ -426,13 +424,14 @@
 
   .description {
     font-size: var(--p);
-    font-family: 'Nunito Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     color: #FFF4DB;
     line-height: 1.6;
     margin-bottom: 36px;
     max-width: 764px;
   }
 
+  /* CTA Buttons */
   .cta-buttons {
     display: flex;
     gap: 24px;
@@ -454,8 +453,8 @@
     font-weight: 500;
     flex: 1;
     max-width: 370px;
-    overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    isolation: isolate; /* Create new stacking context */
   }
   
   .button-primary {
@@ -469,40 +468,57 @@
     color: #FFF4DB;
     border: none;
   }
-  
+
   .button-primary:hover, .button-secondary:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 10;
+    overflow: hidden; /* This will clip the glow */
   }
-  
-  .button-glow {
+
+  .button-primary:hover {
+    background: #8B2F18; /* Darker version of #A13B1E */
+  }
+
+  .button-secondary:hover {
+    background: #3A6B6E; /* Darker version of #458588 */
+  }
+
+  .button-primary:hover::before, .button-secondary:hover::before {
+    content: "";
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    pointer-events: none;
-    mix-blend-mode: overlay;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 150%;
+    height: 150%;
+    z-index: -1;
+    filter: blur(20px);
+    background: linear-gradient(
+      45deg,
+      #EA732F,
+      #FBBD2E,
+      #CD241E,
+      #458588,
+      #EA732F
+    );
+    background-size: 300% 300%;
+    animation: glow-rotation 2s linear infinite;
+    border-radius: 12px;
+    opacity: 0.8;
   }
-  
-  .button-primary:hover .button-glow, .button-secondary:hover .button-glow {
-    opacity: 1;
-    animation: glow-rotation 3s infinite linear;
-  }
-  
+
   @keyframes glow-rotation {
     0% {
-      transform: rotate(0deg);
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
     }
     100% {
-      transform: rotate(360deg);
+      background-position: 0% 50%;
     }
-  }
-  
-  /* Scroll indicator */
+  }  /* Scroll indicator */
   .scroll-indicator {
     position: absolute;
     bottom: 40px;

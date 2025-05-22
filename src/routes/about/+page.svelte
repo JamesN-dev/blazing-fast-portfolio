@@ -15,51 +15,52 @@
 <div class="about-container">
   {#if visible}
     <div class="about-header" transition:fade={{ duration: 500 }}>
-      <h1>About Me</h1>
+      <h1>About</h1>
       <div class="underline"></div>
     </div>
     
     <div class="about-content">
       <div class="about-text" transition:fly={{ duration: 600, y: 20 }}>
-        <p>
-          Hi there! I'm James, a marketing professional, developer, and visual designer based in the heart of tech innovation. With a passion for creating exceptional digital experiences, I blend aesthetic sensibility with technical expertise to build websites and applications that not only look great but perform at lightning speed.
-        </p>
-        
-        <p>
-          My journey in web development began over 10 years ago when I built my first website using just HTML and CSS. Since then, I've expanded my toolkit to include modern frameworks like SvelteKit, React, and Vue, allowing me to craft dynamic and responsive applications that engage users and solve real-world problems.
-        </p>
-        
-        <p>
-          What sets me apart is my holistic approach to web development. With a background in marketing and design, I understand that a successful digital product requires more than just clean code. It needs to tell a compelling story, guide users intuitively, and ultimately drive business outcomes. That's why I approach each project with a focus on the end user, ensuring that every line of code serves a purpose and contributes to a seamless experience.
-        </p>
-        
-        <p>
-          When I'm not coding, you can find me exploring new design trends, contributing to open-source projects, or enjoying the outdoors. I believe in continuous learning and am always looking to expand my skills and stay on the cutting edge of web development.
-        </p>
+      <p>
+        I build digital experiences that don't just look great but perform at lightning speed - that's why I founded Blazing Fast Design/Dev. With 15+ years of design and 10 years in marketing, I bring unique value at the intersection of visual aesthetics, conversion strategy, and technical implementation. I don't just make things pretty; I make them work.
+      </p>
+
+      <p>
+        Beyond traditional development, I architect sophisticated AI solutions that deliver measurable business value. From RAG chatbots that intelligently process company documentation to answer product questions, to custom scrapers and specialized tools that utilize LLM prompts to intelligently execute commands - I build agentic systems that put your business on the cutting edge of technology. They work. They deliver results. And they look good doing it.
+      </p>
+
+      <p>
+        Unlike pure developers, I approach each project from a holistic business perspective. This means your site won't just function—it'll convert visitors, tell your story, and make your competition nervous. By focusing on the intersection of design, marketing, and technology, I create solutions that solve real problems while looking exceptional.
+      </p>
+
+      <p>
+        When my work laptop closes, my personal laptop opens. The line between work and play blurs when you genuinely enjoy technology. I'm constantly learning, experimenting, and building—not because I have to, but because I want to.
+      </p>
       </div>
-      
+
       <div class="about-skills" transition:fly={{ delay: 300, duration: 600, y: 20 }}>
         <h2>Skills & Technologies</h2>
+        <p class="section-tagline">My current technical toolkit</p>
         <div class="skills-grid">
           <div class="skill-category">
             <h3>Languages</h3>
             <ul>
               <li>JavaScript (ES6+)</li>
-              <li>HTML5</li>
-              <li>CSS3/SCSS</li>
-              <li>PHP</li>
               <li>Python</li>
+              <li>CSS3/SCSS</li>
+              <li>HTML5</li>
+              <li>SQL</li>
             </ul>
           </div>
           
           <div class="skill-category">
-            <h3>Frameworks & Libraries</h3>
+            <h3>Build Ecosystems</h3>
             <ul>
               <li>SvelteKit</li>
-              <li>React</li>
-              <li>Vue.js</li>
-              <li>Node.js</li>
-              <li>Express</li>
+              <li>Django</li>
+              <li>TailwindCSS</li>
+              <li>FastAPI</li>
+              <li>Flask</li>
             </ul>
           </div>
           
@@ -75,9 +76,9 @@
           </div>
           
           <div class="skill-category">
-            <h3>Design</h3>
+            <h3>Design & UI</h3>
             <ul>
-              <li>UI/UX Design</li>
+              <li>UI/UX Design & interactive transitions (Svelte)</li>
               <li>Responsive Design</li>
               <li>Animation</li>
               <li>Graphic Design</li>
@@ -191,6 +192,13 @@
     }
   }
   
+  .section-tagline {
+    font-size: 18px;
+    color: #AAA;
+    margin-bottom: 32px;
+    font-style: italic;
+  }
+
   @media (max-width: 768px) {
     .about-container {
       margin: 20px auto;

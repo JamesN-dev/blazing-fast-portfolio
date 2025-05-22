@@ -42,7 +42,7 @@
     <img
       src="/images/fireball-logo.png"
       alt="blazingfast.app fireball logo"
-      width="80"
+      width="130"
       height="auto"
     />
   </a>
@@ -85,20 +85,18 @@
     width: 100%;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
   }
-  
-  .scrolled {
-    background-color: rgba(161, 59, 30, 0.95);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
+
 
   /* Logo styling */
   .header-logo {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80px;
-    height: 60px;
+    width: 100px;
+    height: 100px;
     z-index: 100;
+    -webkit-filter: drop-shadow(5px 5px 5px #222);
+    filter: drop-shadow(5px 5px 5px #222);
   }
   
   /* Container for the navigation links */
