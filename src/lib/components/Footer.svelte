@@ -142,8 +142,8 @@
 <style>
 	/* Footer styles */
 	.site-footer {
-		background-color: #282828;
-		color: #fff4db;
+		background-color: var(--background);
+		color: var(--color-text);
 		padding: 80px 0 40px;
 		font-family: 'Nunito Sans', sans-serif;
 		position: relative;
@@ -168,12 +168,12 @@
 	}
 
 	.wave {
-		fill: #a13b1e;
+		fill: var(--gruv-darkorange);
 		animation: wave 20s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
 	}
 
 	.wave2 {
-		fill: #cd241e;
+		fill: var(--gruv-red);
 		opacity: 0.5;
 		animation:
 			wave 15s cubic-bezier(0.36, 0.45, 0.63, 0.53) -5s infinite,
@@ -181,7 +181,7 @@
 	}
 
 	.wave3 {
-		fill: #fbbd2e;
+		fill: var(--accent);
 		opacity: 0.3;
 		animation: wave 30s cubic-bezier(0.36, 0.45, 0.63, 0.53) -2s infinite;
 	}
@@ -239,10 +239,10 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		background: #458588;
+		background: var(--primary);
 		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
 		font-size: 32px;
-		color: #fff4db;
+		color: var(--color-text);
 		margin-bottom: 10px;
 		filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
 		transition: transform 0.3s ease;
@@ -253,7 +253,7 @@
 	}
 
 	.footer-tagline {
-		color: #ccc2ab;
+		color: var(--description);
 		margin-top: 10px;
 		font-size: 14px;
 	}
@@ -264,7 +264,7 @@
 		margin-bottom: 20px;
 		position: relative;
 		display: inline-block;
-		color: #fbbd2e;
+		color: var(--accent);
 	}
 
 	.quick-links h3::after {
@@ -274,7 +274,7 @@
 		left: 0;
 		width: 40px;
 		height: 2px;
-		background: #fbbd2e;
+		background: var(--accent);
 	}
 
 	.quick-links ul {
@@ -288,7 +288,7 @@
 	}
 
 	.quick-links a {
-		color: #ccc2ab;
+		color: var(--description);
 		text-decoration: none;
 		transition:
 			color 0.3s ease,
@@ -298,7 +298,7 @@
 	}
 
 	.quick-links a:hover {
-		color: #fff4db;
+		color: var(--color-text);
 		transform: translateX(5px);
 	}
 
@@ -308,7 +308,7 @@
 		margin-bottom: 20px;
 		position: relative;
 		display: inline-block;
-		color: #fbbd2e;
+		color: var(--accent);
 	}
 
 	.contact-links h3::after {
@@ -318,7 +318,7 @@
 		left: 0;
 		width: 40px;
 		height: 2px;
-		background: #fbbd2e;
+		background: var(--accent);
 	}
 
 	.contact-links ul {
@@ -335,7 +335,7 @@
 		display: flex !important;
 		align-items: center;
 		gap: 10px;
-		color: #ccc2ab;
+		color: var(--description);
 		text-decoration: none;
 		transition:
 			color 0.3s ease,
@@ -343,7 +343,7 @@
 	}
 
 	.social-link:hover {
-		color: #fff4db;
+		color: var(--color-text);
 		transform: translateX(5px);
 	}
 
@@ -361,7 +361,7 @@
 		padding-top: 20px;
 		text-align: center;
 		font-size: 14px;
-		color: #ccc2ab;
+		color: var(--description);
 		max-width: 900px;
 		margin-left: auto;
 		margin-right: auto;
@@ -376,7 +376,7 @@
 	}
 
 	.heart {
-		color: #cd241e;
+		color: var(--gruv-red);
 		animation: pulse 1.5s ease infinite;
 		display: inline-block;
 	}

@@ -47,7 +47,7 @@
 		count={30}
 		minSize={3}
 		maxSize={12}
-		color="#FBBD2E"
+		color="var(--accent)"
 		startOnScroll={true}
 		scrollThreshold={100}
 		transitionLength={250}
@@ -68,11 +68,11 @@
 		src: url($lib/assets/fonts/KilimanjaroSansRound1.woff2) format('woff2');
 	}
 	:global(body) {
-		background-color: #282828;
+		background-color: var(--background);
 		margin: 0;
 		padding: 0;
 		font-family: 'Nunito Sans', sans-serif;
-		color: #fff4db;
+		color: var(--color-text);
 	}
 
 	:global(*) {
@@ -83,12 +83,12 @@
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
-		background-color: #282828;
+		background-color: var(--background);
 	}
 
 	main {
 		flex: 1;
-		background-color: #282828;
+		background-color: var(--background);
 		padding-top: 86px; /* Equal to header height */
 		display: flex;
 		flex-direction: column;

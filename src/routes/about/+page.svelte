@@ -114,14 +114,14 @@
 	.about-header h1 {
 		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
 		font-size: 48px;
-		color: #fff4db;
+		color: var(--color-text);
 		margin-bottom: 16px;
 	}
 
 	.underline {
 		height: 4px;
 		width: 80px;
-		background: linear-gradient(90deg, #a13b1e, #fbbd2e);
+		background: linear-gradient(90deg, var(--gruv-darkorange), var(--accent));
 		margin: 0 auto;
 		border-radius: 2px;
 	}
@@ -136,13 +136,13 @@
 		font-size: 18px;
 		line-height: 1.6;
 		margin-bottom: 24px;
-		color: #ccc2ab;
+		color: var(--description);
 	}
 
 	.about-skills h2 {
 		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
 		font-size: 32px;
-		color: #fff4db;
+		color: var(--color-text);
 		margin-bottom: 24px;
 	}
 
@@ -169,9 +169,9 @@
 	.skill-category h3 {
 		font-family: 'Nunito Sans', sans-serif;
 		font-size: 20px;
-		color: #fbbd2e;
+		color: var(--accent);
 		margin-bottom: 16px;
-		border-bottom: 1px solid #458588;
+		border-bottom: 1px solid var(--primary);
 		padding-bottom: 8px;
 	}
 
@@ -182,7 +182,7 @@
 	}
 
 	.skill-category li {
-		color: #fff4db;
+		color: var(--color-text);
 		padding: 8px 0;
 		position: relative;
 		padding-left: 20px;
@@ -192,7 +192,7 @@
 		content: '▹';
 		position: absolute;
 		left: 0;
-		color: #458588;
+		color: var(--primary);
 	}
 
 	@media (min-width: 768px) {

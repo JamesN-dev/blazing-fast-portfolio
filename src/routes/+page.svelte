@@ -259,16 +259,31 @@
 						James Niemerg.
 					</h1>
 					<h1 class="tagline" transition:fly={{ delay: 500, duration: 800, x: -50, y: 0 }}>
-						Blazing Fast Design.
+						Blazing Fast Labs.
 					</h1>
 
 					<div class="typed-text" transition:fade={{ delay: 700, duration: 500 }}>
 						<TypedText
 							strings={[
-								'Marketing Professional',
-								'Web Developer',
-								'UI/UX Designer',
-								'Performance Enthusiast'
+								'Professional Overthinker',
+								'Web App Tinkerer',
+								'CSS Therapist',
+								'Full-Stack Fiddler',
+								'Bug Hunter',
+								'Home Lab Janitor',
+								'Button Clicker',
+								'Wielder of Fireballs',
+								'90s Jungle Enthusiast',
+								'$ sudo rm -rf /*',
+								'$ git commit -m "final FINAL v2"',
+								'Exited Vim (eventually)',
+								'cd ~/nowhere',
+								'nano > vim > emacs > rage quit',
+								'$ whoami',
+								'alias ll="ls -lah --color"',
+								'Bash Completion Level: 99%',
+								'Keyboard Not Found... Press F1 to continue',
+								'Proxmox or Bust'
 							]}
 							typeSpeed={60}
 							backSpeed={30}
@@ -279,8 +294,9 @@
 					</div>
 
 					<p class="description" transition:fade={{ delay: 800, duration: 800 }}>
-						I am a marketing professional, developer, and visual designer specializing in web
-						development. I like to build blazing fast and responsive user experiences on the web.
+						Marketing veteran turned full-stack developer. I build, break, and ship web apps,
+						automations, and digital tools under the Blazing Fast Labs name—no bloat, no fluff, just
+						clean, blazing fast solutions that actually work.
 					</p>
 				{/if}
 
@@ -618,7 +634,12 @@
 		font-size: 80px;
 		line-height: 1.25;
 		margin: 0;
-		background: linear-gradient(135deg, #fbbd2e 0%, #ea732f 40%, #cd241e 100%);
+		background: linear-gradient(
+			135deg,
+			var(--accent) 0%,
+			var(--secondary) 40%,
+			var(--gruv-red) 100%
+		);
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 		background-clip: text;
@@ -632,7 +653,7 @@
 		font-size: 80px;
 		line-height: 1.25;
 		margin: 0 0 8px 0;
-		background: linear-gradient(135deg, #ff7a30 0%, #ea4a2c 50%, #cd241e 100%);
+		background: linear-gradient(135deg, #ff7a30 0%, var(--secondary) 50%, var(--gruv-red) 100%);
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 		background-clip: text;
@@ -647,7 +668,7 @@
 		line-height: 1.4;
 		margin: 0 0 18px 0;
 		min-height: 34px;
-		color: #ccc2ab;
+		color: var(--description);
 		position: relative;
 	}
 
@@ -701,7 +722,7 @@
 		background: var(--gruv-darkorange);
 	}
 	.button-secondary {
-		background: var(--gruv-blue);
+		background: var(--primary);
 	}
 
 	.button-primary span,
@@ -784,7 +805,7 @@
 	.mouse {
 		width: 30px;
 		height: 50px;
-		border: 2px solid #fff4db;
+		border: 2px solid var(--color-text);
 		border-radius: 15px;
 		position: relative;
 	}
@@ -796,7 +817,7 @@
 		transform: translateX(-50%);
 		width: 4px;
 		height: 10px;
-		background: #fbbd2e;
+		background: var(--accent);
 		border-radius: 2px;
 		animation: scroll-wheel 2s ease infinite;
 	}
@@ -816,7 +837,7 @@
 		margin-top: 10px;
 		font-family: 'Nunito Sans', sans-serif;
 		font-size: 12px;
-		color: #ccc2ab;
+		color: var(--description);
 		text-transform: uppercase;
 		letter-spacing: 2px;
 	}
@@ -824,7 +845,7 @@
 	/* Features section */
 	.features-section {
 		padding: 100px 0;
-		background-color: #282828;
+		background-color: var(--background);
 		position: relative;
 	}
 
@@ -842,14 +863,14 @@
 	.section-header h2 {
 		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
 		font-size: 48px;
-		color: #fff4db;
+		color: var(--color-text);
 		margin-bottom: 16px;
 	}
 
 	.underline {
 		height: 4px;
 		width: 80px;
-		background: linear-gradient(90deg, #a13b1e, #fbbd2e);
+		background: linear-gradient(90deg, var(--gruv-darkorange), var(--accent));
 		margin: 0 auto;
 		border-radius: 2px;
 	}
@@ -858,7 +879,7 @@
 		max-width: 700px;
 		margin: 24px auto 0;
 		font-size: 18px;
-		color: #ccc2ab;
+		color: var(--description);
 		line-height: 1.6;
 	}
 
@@ -899,7 +920,7 @@
 	.feature-card h3 {
 		font-family: 'Nunito Sans', sans-serif;
 		font-size: 20px;
-		color: #fbbd2e;
+		color: var(--accent);
 		margin: 0 0 16px 0;
 	}
 
@@ -907,7 +928,7 @@
 		font-family: 'Nunito Sans', sans-serif;
 		font-size: 16px;
 		line-height: 1.6;
-		color: #ccc2ab;
+		color: var(--description);
 		margin: 0;
 	}
 
@@ -943,9 +964,9 @@
 	.skill-tag a {
 		font-family: 'Nunito Sans', sans-serif;
 		font-size: 16px;
-		color: #fff4db;
+		color: var(--color-text);
 		background: rgba(69, 133, 136, 0.2);
-		border: 1px solid #458588;
+		border: 1px solid var(--primary);
 		padding: 8px 14px;
 		border-radius: 20px;
 		white-space: nowrap;
@@ -958,7 +979,7 @@
 	}
 
 	.skill-tag:hover a {
-		background: #458588;
+		background: var(--primary);
 		transform: scale(1.1);
 		z-index: 10;
 	}
@@ -1002,9 +1023,9 @@
 		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
 		font-size: 48px;
 		font-weight: 700;
-		color: #fbbd2e;
+		color: var(--accent);
 		margin-bottom: 8px;
-		background: linear-gradient(135deg, #fbbd2e, #ea732f);
+		background: linear-gradient(135deg, var(--accent), var(--secondary));
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 		background-clip: text;
@@ -1013,7 +1034,7 @@
 	.stat-label {
 		font-family: 'Nunito Sans', sans-serif;
 		font-size: 16px;
-		color: #ccc2ab;
+		color: var(--description);
 	}
 
 	/* Responsive styles */

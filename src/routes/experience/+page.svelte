@@ -6,11 +6,11 @@
 
 	const experiences = [
 		{
-			title: 'Full-Stack Web Developer',
+			title: 'Founder / Full-Stack Developer',
 			company: 'Blazing Fast Design',
 			period: '2020 - Present',
 			description:
-				'I build and ship full-stack web projects—SvelteKit, Python, Postgres, and real-world scripts for myself and select clients. I run a home lab on Proxmox, manage Linux VMs, Docker containers, version control with custom Git workflows, and handle my own deployments. Everything from dev tools to automation scripting, if it makes life easier, I build it.',
+				'I build and ship full-stack web projects—SvelteKit, Python, Postgres, and automation scripts—under my own brand. I run a home lab on Proxmox, manage Linux VMs, Docker containers, version control with custom Git workflows, and deploy production projects with modern platforms like Vercel. Fully capable of maintaining my own infra, but know when to use the right tool for the job.',
 			skills: [
 				'SvelteKit',
 				'JavaScript',
@@ -20,7 +20,8 @@
 				'Docker',
 				'Proxmox',
 				'Linux',
-				'Automation Scripting'
+				'Automation Scripting',
+				'Figma'
 			]
 		},
 		{
@@ -35,6 +36,9 @@
 				'SvelteKit',
 				'PostgreSQL',
 				'REST APIs',
+				'Git',
+				'Figma',
+				'Adobe CC',
 				'Analytics',
 				'CMS/PIM',
 				'Automation'
@@ -46,7 +50,16 @@
 			period: '2016 - 2019',
 			description:
 				'Designed and launched e-commerce UI, landing pages, and built a 3D-to-web asset pipeline. Managed campaigns and assets from print to digital, actually learned how things break in production.',
-			skills: ['HTML', 'CSS', 'JavaScript', 'Figma', 'Adobe CC', '3D Asset Pipeline']
+			skills: [
+				'HTML',
+				'CSS',
+				'JavaScript',
+				'Figma',
+				'Adobe CC',
+				'3D Asset Pipeline',
+				'Git',
+				'E-commerce'
+			]
 		},
 		{
 			title: 'Flash Developer',
@@ -116,14 +129,14 @@
 	.experience-header h1 {
 		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
 		font-size: 48px;
-		color: #fff4db;
+		color: var(--color-text);
 		margin-bottom: 16px;
 	}
 
 	.underline {
 		height: 4px;
 		width: 80px;
-		background: linear-gradient(90deg, #a13b1e, #fbbd2e);
+		background: linear-gradient(90deg, var(--gruv-darkorange), var(--accent));
 		margin: 0 auto;
 		border-radius: 2px;
 	}
@@ -140,7 +153,7 @@
 		top: 0;
 		height: 100%;
 		width: 2px;
-		background: #458588;
+		background: var(--primary);
 	}
 
 	.experience-item {
@@ -159,8 +172,8 @@
 		width: 24px;
 		height: 24px;
 		border-radius: 50%;
-		background: #fbbd2e;
-		border: 4px solid #282828;
+		background: var(--accent);
+		border: 4px solid var(--background);
 		z-index: 1;
 	}
 
@@ -180,7 +193,7 @@
 		display: inline-block;
 		font-family: 'Nunito Sans', sans-serif;
 		font-size: 14px;
-		color: #fbbd2e;
+		color: var(--accent);
 		background: rgba(251, 189, 46, 0.1);
 		padding: 6px 12px;
 		border-radius: 30px;
@@ -190,14 +203,14 @@
 	.experience-title {
 		font-family: 'Nunito Sans', sans-serif;
 		font-size: 24px;
-		color: #fff4db;
+		color: var(--color-text);
 		margin: 0 0 8px 0;
 	}
 
 	.experience-company {
 		font-family: 'Nunito Sans', sans-serif;
 		font-size: 18px;
-		color: #ea732f;
+		color: var(--secondary);
 		margin: 0 0 16px 0;
 		font-weight: normal;
 	}
@@ -206,7 +219,7 @@
 		font-family: 'Nunito Sans', sans-serif;
 		font-size: 16px;
 		line-height: 1.6;
-		color: #ccc2ab;
+		color: var(--description);
 		margin-bottom: 16px;
 	}
 
@@ -219,15 +232,15 @@
 	.skill-tag {
 		font-family: 'Nunito Sans', sans-serif;
 		font-size: 12px;
-		color: #fff4db;
-		background: #458588;
+		color: var(--color-text);
+		background: var(--primary);
 		padding: 4px 10px;
 		border-radius: 4px;
 		transition: background 0.3s ease;
 	}
 
 	.skill-tag:hover {
-		background: #255658;
+		background: var(--gruv-darkblue);
 	}
 
 	@media (max-width: 768px) {

@@ -88,14 +88,14 @@
 	--small: 15px;
 
 	/* Semantic styles */
-	--description: var(--gruv-white);
+	--description: var(--gruv-darkwhite);
 	--primary: var(--gruv-blue);
 	--secondary: var(--gruv-orange);
 	--accent: var(--gruv-yellow);
-	--background: white;
-	--color-text: var(--gruv-blown);
-	--color-text-light: var(--gruv-white);
-	--border: var(--text-light);
+	--background: var(--gruv-blown); /* Changed from white to dark gruvbox background */
+	--color-text: var(--gruv-white); /* Changed from blown to white for dark theme */
+	--color-text-light: var(--gruv-darkwhite);
+	--border: var(--gruv-darkwhite); /* Fixed reference */
 
 	/* Spaced units based on 4px grid(rem) */
 	/* 1rem = 16px */

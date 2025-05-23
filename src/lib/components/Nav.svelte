@@ -94,8 +94,8 @@
 		width: 100px;
 		height: 100px;
 		z-index: 100;
-		-webkit-filter: drop-shadow(5px 5px 5px #222);
-		filter: drop-shadow(5px 5px 5px #222);
+		-webkit-filter: drop-shadow(5px 5px 5px var(--gruv-blown));
+		filter: drop-shadow(5px 5px 5px var(--gruv-blown));
 	}
 
 	/* Container for the navigation links */
@@ -124,7 +124,7 @@
 		font-weight: 400;
 		font-size: 19.25px;
 		line-height: 130%;
-		color: #fff4db;
+		color: var(--color-text);
 		text-decoration: none;
 		transition: color 0.2s ease;
 		position: relative;
@@ -137,7 +137,7 @@
 		left: 0;
 		width: 0;
 		height: 2px;
-		background-color: #fbbd2e;
+		background-color: var(--accent);
 		transition: width 0.3s ease;
 	}
 
@@ -155,7 +155,7 @@
 		gap: 10px;
 		width: 103px;
 		height: 44px;
-		border: 1.5px solid #458588;
+		border: 1.5px solid var(--primary);
 		border-radius: 9px;
 		font-size: 15px;
 		line-height: 160%;
@@ -166,8 +166,8 @@
 	}
 
 	.resume-link a:hover {
-		background-color: #458588;
-		color: #fff4db;
+		background-color: var(--primary);
+		color: var(--color-text);
 	}
 
 	.resume-link a::after {
@@ -190,7 +190,7 @@
 		display: block;
 		width: 100%;
 		height: 3px;
-		background-color: #fff4db;
+		background-color: var(--color-text);
 		margin-bottom: 5px;
 		transition:
 			transform 0.3s ease,

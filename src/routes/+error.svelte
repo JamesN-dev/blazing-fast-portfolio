@@ -28,8 +28,8 @@
 {:else}
 	<!-- For other error types, show something less memey -->
 	<div class="not-found-container" in:fade>
-		<h1 class="code" in:fly={{ y: -20, duration: 400 }}>{$page.status}</h1>
-		<p class="message" in:fly={{ y: 20, duration: 400, delay: 150 }}>
+		<h1 class="code" in:fly={{ y: -20, duration: 1200 }}>{$page.status}</h1>
+		<p class="message" in:fly={{ y: 20, duration: 1200, delay: 150 }}>
 			{$page.error?.message || 'Unknown error.'}
 		</p>
 		<a class="home-link" href="/">Go back home</a>
@@ -41,35 +41,37 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		justify-content: center;
-		height: 100vh;
-		background-color: #1c1c1c;
-		color: #fff4db;
+		justify-content: flex-start; /* Changed from center to flex-start */
+		min-height: 100vh;
+		width: 100%;
+		background-color: var(--background);
+		color: var(--color-text);
 		text-align: center;
-		padding: 0 20px;
+		padding: 120px 20px 20px 20px; /* Added top padding to push content down from top */
+		box-sizing: border-box;
 	}
 
 	.code {
 		font-size: 96px;
 		font-weight: bold;
-		margin-bottom: 20px;
-		color: #fbbd2e;
+		margin-bottom: 40px; /* Reduced from 60px */
+		color: var(--accent);
 		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
 	}
 
 	.message {
 		font-size: 24px;
 		font-family: 'Nunito Sans', sans-serif;
-		margin-bottom: 40px;
-		color: #ccc2ab;
+		margin-bottom: 30px; /* Reduced from 50px */
+		color: var(--description);
 	}
 
 	.home-link {
 		font-size: 18px;
-		color: #458588;
+		color: var(--primary);
 		text-decoration: none;
-		border: 2px solid #458588;
-		padding: 10px 20px;
+		border: 2px solid var(--primary);
+		padding: 10px 60px;
 		border-radius: 4px;
 		transition:
 			background 0.3s ease,
@@ -77,9 +79,10 @@
 	}
 
 	.home-link:hover {
-		background: #458588;
-		color: #1c1c1c;
+		background: var(--primary);
+		color: var(--background);
 	}
+
 	.mushroom-cloud {
 		margin: 0 auto 24px auto;
 		display: block;

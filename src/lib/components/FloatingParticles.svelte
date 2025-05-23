@@ -7,7 +7,7 @@
 		count = 20,
 		minSize = 5,
 		maxSize = 15,
-		color = '#FBBD2E',
+		color = 'var(--accent)',
 		startOnScroll = true,
 		scrollThreshold = 50,
 		transitionLength = 200 // The scroll distance in pixels over which the transition occurs
