@@ -10,41 +10,53 @@
 			company: 'Blazing Fast Design',
 			period: '2020 - Present',
 			description:
-				'I lead the development of responsive, high-performance web applications for my own company, Blazing Fast Design/Dev. From concept to deployment, I personally ensure seamless user experiences and robust functionality. I collaborate directly with clients and handle everything from design to implementation, including setting up CI/CD pipelines for efficient deployment and testing.',
-			skills: ['SvelteKit', 'JavaScript', 'AWS', 'CI/CD', 'Performance Optimization']
+				'I build and ship full-stack web projects—SvelteKit, Python, Postgres, and real-world scripts for myself and select clients. I run a home lab on Proxmox, manage Linux VMs, Docker containers, version control with custom Git workflows, and handle my own deployments. Everything from dev tools to automation scripting, if it makes life easier, I build it.',
+			skills: [
+				'SvelteKit',
+				'JavaScript',
+				'Python',
+				'PostgreSQL',
+				'Git',
+				'Docker',
+				'Proxmox',
+				'Linux',
+				'Automation Scripting'
+			]
 		},
 		{
 			title: 'Marketing Technology Manager',
 			company: 'BK Resources, Inc.',
 			period: '2019 - Present',
 			description:
-				'Architect, implement, and maintain our marketing technology stack, including PIM, CMS, CRM, email marketing, and analytics tools. Develop full-stack solutions to host online assets and integrate websites. Collaborat with cross-functional teams to optimize marketing campaigns and drive lead generation.',
-			skills: ['Sveltekit', 'JavaScript', 'HubSpot', 'Python', 'Django', 'PostgresSQL', 'REST APIs']
+				'Run all digital ops and marketing tech—site management, PIM/CMS improvements, process automation, internal tools, asset workflows, and analytics. I modernize legacy systems and make stuff actually work for real people. Built landing pages, automation scripts, and 3D asset flows from scratch.',
+			skills: [
+				'Python',
+				'Django',
+				'SvelteKit',
+				'PostgreSQL',
+				'REST APIs',
+				'Analytics',
+				'CMS/PIM',
+				'Automation'
+			]
 		},
 		{
-			title: 'Web Developer / Graphic Designer / Marketing Specialist',
+			title: 'Web Developer & Designer',
 			company: 'BK Resources, Inc.',
 			period: '2016 - 2019',
 			description:
-				'Created visually appealing and intuitive interfaces for e-commerce websites and 3D configurator applications. Developed 3D model to e-commerce asset pipeline. Build e-mail campaigns and landing pages to drive lead generation and launch new products.',
-			skills: ['Figma', 'Adobe XD', 'Substance/Blender', 'MJML', 'Visual Design']
+				'Designed and launched e-commerce UI, landing pages, and built a 3D-to-web asset pipeline. Managed campaigns and assets from print to digital, actually learned how things break in production.',
+			skills: ['HTML', 'CSS', 'JavaScript', 'Figma', 'Adobe CC', '3D Asset Pipeline']
 		},
 		{
 			title: 'Flash Developer',
 			company: 'Anthem College Online',
 			period: '2011 - 2014',
 			description:
-				'Developed interactive e-learning content using ActionScript3 & Adobe Flash. Recorded & integrated audio and video elements. Collaborated with instructional designers to create engaging learning experiences.',
-			skills: [
-				'ActionScript3',
-				'Adobe Flash',
-				'eLearning',
-				'Interactive Design',
-				'Audio/Video Production'
-			]
+				'Built interactive e-learning content in Adobe Flash, mostly timeline-based animation and basic scripting. Recorded and integrated audio/video, worked with instructional designers to ship usable, not-pretty-but-it-worked, learning tools.',
+			skills: ['Flash IDE', 'Timeline Animation', 'eLearning', 'Audio/Video Integration']
 		}
 	];
-
 	onMount(() => {
 		// Small delay before showing animations
 		setTimeout(() => {

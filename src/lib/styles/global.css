@@ -1,5 +1,4 @@
-@import '@fontsource-variable/nunito-sans/wght.css';
-@import '@fontsource-variable/nunito-sans/wght-italic.css';
+@import '@fontsource-variable/nunito-sans';
 
 /* Animation classes */
 .animate-fade-up {
