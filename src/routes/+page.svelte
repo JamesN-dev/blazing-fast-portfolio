@@ -12,6 +12,9 @@
 	let scrollY = $state(0);
 	let skillsContainer;
 	let skillsAnimationFrame;
+	let fireballEntranceComplete = $state(false);
+	let fireballGlowContainer = $state();
+	let fireballGlowHovering = $state(false);
 
 	// Function to handle parallax effect
 	function handleMouseMove(e) {
@@ -107,7 +110,7 @@
 		}
 	}
 
-	// Handle mouse interaction with skills
+	// Function to handle mouse interaction with skills
 	function handleSkillsMouseMove(e) {
 		const skillElements = document.querySelectorAll('.skill-tag');
 
@@ -150,6 +153,12 @@
 		});
 	}
 
+	// Handle fireball hover for glow effect after entrance animation
+	function handleFireballHover(isHovering) {
+		if (!fireballEntranceComplete) return;
+		fireballGlowHovering = isHovering;
+	}
+
 	onMount(() => {
 		// Add mouse move listener for parallax effect
 		document.addEventListener('mousemove', handleMouseMove);
@@ -164,6 +173,17 @@
 		// Small delay before showing animations
 		setTimeout(() => {
 			visible = true;
+
+			// Set fireball entrance complete after the animation finishes
+			setTimeout(() => {
+				fireballEntranceComplete = true;
+
+				// Remove animation property from glow effect to prevent phantom glow
+				const glow = fireballGlowContainer?.querySelector('.fireball-glow-effect');
+				if (glow) {
+					glow.style.animation = 'none';
+				}
+			}, 3500); // 1000ms delay + 2500ms duration
 		}, 100);
 
 		// Intersection observers for feature and stats sections
@@ -232,56 +252,81 @@
 		style="transform: translate({mousePosX * 10}px, {mousePosY * 10}px);"
 	>
 		<div class="hero-content">
-			{#if visible}
-				<h1 class="intro-text" transition:fade={{ delay: 100, duration: 500 }}>Hi, my name is</h1>
-				<h1 class="name" transition:fly={{ delay: 300, duration: 800, x: -50, y: 0 }}>
-					James Niemerg.
-				</h1>
-				<h1 class="tagline" transition:fly={{ delay: 500, duration: 800, x: -50, y: 0 }}>
-					Blazing Fast Design.
-				</h1>
+			<div class="hero-text">
+				{#if visible}
+					<h1 class="intro-text" transition:fade={{ delay: 100, duration: 500 }}>Hi, my name is</h1>
+					<h1 class="name" transition:fly={{ delay: 300, duration: 800, x: -50, y: 0 }}>
+						James Niemerg.
+					</h1>
+					<h1 class="tagline" transition:fly={{ delay: 500, duration: 800, x: -50, y: 0 }}>
+						Blazing Fast Design.
+					</h1>
 
-				<div class="typed-text" transition:fade={{ delay: 700, duration: 500 }}>
-					<TypedText
-						strings={[
-							'Marketing Professional',
-							'Web Developer',
-							'UI/UX Designer',
-							'Performance Enthusiast'
-						]}
-						typeSpeed={60}
-						backSpeed={30}
-						backDelay={1500}
-						startDelay={500}
-						loop={true}
-					/>
-				</div>
-
-				<p class="description" transition:fade={{ delay: 800, duration: 800 }}>
-					I am a marketing professional, developer, and visual designer specializing in web
-					development. I like to build blazing fast and responsive user experiences on the web.
-				</p>
-			{/if}
-
-			{#if visible}
-				<div class="cta-buttons" transition:fly={{ delay: 1000, duration: 800, y: 20, x: 0 }}>
-					<a href="/about" class="button-primary">
-						<span>Follow Me</span>
-					</a>
-					<a href="/contact" class="button-secondary">
-						<span>Let's Collaborate!</span>
-					</a>
-				</div>
-			{/if}
-
-			{#if visible}
-				<div class="scroll-indicator" transition:fade={{ delay: 1200, duration: 500 }}>
-					<div class="mouse">
-						<div class="wheel"></div>
+					<div class="typed-text" transition:fade={{ delay: 700, duration: 500 }}>
+						<TypedText
+							strings={[
+								'Marketing Professional',
+								'Web Developer',
+								'UI/UX Designer',
+								'Performance Enthusiast'
+							]}
+							typeSpeed={60}
+							backSpeed={30}
+							backDelay={1500}
+							startDelay={500}
+							loop={true}
+						/>
 					</div>
-					<div class="scroll-text">Scroll down</div>
-				</div>
-			{/if}
+
+					<p class="description" transition:fade={{ delay: 800, duration: 800 }}>
+						I am a marketing professional, developer, and visual designer specializing in web
+						development. I like to build blazing fast and responsive user experiences on the web.
+					</p>
+				{/if}
+
+				{#if visible}
+					<div class="cta-buttons" transition:fly={{ delay: 1000, duration: 800, y: 20, x: 0 }}>
+						<a href="/about" class="button-primary">
+							<span>Follow Me</span>
+						</a>
+						<a href="/contact" class="button-secondary">
+							<span>Let's Collaborate!</span>
+						</a>
+					</div>
+				{/if}
+
+				{#if visible}
+					<div class="scroll-indicator" transition:fade={{ delay: 1200, duration: 500 }}>
+						<div class="mouse">
+							<div class="wheel"></div>
+						</div>
+						<div class="scroll-text">Scroll down</div>
+					</div>
+				{/if}
+			</div>
+			<div class="hero-graphic">
+				{#if visible}
+					<div
+						class="fireball-glow-container"
+						bind:this={fireballGlowContainer}
+						onmouseenter={() => handleFireballHover(true)}
+						onmouseleave={() => handleFireballHover(false)}
+						in:fly={{
+							delay: 1000,
+							duration: 2500,
+							x: 100,
+							y: -100,
+							opacity: 0,
+							easing: elasticOut
+						}}
+					>
+						<div
+							class="fireball-glow-effect {fireballGlowHovering ? 'fireball-glow-hovering' : ''}"
+						></div>
+						<img src="/images/fireball-logo.png" alt="Fireball Logo" class="fireball-logo" />
+					</div>
+				{/if}
+			</div>
 		</div>
 	</div>
 </div>
@@ -400,11 +445,11 @@
 		min-height: 100vh;
 		width: 100%;
 		display: flex;
-		align-items: flex-end;
-		justify-content: center;
+		align-items: center;
+		justify-content: center; /* Center the hero content horizontally */
 		position: relative;
 		overflow: hidden;
-		padding-top: 86px; /* Account for header height */
+		padding-top: 0;
 	}
 
 	.content-layer {
@@ -414,17 +459,146 @@
 		justify-content: center;
 		align-items: center;
 		transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+		padding-bottom: 15vh;
 	}
 
 	.hero-content {
 		max-width: 1200px;
 		width: 90%;
 		display: flex;
-		flex-direction: column;
+		flex-direction: row; /* Change to row for side-by-side layout */
 		align-items: flex-start;
 		justify-content: center;
-		padding: 0;
 		margin: 0 auto;
+		gap: 48px; /* Space between text and graphic */
+	}
+
+	.hero-text {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		flex: 1 1 0;
+		min-width: 0;
+	}
+
+	.hero-graphic {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 260px;
+		max-width: 400px;
+		width: 28vw;
+		height: 400px;
+	}
+
+	.hero-graphic img.fireball-logo {
+		width: 100%;
+		height: auto;
+		max-width: 380px;
+		max-height: 380px;
+		display: block;
+		filter: drop-shadow(0 4px 24px rgba(255, 140, 0, 0.25));
+		transition: filter 0.2s;
+		position: relative;
+		z-index: 2;
+	}
+
+	.fireball-glow-container {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+	}
+
+	.fireball-glow-effect {
+		position: absolute;
+		inset: -2rem;
+		z-index: 1;
+		border-radius: 50%;
+		background: radial-gradient(
+			circle,
+			rgba(255, 140, 0, 0.8) 0%,
+			rgba(255, 69, 0, 0.6) 20%,
+			rgba(255, 165, 0, 0.4) 40%,
+			rgba(255, 215, 0, 0.2) 60%,
+			transparent 80%
+		);
+		opacity: 0;
+		animation: fireballEntranceGlow 2.5s ease-out 1s forwards;
+		filter: blur(20px);
+		pointer-events: none;
+		transform: translate(-64px, 64px) scale(1);
+		transition:
+			opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+			transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	@keyframes fireballEntranceGlow {
+		0% {
+			opacity: 0.8;
+			transform: translate(-64px, 64px) scale(0.8);
+		}
+		20% {
+			opacity: 1;
+			transform: translate(-64px, 64px) scale(1.1);
+		}
+		70% {
+			opacity: 0.8;
+			transform: translate(-64px, 64px) scale(1.05);
+		}
+		100% {
+			opacity: 0;
+			transform: translate(-64px, 64px) scale(1);
+		}
+	}
+
+	@keyframes fireballHoverGlow {
+		0% {
+			opacity: 0;
+			transform: scale(1);
+		}
+		100% {
+			opacity: 0.6;
+			transform: scale(1.1);
+		}
+	}
+
+	/* Optionally, align logo with top of text block instead of center:
+.hero-graphic {
+	align-items: flex-start;
+}
+*/
+
+	/* Responsive: adjust logo size for small screens */
+	@media (max-width: 900px) {
+		.hero-content {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 32px;
+		}
+		.hero-graphic {
+			width: 100%;
+			max-width: 320px;
+			height: 320px;
+			margin: 0 auto;
+		}
+		.hero-graphic img.fireball-logo {
+			max-width: 300px;
+			max-height: 300px;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.hero-graphic {
+			max-width: 200px;
+			height: 120px;
+		}
+		.hero-graphic img.fireball-logo {
+			max-width: 120px;
+			max-height: 120px;
+		}
 	}
 
 	.intro-text {
@@ -471,7 +645,7 @@
 		font-weight: 300;
 		font-size: var(--h5);
 		line-height: 1.4;
-		margin: 0 0 24px 0;
+		margin: 0 0 18px 0;
 		min-height: 34px;
 		color: #ccc2ab;
 		position: relative;
@@ -499,6 +673,7 @@
 		width: 100%;
 		max-width: 764px;
 		margin-bottom: 60px;
+		align-self: flex-start; /* This centers just the buttons container */
 	}
 
 	.button-primary,
@@ -554,11 +729,11 @@
 	.button-primary::after {
 		background: conic-gradient(
 			from var(--gradient-angle),
-			var(--gruv-darkblue),
+			var(--gruv-darkorange),
 			var(--gruv-yellow),
-			var(--gruv-blue),
+			var(--gruv-orange),
 			var(--gruv-yellow),
-			var(--gruv-darkblue)
+			var(--gruv-darkorange)
 		);
 	}
 
@@ -566,11 +741,11 @@
 	.button-secondary::after {
 		background: conic-gradient(
 			from var(--gradient-angle),
-			var(--gruv-darkorange),
+			var(--gruv-darkblue),
 			var(--gruv-yellow),
-			var(--gruv-orange),
+			var(--gruv-blue),
 			var(--gruv-yellow),
-			var(--gruv-darkorange)
+			var(--gruv-darkblue)
 		);
 	}
 
@@ -923,5 +1098,42 @@
 		.skills-cloud-container {
 			height: 250px;
 		}
+	}
+
+	@media (max-width: 900px) {
+		.hero-content {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 32px;
+		}
+		.hero-graphic {
+			width: 100%;
+			max-width: 320px;
+			height: 320px;
+			margin: 0 auto;
+		}
+		.hero-graphic img.fireball-logo {
+			max-width: 300px;
+			max-height: 300px;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.hero-graphic {
+			max-width: 200px;
+			height: 120px;
+		}
+	}
+	.fireball-glow-effect {
+		opacity: 0;
+		transform: translate(-64px, 64px) scale(1);
+		transition:
+			opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+			transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+	.fireball-glow-effect.fireball-glow-hovering {
+		opacity: 0.6;
+		transform: translate(-64px, 64px) scale(1.1);
+		animation: none;
 	}
 </style>
