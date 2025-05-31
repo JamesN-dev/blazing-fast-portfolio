@@ -1,21 +1,31 @@
 <script>
+	export const viewTransition = true;
+
 	import '$lib/styles/global.css';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import { onMount } from 'svelte';
 	import { CustomCursor, ScrollAnimator } from '$lib/utils/animations.js';
 	import FloatingParticles from '$lib/components/FloatingParticles.svelte';
+	import { crossfade } from 'svelte/transition';
+	import { navigating, page } from '$app/stores';
 
 	let scrollY = $state(0);
 	let { children } = $props();
 
-	// Initialize custom animations when component mounts
-	onMount(() => {
-		// Initialize custom cursor (on desktop only)
-		if (window.innerWidth > 768) {
-			const cursor = new CustomCursor();
-			cursor.init();
+	// Create crossfade transition
+	const [send, receive] = crossfade({
+		duration: 300,
+		fallback(node) {
+			return {
+				duration: 300,
+				css: (t) => `opacity: ${t}`
+			};
 		}
+	});
+
+	$effect(() => {
+		if (!browser) return;
 
 		// Add scroll listener for particle background
 		const handleScroll = () => {
@@ -55,7 +65,15 @@
 
 	<Header />
 	<main>
-		{@render children()}
+		{#key $navigating?.to?.url.pathname || $page.url.pathname}
+			<div
+				class="page-transition-container"
+				in:receive={{ key: $page.url.pathname }}
+				out:send={{ key: $navigating?.from?.url.pathname }}
+			>
+				{@render children()}
+			</div>
+		{/key}
 	</main>
 	<Footer />
 </div>
@@ -65,13 +83,14 @@
 		font-family: 'Kilimanjaro Sans Round1';
 		font-style: normal;
 		font-weight: normal;
-		src: url($lib/assets/fonts/KilimanjaroSansRound1.woff2) format('woff2');
+		src: url('$lib/assets/fonts/KilimanjaroSansRound1.woff2') format('woff2');
+		font-display: swap;
 	}
 	:global(body) {
 		background-color: var(--background);
 		margin: 0;
 		padding: 0;
-		font-family: 'Nunito Sans', sans-serif;
+		font-family: 'Nunito Sans Variable', sans-serif;
 		color: var(--color-text);
 	}
 
@@ -86,12 +105,19 @@
 		background-color: var(--background);
 	}
 
+	.page-transition-container {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+
 	main {
 		flex: 1;
 		background-color: var(--background);
-		padding-top: 86px; /* Equal to header height */
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		min-height: 100vh;
 	}
 </style>

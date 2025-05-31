@@ -62,10 +62,12 @@
 						<h3>Quick Links</h3>
 						<ul aria-label="Footer Links">
 							<li><a href="/about">About</a></li>
-							<li><a href="/experience">Experience</a></li>
+							<li><a href="/experience" aria-label="Experience">Experience</a></li>
 							<li><a href="/work">Work</a></li>
 							<li><a href="/contact">Contact</a></li>
-							<li><a href="/resume.pdf" download aria-label="Résumé">Résumé</a></li>
+							<li>
+								<a href="/static/JamesNiemerg-Resume.pdf" download aria-label="Résumé">Résumé</a>
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -145,7 +147,7 @@
 		background-color: var(--background);
 		color: var(--color-text);
 		padding: 80px 0 40px;
-		font-family: 'Nunito Sans', sans-serif;
+		font-family: 'Nunito Sans Variable', sans-serif;
 		position: relative;
 		overflow: hidden;
 		z-index: 10;

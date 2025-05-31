@@ -6,11 +6,11 @@
 
 	const experiences = [
 		{
-			title: 'Founder / Full-Stack Developer',
+			title: 'Full-Stack Developer',
 			company: 'Blazing Fast Design',
 			period: '2020 - Present',
 			description:
-				'I build and ship full-stack web projects—SvelteKit, Python, Postgres, and automation scripts—under my own brand. I run a home lab on Proxmox, manage Linux VMs, Docker containers, version control with custom Git workflows, and deploy production projects with modern platforms like Vercel. Fully capable of maintaining my own infra, but know when to use the right tool for the job.',
+				'I build and ship full-stack web projects—SvelteKit, Python, Postgres, and automation scripts, under my own brand. I run a home lab on Proxmox, manage Linux VMs, Docker containers, version control with custom Git workflows, and deploy production projects with modern platforms like Vercel. Fully capable of maintaining my own infra, but know when to use the right tool for the job.',
 			skills: [
 				'SvelteKit',
 				'JavaScript',
@@ -27,29 +27,29 @@
 		{
 			title: 'Marketing Technology Manager',
 			company: 'BK Resources, Inc.',
-			period: '2019 - Present',
+			period: '2020 - Present',
 			description:
-				'Run all digital ops and marketing tech—site management, PIM/CMS improvements, process automation, internal tools, asset workflows, and analytics. I modernize legacy systems and make stuff actually work for real people. Built landing pages, automation scripts, and 3D asset flows from scratch.',
+				'Run all marketing ops and tech. Website management, PIM/CMS improvements, process automation, internal tools, asset workflows, and analytics. I modernize legacy systems and make sure end users can use them. Build landing pages and email campaigns that support digital ad funnels and lead capture, and 3D asset flows from scratch.',
 			skills: [
+				'CMS/PIM',
+				'E-commerce',
 				'Python',
-				'Django',
+				'JavaScript',
+				'HTML/CSS',
 				'SvelteKit',
 				'PostgreSQL',
 				'REST APIs',
 				'Git',
-				'Figma',
 				'Adobe CC',
-				'Analytics',
-				'CMS/PIM',
-				'Automation'
+				'Analytics'
 			]
 		},
 		{
 			title: 'Web Developer & Designer',
 			company: 'BK Resources, Inc.',
-			period: '2016 - 2019',
+			period: '2016 - 2020',
 			description:
-				'Designed and launched e-commerce UI, landing pages, and built a 3D-to-web asset pipeline. Managed campaigns and assets from print to digital, actually learned how things break in production.',
+				'Designed and launched e-commerce UI, landing pages, and built a 3D-to-web asset pipeline. Managed campaigns and assets from print to digital, learned how things break in production, and how to fix them. Built a modern web presence from the ground up, rolling out a new CMS and PIM system, and integrating with existing tools.',
 			skills: [
 				'HTML',
 				'CSS',
@@ -66,8 +66,14 @@
 			company: 'Anthem College Online',
 			period: '2011 - 2014',
 			description:
-				'Built interactive e-learning content in Adobe Flash, mostly timeline-based animation and basic scripting. Recorded and integrated audio/video, worked with instructional designers to ship usable, not-pretty-but-it-worked, learning tools.',
-			skills: ['Flash IDE', 'Timeline Animation', 'eLearning', 'Audio/Video Integration']
+				'Built interactive e-learning content in Adobe Flash, mostly timeline-based animation and basic ActionScript scripting. Recorded and integrated audio/video, worked with instructional designers to ship usable, not-pretty-but-it-worked, learning tools.',
+			skills: [
+				'Flash',
+				'ActionScript',
+				'Timeline Animation',
+				'eLearning',
+				'Audio/Video Integration'
+			]
 		}
 	];
 	onMount(() => {

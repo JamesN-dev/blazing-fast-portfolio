@@ -267,23 +267,13 @@
 							strings={[
 								'Professional Overthinker',
 								'Web App Tinkerer',
-								'CSS Therapist',
+								'CSS Wrangler',
 								'Full-Stack Fiddler',
 								'Bug Hunter',
 								'Home Lab Janitor',
 								'Button Clicker',
 								'Wielder of Fireballs',
-								'90s Jungle Enthusiast',
-								'$ sudo rm -rf /*',
-								'$ git commit -m "final FINAL v2"',
-								'Exited Vim (eventually)',
-								'cd ~/nowhere',
-								'nano > vim > emacs > rage quit',
-								'$ whoami',
-								'alias ll="ls -lah --color"',
-								'Bash Completion Level: 99%',
-								'Keyboard Not Found... Press F1 to continue',
-								'Proxmox or Bust'
+								'90s Jungle Enthusiast'
 							]}
 							typeSpeed={60}
 							backSpeed={30}
@@ -324,6 +314,7 @@
 				{#if visible}
 					<div
 						class="fireball-glow-container"
+						role="presentation"
 						bind:this={fireballGlowContainer}
 						onmouseenter={() => handleFireballHover(true)}
 						onmouseleave={() => handleFireballHover(false)}
@@ -870,9 +861,33 @@
 	.underline {
 		height: 4px;
 		width: 80px;
-		background: linear-gradient(90deg, var(--gruv-darkorange), var(--accent));
+		background: linear-gradient(
+			90deg,
+			var(--gruv-darkorange),
+			var(--accent),
+			var(--gruv-darkorange),
+			var(--accent),
+			var(--gruv-darkorange)
+		);
+		background-position: 0% 50%;
+		background-size: 1000% 100%;
 		margin: 0 auto;
 		border-radius: 2px;
+		transition: width 0.3s ease;
+	}
+
+	.underline:hover {
+		width: 95px;
+		animation: scroll-gradient 3s linear infinite;
+	}
+
+	@keyframes scroll-gradient {
+		0% {
+			background-position: 0% 50%;
+		}
+		100% {
+			background-position: 100% 50%;
+		}
 	}
 
 	.section-intro {

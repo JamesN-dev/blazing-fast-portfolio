@@ -66,7 +66,15 @@
 			<li><a href="/work" onclick={handleLinkClick}>Work</a></li>
 			<li><a href="/contact" onclick={handleLinkClick}>Contact</a></li>
 			<li class="resume-link">
-				<a href="/resume.pdf" download onclick={handleLinkClick} aria-label="Résumé"> Résumé </a>
+				<a
+					href="/JamesNiemerg-Resume.pdf"
+					onclick={handleLinkClick}
+					aria-label="Download Resume"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					Resume
+				</a>
 			</li>
 		</ul>
 	</div>
@@ -137,7 +145,8 @@
 		left: 0;
 		width: 0;
 		height: 2px;
-		background-color: var(--accent);
+		background: linear-gradient(90deg, var(--gruv-orange), var(--accent));
+		border-radius: 1px;
 		transition: width 0.3s ease;
 	}
 

@@ -1,6 +1,8 @@
 <script>
 	import { page } from '$app/stores'; // (or '$app/state' in some versions)
 	import { fly, fade } from 'svelte/transition';
+
+	let visible = $state(false);
 </script>
 
 {#if $page.status === 404}
