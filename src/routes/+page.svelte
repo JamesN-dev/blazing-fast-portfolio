@@ -3,6 +3,7 @@
 	import { fade, fly, scale } from 'svelte/transition';
 	import { quintOut, elasticOut } from 'svelte/easing';
 	import TypedText from '$lib/components/TypedText.svelte';
+	import { Zap } from '@lucide/svelte';
 
 	let visible = $state(false);
 	let visibleFeatures = $state(false);
@@ -56,14 +57,6 @@
 			phase: Math.random() * Math.PI * 2 // Random starting phase
 		};
 	});
-
-	// Stats data
-	const stats = [
-		{ value: '98', label: 'Performance Score', icon: '⚡️' },
-		{ value: '100%', label: 'Client Satisfaction', icon: '👍' },
-		{ value: '50+', label: 'Projects Completed', icon: '🚀' },
-		{ value: '5+', label: 'Years Experience', icon: '⏱️' }
-	];
 
 	// Function to start skill animation
 	function startSkillsAnimation() {
@@ -285,8 +278,7 @@
 
 					<p class="description" transition:fade={{ delay: 800, duration: 800 }}>
 						Marketing veteran turned full-stack developer. I build, break, and ship web apps,
-						automations, and digital tools under the Blazing Fast Labs name—no bloat, no fluff, just
-						clean, blazing fast solutions that actually work.
+						automations, and digital tools under the Blazing Fast Labs name.
 					</p>
 				{/if}
 
@@ -330,7 +322,11 @@
 						<div
 							class="fireball-glow-effect {fireballGlowHovering ? 'fireball-glow-hovering' : ''}"
 						></div>
-						<img src="/images/fireball-logo.png" alt="Fireball Logo" class="fireball-logo" />
+						<img
+							src="https://g15vtr55yw.ufs.sh/f/Bh1ffWkP18dQHbjjBhqR7awMfsCYr2uXx0SpVlZiUg6dJzcF"
+							alt="Fireball Logo"
+							class="fireball-logo"
+						/>
 					</div>
 				{/if}
 			</div>
@@ -431,16 +427,37 @@
 	<div class="container">
 		<div class="stats-grid">
 			{#if visibleStats}
-				{#each stats as stat, i}
-					<div
-						class="stat-card"
-						transition:scale={{ delay: i * 100, duration: 800, easing: elasticOut }}
-					>
-						<div class="stat-icon">{stat.icon}</div>
-						<div class="stat-value">{stat.value}</div>
-						<div class="stat-label">{stat.label}</div>
+				<div class="stat-card" transition:scale={{ delay: 0, duration: 800, easing: elasticOut }}>
+					<div class="stat-icon component-icon">
+						<Zap size={48} color="var(--accent)" />
 					</div>
-				{/each}
+					<div class="stat-value">100%</div>
+					<div class="stat-label">Performance Score</div>
+				</div>
+
+				<div class="stat-card" transition:scale={{ delay: 100, duration: 800, easing: elasticOut }}>
+					<div class="stat-icon emoji-icon">
+						<span style="font-size: 40px;">👍</span>
+					</div>
+					<div class="stat-value">100%</div>
+					<div class="stat-label">Client Satisfaction</div>
+				</div>
+
+				<div class="stat-card" transition:scale={{ delay: 200, duration: 800, easing: elasticOut }}>
+					<div class="stat-icon emoji-icon">
+						<span style="font-size: 40px;">🚀</span>
+					</div>
+					<div class="stat-value">50+</div>
+					<div class="stat-label">Projects Completed</div>
+				</div>
+
+				<div class="stat-card" transition:scale={{ delay: 300, duration: 800, easing: elasticOut }}>
+					<div class="stat-icon emoji-icon">
+						<span style="font-size: 40px;">⏱️</span>
+					</div>
+					<div class="stat-value">10+</div>
+					<div class="stat-label">Years Experience</div>
+				</div>
 			{/if}
 		</div>
 	</div>
@@ -1032,6 +1049,29 @@
 	.stat-icon {
 		font-size: 40px;
 		margin-bottom: 16px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.stat-icon.component-icon {
+		color: var(--accent);
+	}
+
+	.stat-icon.emoji-icon {
+		font-size: 40px;
+	}
+
+	/* Hover effects for different icon types */
+	.stat-card:hover .stat-icon.component-icon {
+		color: var(--secondary);
+		transform: scale(1.1);
+		transition: all 0.3s ease;
+	}
+
+	.stat-card:hover .stat-icon.emoji-icon {
+		transform: scale(1.1);
+		transition: all 0.3s ease;
 	}
 
 	.stat-value {
@@ -1040,7 +1080,8 @@
 		font-weight: 700;
 		color: var(--accent);
 		margin-bottom: 8px;
-		background: linear-gradient(135deg, var(--accent), var(--secondary));
+		background: linear-gradient(333deg, var(--gruv-darkorange), var(--gruv-orange), var(--accent));
+		background-size: 140% 140%;
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 		background-clip: text;
@@ -1052,121 +1093,6 @@
 		color: var(--description);
 	}
 
-	/* Responsive styles */
-	@media (max-width: 1024px) {
-		.name,
-		.tagline {
-			font-size: 64px;
-		}
-
-		.typed-text {
-			font-size: 20px;
-		}
-
-		.features-content {
-			grid-template-columns: 1fr;
-		}
-
-		.skills-cloud-container {
-			height: 350px;
-		}
-	}
-
-	@media (max-width: 768px) {
-		.name,
-		.tagline {
-			font-size: 48px;
-		}
-
-		.typed-text {
-			font-size: 18px;
-		}
-
-		.description {
-			font-size: 16px;
-		}
-
-		.section-header h2 {
-			font-size: 36px;
-		}
-
-		.features-cards {
-			grid-template-columns: 1fr;
-		}
-
-		.stats-grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
-
-		.skills-cloud-container {
-			height: 300px;
-		}
-	}
-
-	@media (max-width: 640px) {
-		.name,
-		.tagline {
-			font-size: 36px;
-		}
-
-		.typed-text {
-			font-size: 16px;
-		}
-
-		.cta-buttons {
-			flex-direction: column;
-			gap: 16px;
-		}
-
-		.button-primary,
-		.button-secondary {
-			max-width: 100%;
-		}
-
-		.scroll-indicator {
-			display: none;
-		}
-
-		.stats-grid {
-			grid-template-columns: 1fr;
-		}
-
-		.skills-cloud-container {
-			height: 250px;
-		}
-	}
-
-	@media (max-width: 900px) {
-		.hero-content {
-			flex-direction: column;
-			align-items: flex-start;
-			gap: 32px;
-		}
-		.hero-graphic {
-			width: 100%;
-			max-width: 320px;
-			height: 320px;
-			margin: 0 auto;
-		}
-		.hero-graphic img.fireball-logo {
-			max-width: 300px;
-			max-height: 300px;
-		}
-	}
-
-	@media (max-width: 640px) {
-		.hero-graphic {
-			max-width: 200px;
-			height: 120px;
-		}
-	}
-	.fireball-glow-effect {
-		opacity: 0;
-		transform: translate(-64px, 64px) scale(1);
-		transition:
-			opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-			transform 1s cubic-bezier(0.4, 0, 0.2, 1);
-	}
 	.fireball-glow-effect.fireball-glow-hovering {
 		opacity: 0.6;
 		transform: translate(-64px, 64px) scale(1.1);

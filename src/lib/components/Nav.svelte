@@ -40,7 +40,7 @@
 <nav class="main-nav" aria-label="Main Navigation">
 	<a href="/" class="header-logo" aria-label="blazingfast.app">
 		<img
-			src="/images/fireball-logo.png"
+			src="https://g15vtr55yw.ufs.sh/f/Bh1ffWkP18dQHbjjBhqR7awMfsCYr2uXx0SpVlZiUg6dJzcF"
 			alt="blazingfast.app fireball logo"
 			width="130"
 			height="auto"
@@ -67,7 +67,7 @@
 			<li><a href="/contact" onclick={handleLinkClick}>Contact</a></li>
 			<li class="resume-link">
 				<a
-					href="/JamesNiemerg-Resume.pdf"
+					href="https://g15vtr55yw.ufs.sh/f/Bh1ffWkP18dQ9jq8INEAMI4PXa63rRpkOGoC0QejZcUx5gDB"
 					onclick={handleLinkClick}
 					aria-label="Download Resume"
 					target="_blank"

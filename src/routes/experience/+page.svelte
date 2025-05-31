@@ -7,7 +7,7 @@
 	const experiences = [
 		{
 			title: 'Full-Stack Developer',
-			company: 'Blazing Fast Design',
+			company: 'Blazing Fast Labs',
 			period: '2020 - Present',
 			description:
 				'I build and ship full-stack web projects—SvelteKit, Python, Postgres, and automation scripts, under my own brand. I run a home lab on Proxmox, manage Linux VMs, Docker containers, version control with custom Git workflows, and deploy production projects with modern platforms like Vercel. Fully capable of maintaining my own infra, but know when to use the right tool for the job.',

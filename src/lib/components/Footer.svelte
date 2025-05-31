@@ -66,7 +66,11 @@
 							<li><a href="/work">Work</a></li>
 							<li><a href="/contact">Contact</a></li>
 							<li>
-								<a href="/static/JamesNiemerg-Resume.pdf" download aria-label="Résumé">Résumé</a>
+								<a
+									href="https://g15vtr55yw.ufs.sh/f/Bh1ffWkP18dQ9jq8INEAMI4PXa63rRpkOGoC0QejZcUx5gDB"
+									download
+									aria-label="Résumé">Résumé</a
+								>
 							</li>
 						</ul>
 					</div>
