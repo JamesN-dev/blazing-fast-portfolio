@@ -1,5 +1,6 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount } from 'svelte'; // Removed browser import from svelte/internal
+	import { browser } from '$app/environment'; // Correct way to import browser
 	import { fade, fly, scale } from 'svelte/transition';
 	import { quintOut, elasticOut } from 'svelte/easing';
 	import TypedText from '$lib/components/TypedText.svelte';
@@ -16,6 +17,9 @@
 	let fireballEntranceComplete = $state(false);
 	let fireballGlowContainer = $state();
 	let fireballGlowHovering = $state(false);
+
+	// Reactive variable to control scroll indicator visibility
+	let showScrollIndicator = $state(true); // Default to true, will be updated on client
 
 	// Function to handle parallax effect
 	function handleMouseMove(e) {
@@ -60,12 +64,24 @@
 
 	// Function to start skill animation
 	function startSkillsAnimation() {
+		// Check if we're on a screen size that uses the grid layout instead of 3D animation
+		if (window.innerWidth <= 920) {
+			console.log('Skipping skills animation on small screen (grid layout active)');
+			return;
+		}
+
 		// Get references to all skill tags
 		const skillElements = document.querySelectorAll('.skill-tag');
 
 		if (!skillElements.length) {
 			// If elements aren't ready yet, try again in a moment
 			setTimeout(startSkillsAnimation, 100);
+			return;
+		}
+
+		// Only start if not already running
+		if (skillsAnimationFrame) {
+			console.log('Skills animation already running, skipping restart');
 			return;
 		}
 
@@ -159,9 +175,18 @@
 		// Add scroll listener
 		const handleScroll = () => {
 			scrollY = window.scrollY;
+			// Update showScrollIndicator only on the client
+			if (browser) {
+				showScrollIndicator = scrollY < window.innerHeight / 2;
+			}
 		};
 
 		window.addEventListener('scroll', handleScroll);
+
+		// Initial check for scroll indicator visibility on mount
+		if (browser) {
+			showScrollIndicator = scrollY < window.innerHeight / 2;
+		}
 
 		// Small delay before showing animations
 		setTimeout(() => {
@@ -171,11 +196,8 @@
 			setTimeout(() => {
 				fireballEntranceComplete = true;
 
-				// Remove animation property from glow effect to prevent phantom glow
-				const glow = fireballGlowContainer?.querySelector('.fireball-glow-effect');
-				if (glow) {
-					glow.style.animation = 'none';
-				}
+				// Don't remove animation - let CSS handle the hover states
+				// The entrance animation will complete naturally and hover will work
 			}, 3500); // 1000ms delay + 2500ms duration
 		}, 100);
 
@@ -233,108 +255,101 @@
 	});
 </script>
 
-<!-- Hero Section -->
-<div class="parallax-container" id="hero">
-	<div
-		class="parallax-layer background-layer"
-		style="transform: translate({mousePosX * -20}px, {mousePosY * -20}px);"
-	></div>
+<!-- Modern CSS Grid Hero Section -->
+<section class="hero">
+	<!-- Text Content Container -->
+	<div class="hero-text-container">
+		{#if visible}
+			<h1 class="intro-text" transition:fade={{ delay: 100, duration: 500 }}>Hi, my name is</h1>
+			<h1 class="name" transition:fly={{ delay: 300, duration: 800, x: -50, y: 0 }}>
+				James Niemerg.
+			</h1>
+			<h1 class="tagline" transition:fly={{ delay: 500, duration: 800, x: -50, y: 0 }}>
+				Blazing Fast Labs.
+			</h1>
 
-	<div
-		class="parallax-layer content-layer"
-		style="transform: translate({mousePosX * 10}px, {mousePosY * 10}px);"
-	>
-		<div class="hero-content">
-			<div class="hero-text">
-				{#if visible}
-					<h1 class="intro-text" transition:fade={{ delay: 100, duration: 500 }}>Hi, my name is</h1>
-					<h1 class="name" transition:fly={{ delay: 300, duration: 800, x: -50, y: 0 }}>
-						James Niemerg.
-					</h1>
-					<h1 class="tagline" transition:fly={{ delay: 500, duration: 800, x: -50, y: 0 }}>
-						Blazing Fast Labs.
-					</h1>
-
-					<div class="typed-text" transition:fade={{ delay: 700, duration: 500 }}>
-						<TypedText
-							strings={[
-								'Professional Overthinker',
-								'Web App Tinkerer',
-								'CSS Wrangler',
-								'Full-Stack Fiddler',
-								'Bug Hunter',
-								'Home Lab Janitor',
-								'Button Clicker',
-								'Wielder of Fireballs',
-								'90s Jungle Enthusiast'
-							]}
-							typeSpeed={60}
-							backSpeed={30}
-							backDelay={1500}
-							startDelay={500}
-							loop={true}
-						/>
-					</div>
-
-					<p class="description" transition:fade={{ delay: 800, duration: 800 }}>
-						Marketing veteran turned full-stack developer. I build, break, and ship web apps,
-						automations, and digital tools under the Blazing Fast Labs name.
-					</p>
-				{/if}
-
-				{#if visible}
-					<div class="cta-buttons" transition:fly={{ delay: 1000, duration: 800, y: 20, x: 0 }}>
-						<a href="/about" class="button-primary">
-							<span>Follow Me</span>
-						</a>
-						<a href="/contact" class="button-secondary">
-							<span>Let's Collaborate!</span>
-						</a>
-					</div>
-				{/if}
-
-				{#if visible}
-					<div class="scroll-indicator" transition:fade={{ delay: 1200, duration: 500 }}>
-						<div class="mouse">
-							<div class="wheel"></div>
-						</div>
-						<div class="scroll-text">Scroll down</div>
-					</div>
-				{/if}
+			<div class="typed-text-wrapper" transition:fade={{ delay: 700, duration: 500 }}>
+				<TypedText
+					strings={[
+						'Professional Overthinker',
+						'Web App Tinkerer',
+						'CSS Wrangler',
+						'Full-Stack Fiddler',
+						'Bug Hunter',
+						'Home Lab Janitor',
+						'Button Clicker',
+						'Wielder of Fireballs',
+						'90s Jungle Enthusiast'
+					]}
+					typeSpeed={60}
+					backSpeed={30}
+					backDelay={1500}
+					startDelay={500}
+					loop={true}
+				/>
 			</div>
-			<div class="hero-graphic">
-				{#if visible}
-					<div class="fireball-container">
-						<div
-							class="fireball-glow-container"
-							role="presentation"
-							bind:this={fireballGlowContainer}
-							onmouseenter={() => handleFireballHover(true)}
-							onmouseleave={() => handleFireballHover(false)}
-							in:fly={{
-								delay: 1000,
-								duration: 2500,
-								x: 100,
-								y: -100,
-								opacity: 0,
-								easing: elasticOut
-							}}
-						>
-							<div
-								class="fireball-glow-effect {fireballGlowHovering ? 'fireball-glow-hovering' : ''}"
-							></div>
-							<img
-								src="https://g15vtr55yw.ufs.sh/f/Bh1ffWkP18dQHbjjBhqR7awMfsCYr2uXx0SpVlZiUg6dJzcF"
-								alt="Fireball Logo"
-								class="fireball-logo"
-							/>
-						</div>
-					</div>
-				{/if}
+
+			<p class="description" transition:fade={{ delay: 800, duration: 800 }}>
+				Marketing veteran turned full-stack developer. I build, break, and ship web apps,
+				automations, and digital tools under the Blazing Fast Labs name.
+			</p>
+
+			<div class="cta-buttons">
+				<div class="button-wrapper">
+					<a href="/about" class="button-primary">
+						<span>Follow Me</span>
+					</a>
+				</div>
+				<div class="button-wrapper">
+					<a href="/contact" class="button-secondary">
+						<span>Let's Collaborate!</span>
+					</a>
+				</div>
 			</div>
-		</div>
+
+			{#if visible && showScrollIndicator}
+				<div class="scroll-indicator" transition:fade={{ delay: 1200, duration: 500 }}>
+					<div class="mouse">
+						<div class="wheel"></div>
+					</div>
+					<div class="scroll-text">Scroll down</div>
+				</div>
+			{/if}
+		{/if}
 	</div>
-</div>
+
+	<!-- Fireball Container -->
+	<div class="hero-fireball-container">
+		{#if visible}
+			<div class="fireball-wrapper">
+				<div
+					class="fireball-glow-container"
+					role="presentation"
+					bind:this={fireballGlowContainer}
+					onmouseenter={() => handleFireballHover(true)}
+					onmouseleave={() => handleFireballHover(false)}
+					in:fly={{
+						delay: 1000,
+						duration: 2500,
+						x: 100,
+						y: -100,
+						opacity: 0,
+						easing: elasticOut
+					}}
+				>
+					<div
+						class="fireball-glow-effect {fireballGlowHovering ? 'fireball-glow-hovering' : ''}"
+					></div>
+					<img
+						src="https://g15vtr55yw.ufs.sh/f/Bh1ffWkP18dQHbjjBhqR7awMfsCYr2uXx0SpVlZiUg6dJzcF"
+						alt="Fireball Logo"
+						class="fireball-logo"
+					/>
+				</div>
+			</div>
+		{/if}
+	</div>
+</section>
 
 <!-- Features Section -->
 <section class="features-section section">
@@ -466,239 +481,80 @@
 </section>
 
 <style>
-	/* Add missing parallax styles */
-	.parallax-container {
-		position: relative;
-		width: 100%;
-		height: 100vh;
-		overflow: hidden;
-	}
-
-	.parallax-layer {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-	}
-
-	.background-layer {
-		background: linear-gradient(135deg, var(--background) 0%, #1a1a1a 100%);
-		z-index: 1;
-	}
-
-	/* Hero styles */
-	#hero {
-		min-height: 100vh;
-		width: 100%;
-		display: flex;
+	/* ===== KEVIN POWELL'S AUTO-FIT CSS GRID METHOD ===== */
+	/* NO 100vh/100svh - Kevin warns against these on mobile */
+	.hero {
+		/* Use min-height instead of vh padding for better mobile behavior */
+		min-height: clamp(600px, 100vh, 900px);
+		padding: 10rem 2rem 2rem 2rem;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+		gap: clamp(1rem, 4vw, 3rem);
 		align-items: center;
-		justify-content: center;
-		position: relative;
-		overflow: hidden;
-		/* Add responsive padding for very small screens */
-		padding-top: 80px;
-	}
-
-	/* Specific fix for very small screens like 360x740 */
-	@media screen and (max-width: 400px) and (max-height: 800px) {
-		#hero {
-			min-height: 90vh;
-			padding-top: 60px;
-		}
-	}
-
-	.content-layer {
-		z-index: 3;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-	}
-
-	/* Reduce bottom padding on very small screens */
-	@media screen and (max-width: 400px) and (max-height: 800px) {
-		.content-layer {
-			min-height: 900px;
-		}
-	}
-
-	/* Tablet breakpoints - add padding-top to push content down */
-	@media screen and (min-width: 768px) and (max-width: 920px) {
-		.content-layer {
-			padding-top: 160px; /* Push content down for small tablet */
-		}
-	}
-
-	@media screen and (min-width: 921px) and (max-width: 1023px) {
-		.content-layer {
-			padding-top: 140px; /* Push content down for medium tablet */
-		}
-	}
-
-	.hero-content {
+		background: linear-gradient(135deg, var(--background) 0%, #2a2a2a 100%);
+		width: 100%;
 		max-width: 1200px;
-		width: 90%;
 		margin: 0 auto;
-		gap: 32px;
-		/* Mobile-first approach - default to column layout */
+	}
+
+	.hero-text-container {
 		display: flex;
 		flex-direction: column;
-		align-items: flex-start;
+		gap: 1.5rem;
+		min-width: 0; /* Prevent grid overflow */
 	}
 
-	/* Reduce gap on very small screens */
-	@media screen and (max-width: 400px) {
-		.hero-content {
-			gap: 30px; /* Increased from 20px to add more vertical space */
-			width: 95%;
-		}
-
-		.description {
-			/* Add this rule */
-			font-size: calc(var(--p) * 0.9); /* Make it 90% of the base paragraph size */
-			margin-bottom: 24px; /* Optionally reduce margin a bit */
-		}
-	}
-
-	/* Use media query for desktop layout instead of JavaScript conditional */
-	@media screen and (min-width: 1024px) {
-		.hero-content {
-			flex-direction: row;
-			align-items: flex-start;
-			justify-content: center;
-			gap: 48px;
-		}
-	}
-
-	.hero-text {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		flex: 1 1 0;
-		min-width: 0;
-	}
-
-	/* Center align text content on tablets for better balance */
-	@media screen and (min-width: 768px) and (max-width: 1023px) {
-		.hero-text {
-			align-items: center;
-			text-align: center;
-			margin-bottom: 20px;
-		}
-
-		.hero-text .description {
-			text-align: center;
-		}
-
-		.hero-text .cta-buttons {
-			align-self: center;
-		}
-	}
-
-	.hero-graphic {
+	.hero-fireball-container {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		min-width: 260px;
-		width: 28vw;
+		min-height: 300px;
 	}
 
-	/* Responsive sizing for very small screens */
-	@media screen and (max-width: 400px) {
-		.hero-graphic {
-			min-width: 180px;
-			width: 45vw;
-			max-width: 200px;
-		}
-	}
-
-	/* Add new fireball container wrapper */
-	.fireball-container {
-		position: relative;
-		width: 100%;
-		height: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		max-width: 380px;
-		max-height: 380px;
-	}
-
-	/* Responsive sizing for fireball container */
-	@media screen and (max-width: 400px) {
-		.fireball-container {
-			max-width: 180px;
-			max-height: 180px;
-		}
-	}
-
-	@media screen and (min-width: 401px) and (max-width: 767px) {
-		.fireball-container {
-			max-width: 220px;
-			max-height: 220px;
-		}
-	}
-
-	/* Add responsive typography classes based on CSS variables */
+	/* Typography with fluid sizing */
 	.name,
 	.tagline {
-		font-size: var(--h1);
-		line-height: 1.2;
+		font-size: clamp(2rem, 4vw, 4rem);
+		line-height: 1.1;
+		font-weight: 700;
+		color: var(--color-text);
+		margin: 0;
 	}
 
-	.typed-text {
-		font-size: var(--small);
+	.intro-text {
+		font-size: clamp(1rem, 2.5vw, 1.5rem);
+		color: var(--description);
+		margin: 0;
+		line-height: 1.4;
 	}
 
 	.description {
-		font-size: var(--p);
+		font-size: clamp(0.9rem, 2.5vw, 1.125rem);
+		color: var(--description);
+		line-height: 1.6;
+		margin: 0;
+		max-width: 50ch; /* Optimal reading width */
+	}
+	/* For rotating gradient */
+	@property --gradient-angle {
+		syntax: '<angle>';
+		initial-value: 0deg;
+		inherits: false;
 	}
 
-	@media screen and (max-width: 767.98px) {
-		.name,
-		.tagline {
-			line-height: 1.1;
-		}
-	}
-
-	/* Use CSS media queries for responsive button layout too */
 	.cta-buttons {
 		display: flex;
+		gap: 24px;
 		width: 100%;
 		max-width: 764px;
+		margin-bottom: 60px;
 		align-self: flex-start;
-		/* Default to row layout until very small screens */
-		flex-direction: row;
-		gap: 16px;
-	}
-
-	/* Only stack buttons on very small mobile screens */
-	@media screen and (max-width: 375px) {
-		.cta-buttons {
-			flex-direction: column;
-			gap: 16px;
-		}
-	}
-
-	/* Adjust button sizes for different screen sizes */
-	@media screen and (min-width: 376px) and (max-width: 767px) {
-		.cta-buttons {
-			gap: 12px; /* Smaller gap on mobile */
-		}
-
-		.button-primary,
-		.button-secondary {
-			padding: 12px 16px; /* Smaller padding on mobile */
-			font-size: 14px; /* Smaller font on mobile */
-		}
 	}
 
 	.button-primary,
 	.button-secondary {
 		position: relative;
-		border-radius: 0.5rem;
+		border-radius: 0.6rem;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -708,12 +564,102 @@
 		font-size: 16px;
 		font-weight: 500;
 		flex: 1;
+		isolation: auto;
 		color: var(--color-text-light);
 		max-width: 370px;
+		z-index: 0;
+
 		transition:
 			transform 0.3s ease,
 			padding 0.3s ease,
 			background 0.3s ease;
+	}
+
+	.button-primary span,
+	.button-secondary span {
+		position: relative;
+	}
+
+	/* Button wrapper for glow effects */
+	.button-wrapper {
+		position: relative;
+		display: inline-block;
+	}
+
+	.button-wrapper::before,
+	.button-wrapper::after {
+		content: '';
+		position: absolute;
+		inset: -0.16rem;
+		border-radius: 0.76rem; /* 0.6rem + 0.16rem to account for inset expansion */
+		animation: rotation 5s linear infinite;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+		pointer-events: none;
+	}
+
+	.button-wrapper::before {
+		/* Sharp border effect */
+		background: conic-gradient(
+			from var(--gradient-angle),
+			var(--gruv-darkorange),
+			var(--gruv-yellow),
+			var(--gruv-orange),
+			var(--gruv-yellow),
+			var(--gruv-darkorange)
+		);
+		/* Create border-only effect using CSS mask */
+		mask:
+			linear-gradient(#fff 0 0) content-box,
+			linear-gradient(#fff 0 0);
+		mask-composite: xor;
+		-webkit-mask:
+			linear-gradient(#fff 0 0) content-box,
+			linear-gradient(#fff 0 0);
+		-webkit-mask-composite: xor;
+		padding: 0.16rem;
+	}
+
+	.button-wrapper::after {
+		/* Blurred glow effect */
+		background: conic-gradient(
+			from var(--gradient-angle),
+			var(--gruv-darkorange),
+			var(--gruv-yellow),
+			var(--gruv-orange),
+			var(--gruv-yellow),
+			var(--gruv-darkorange)
+		);
+		filter: blur(2rem);
+		z-index: -1;
+	}
+
+	/* Different colors for secondary button wrapper */
+	.button-wrapper:has(.button-secondary)::before {
+		background: conic-gradient(
+			from var(--gradient-angle),
+			var(--gruv-darkblue),
+			var(--gruv-yellow),
+			var(--gruv-blue),
+			var(--gruv-yellow),
+			var(--gruv-darkblue)
+		);
+	}
+
+	.button-wrapper:has(.button-secondary)::after {
+		background: conic-gradient(
+			from var(--gradient-angle),
+			var(--gruv-darkblue),
+			var(--gruv-yellow),
+			var(--gruv-blue),
+			var(--gruv-yellow),
+			var(--gruv-darkblue)
+		);
+	}
+
+	.button-wrapper:hover::before,
+	.button-wrapper:hover::after {
+		opacity: 1;
 	}
 
 	/* Responsive adjustments for buttons */
@@ -723,14 +669,15 @@
 			padding: 14px 20px;
 			font-size: 15px;
 		}
+
+		.cta-buttons {
+			flex-direction: column;
+		}
 	}
 
 	@media screen and (max-width: 375px) {
-		.button-primary,
-		.button-secondary {
-			padding: 12px 16px;
-			font-size: 14px;
-			max-width: 100%;
+		.hero {
+			padding: 1rem;
 		}
 	}
 
@@ -744,59 +691,7 @@
 	.button-primary span,
 	.button-secondary span {
 		position: relative;
-	}
-
-	.button-primary::before,
-	.button-primary::after,
-	.button-secondary::before,
-	.button-secondary::after {
-		content: '';
-		position: absolute;
-		inset: -0.16rem;
-		z-index: -1;
-		border-radius: inherit;
-		animation: rotation 5s linear infinite;
-		opacity: 0;
-		transition:
-			opacity 0.3s ease,
-			transform 0.3s ease;
-	}
-
-	.button-primary::before,
-	.button-primary::after {
-		background: conic-gradient(
-			from var(--gradient-angle),
-			var(--gruv-darkorange),
-			var(--gruv-yellow),
-			var(--gruv-orange),
-			var(--gruv-yellow),
-			var(--gruv-darkorange)
-		);
-	}
-
-	.button-secondary::before,
-	.button-secondary::after {
-		background: conic-gradient(
-			from var(--gradient-angle),
-			var(--gruv-darkblue),
-			var(--gruv-yellow),
-			var(--gruv-blue),
-			var(--gruv-yellow),
-			var(--gruv-darkblue)
-		);
-	}
-
-	.button-primary::after,
-	.button-secondary::after {
-		transform: translateY(-5px);
-		filter: blur(2rem);
-	}
-
-	.button-primary:hover::before,
-	.button-primary:hover::after,
-	.button-secondary:hover::before,
-	.button-secondary:hover::after {
-		opacity: 1;
+		z-index: 1;
 	}
 
 	@keyframes rotation {
@@ -809,8 +704,8 @@
 	}
 
 	.scroll-indicator {
-		position: absolute;
-		bottom: 5px;
+		position: fixed;
+		bottom: 40px;
 		left: 50%;
 		transform: translateX(-50%);
 		display: flex;
@@ -1162,22 +1057,14 @@
 		color: var(--description);
 	}
 
-	.fireball-glow-effect.fireball-glow-hovering {
-		opacity: 0.6;
-		transform: translate(-64px, 64px) scale(1.1);
-		animation: none;
-	}
-
-	.hero-graphic img.fireball-logo {
-		width: 100%;
-		height: auto;
-		max-width: 380px;
-		max-height: 380px;
-		display: block;
-		filter: drop-shadow(0 4px 24px rgba(255, 140, 0, 0.25));
-		transition: filter 0.2s;
+	/* ===== FIREBALL STYLES ===== */
+	.fireball-wrapper {
 		position: relative;
-		z-index: 2;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	.fireball-glow-container {
@@ -1185,8 +1072,32 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		width: 350px; /* Fixed size, stops shrinking too fast */
+		height: 350px;
+	}
+
+	/* Only make it smaller on very small screens */
+	@media (width < 480px) {
+		.fireball-glow-container {
+			width: 280px;
+			height: 280px;
+		}
+	}
+
+	.fireball-logo {
 		width: 100%;
 		height: 100%;
+		object-fit: contain;
+		position: relative;
+		z-index: 2;
+		transition: transform var(--transition-normal);
+		filter: drop-shadow(0 4px 24px rgba(255, 140, 0, 0.25));
+		cursor: pointer;
+	}
+
+	.fireball-logo:hover {
+		transform: scale(1.05) rotate(5deg);
+		filter: drop-shadow(0 6px 32px rgba(255, 140, 0, 0.4));
 	}
 
 	.fireball-glow-effect {
@@ -1206,30 +1117,29 @@
 		animation: fireballEntranceGlow 2.5s ease-out 1s forwards;
 		filter: blur(20px);
 		pointer-events: none;
-		/* Responsive positioning - center the glow by default */
 		transform: translate(-50%, -50%) scale(1);
 		top: 50%;
 		left: 50%;
-		transition:
-			opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-			transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.fireball-glow-effect.fireball-glow-hovering {
+		opacity: 0.8;
+		transform: translate(-50%, -50%) scale(1.2);
+		animation: none;
+		filter: blur(15px); /* Slightly less blur for more defined glow */
 	}
 
 	@keyframes fireballEntranceGlow {
 		0% {
-			opacity: 0.8;
+			opacity: 0;
 			transform: translate(-50%, -50%) scale(0.8);
 		}
-		20% {
-			opacity: 1;
-			transform: translate(-50%, -50%) scale(1.1);
-		}
-		70% {
-			opacity: 0.8;
-			transform: translate(-50%, -50%) scale(1);
+		50% {
+			opacity: 0.9;
+			transform: translate(-50%, -50%) scale(1.3);
 		}
 		100% {
-			opacity: 0.5;
+			opacity: 0.6;
 			transform: translate(-50%, -50%) scale(1);
 		}
 	}
@@ -1282,30 +1192,11 @@
 		background-clip: text;
 	}
 
-	.typed-text {
-		width: 100%;
-		font-family: 'Nunito Sans', sans-serif;
-		font-style: italic;
-		font-weight: 300;
-		line-height: 1.4;
-		margin: 0 0 18px 0;
-		min-height: 34px;
-		color: var(--description);
-		position: relative;
-	}
-
 	.description {
 		font-family: 'Nunito Sans', sans-serif;
 		color: var(--description);
 		line-height: 1.6;
 		margin-bottom: 36px;
 		max-width: 764px;
-	}
-
-	/* For rotating gradient */
-	@property --gradient-angle {
-		syntax: '<angle>';
-		initial-value: 0deg;
-		inherits: false;
 	}
 </style>

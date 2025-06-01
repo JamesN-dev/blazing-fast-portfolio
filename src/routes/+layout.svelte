@@ -148,7 +148,7 @@
 		background-color: var(--background);
 		display: flex;
 		flex-direction: column;
-		align-items: center;
+		/* Removed align-items: center to prevent conflict with CSS Grid */
 		min-height: 100vh;
 	}
 </style>
