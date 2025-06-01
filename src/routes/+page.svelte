@@ -304,29 +304,31 @@
 			</div>
 			<div class="hero-graphic">
 				{#if visible}
-					<div
-						class="fireball-glow-container"
-						role="presentation"
-						bind:this={fireballGlowContainer}
-						onmouseenter={() => handleFireballHover(true)}
-						onmouseleave={() => handleFireballHover(false)}
-						in:fly={{
-							delay: 1000,
-							duration: 2500,
-							x: 100,
-							y: -100,
-							opacity: 0,
-							easing: elasticOut
-						}}
-					>
+					<div class="fireball-container">
 						<div
-							class="fireball-glow-effect {fireballGlowHovering ? 'fireball-glow-hovering' : ''}"
-						></div>
-						<img
-							src="https://g15vtr55yw.ufs.sh/f/Bh1ffWkP18dQHbjjBhqR7awMfsCYr2uXx0SpVlZiUg6dJzcF"
-							alt="Fireball Logo"
-							class="fireball-logo"
-						/>
+							class="fireball-glow-container"
+							role="presentation"
+							bind:this={fireballGlowContainer}
+							onmouseenter={() => handleFireballHover(true)}
+							onmouseleave={() => handleFireballHover(false)}
+							in:fly={{
+								delay: 1000,
+								duration: 2500,
+								x: 100,
+								y: -100,
+								opacity: 0,
+								easing: elasticOut
+							}}
+						>
+							<div
+								class="fireball-glow-effect {fireballGlowHovering ? 'fireball-glow-hovering' : ''}"
+							></div>
+							<img
+								src="https://g15vtr55yw.ufs.sh/f/Bh1ffWkP18dQHbjjBhqR7awMfsCYr2uXx0SpVlZiUg6dJzcF"
+								alt="Fireball Logo"
+								class="fireball-logo"
+							/>
+						</div>
 					</div>
 				{/if}
 			</div>
@@ -335,10 +337,10 @@
 </div>
 
 <!-- Features Section -->
-<section class="features-section">
+<section class="features-section section">
 	<div class="container">
 		<div class="section-header">
-			<h2>What I Do</h2>
+			<h2 class="section-title">What I Do</h2>
 			<div class="underline"></div>
 			<p class="section-intro">
 				I create blazing fast websites and applications that deliver exceptional user experiences.
@@ -346,7 +348,7 @@
 		</div>
 
 		<div class="features-content">
-			<div class="features-cards">
+			<div class="feature-cards-grid">
 				{#if visibleFeatures}
 					<div
 						class="feature-card"
@@ -423,7 +425,7 @@
 </section>
 
 <!-- Stats Section -->
-<section class="stats-section">
+<section class="stats-section section">
 	<div class="container">
 		<div class="stats-grid">
 			{#if visibleStats}
@@ -437,7 +439,7 @@
 
 				<div class="stat-card" transition:scale={{ delay: 100, duration: 800, easing: elasticOut }}>
 					<div class="stat-icon emoji-icon">
-						<span style="font-size: 40px;">👍</span>
+						<span class="emoji">👍</span>
 					</div>
 					<div class="stat-value">100%</div>
 					<div class="stat-label">Client Satisfaction</div>
@@ -445,7 +447,7 @@
 
 				<div class="stat-card" transition:scale={{ delay: 200, duration: 800, easing: elasticOut }}>
 					<div class="stat-icon emoji-icon">
-						<span style="font-size: 40px;">🚀</span>
+						<span class="emoji">🚀</span>
 					</div>
 					<div class="stat-value">50+</div>
 					<div class="stat-label">Projects Completed</div>
@@ -453,7 +455,7 @@
 
 				<div class="stat-card" transition:scale={{ delay: 300, duration: 800, easing: elasticOut }}>
 					<div class="stat-icon emoji-icon">
-						<span style="font-size: 40px;">⏱️</span>
+						<span class="emoji">⏱️</span>
 					</div>
 					<div class="stat-value">10+</div>
 					<div class="stat-label">Years Experience</div>
@@ -464,16 +466,46 @@
 </section>
 
 <style>
+	/* Add missing parallax styles */
+	.parallax-container {
+		position: relative;
+		width: 100%;
+		height: 100vh;
+		overflow: hidden;
+	}
+
+	.parallax-layer {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	.background-layer {
+		background: linear-gradient(135deg, var(--background) 0%, #1a1a1a 100%);
+		z-index: 1;
+	}
+
 	/* Hero styles */
 	#hero {
 		min-height: 100vh;
 		width: 100%;
 		display: flex;
 		align-items: center;
-		justify-content: center; /* Center the hero content horizontally */
+		justify-content: center;
 		position: relative;
 		overflow: hidden;
-		padding-top: 0;
+		/* Add responsive padding for very small screens */
+		padding-top: 80px;
+	}
+
+	/* Specific fix for very small screens like 360x740 */
+	@media screen and (max-width: 400px) and (max-height: 800px) {
+		#hero {
+			min-height: 90vh;
+			padding-top: 60px;
+		}
 	}
 
 	.content-layer {
@@ -483,18 +515,61 @@
 		justify-content: center;
 		align-items: center;
 		transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-		padding-bottom: 15vh;
+	}
+
+	/* Reduce bottom padding on very small screens */
+	@media screen and (max-width: 400px) and (max-height: 800px) {
+		.content-layer {
+			min-height: 900px;
+		}
+	}
+
+	/* Tablet breakpoints - add padding-top to push content down */
+	@media screen and (min-width: 768px) and (max-width: 920px) {
+		.content-layer {
+			padding-top: 160px; /* Push content down for small tablet */
+		}
+	}
+
+	@media screen and (min-width: 921px) and (max-width: 1023px) {
+		.content-layer {
+			padding-top: 140px; /* Push content down for medium tablet */
+		}
 	}
 
 	.hero-content {
 		max-width: 1200px;
 		width: 90%;
-		display: flex;
-		flex-direction: row; /* Change to row for side-by-side layout */
-		align-items: flex-start;
-		justify-content: center;
 		margin: 0 auto;
-		gap: 48px; /* Space between text and graphic */
+		gap: 32px;
+		/* Mobile-first approach - default to column layout */
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	/* Reduce gap on very small screens */
+	@media screen and (max-width: 400px) {
+		.hero-content {
+			gap: 30px; /* Increased from 20px to add more vertical space */
+			width: 95%;
+		}
+
+		.description {
+			/* Add this rule */
+			font-size: calc(var(--p) * 0.9); /* Make it 90% of the base paragraph size */
+			margin-bottom: 24px; /* Optionally reduce margin a bit */
+		}
+	}
+
+	/* Use media query for desktop layout instead of JavaScript conditional */
+	@media screen and (min-width: 1024px) {
+		.hero-content {
+			flex-direction: row;
+			align-items: flex-start;
+			justify-content: center;
+			gap: 48px;
+		}
 	}
 
 	.hero-text {
@@ -505,204 +580,119 @@
 		min-width: 0;
 	}
 
+	/* Center align text content on tablets for better balance */
+	@media screen and (min-width: 768px) and (max-width: 1023px) {
+		.hero-text {
+			align-items: center;
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		.hero-text .description {
+			text-align: center;
+		}
+
+		.hero-text .cta-buttons {
+			align-self: center;
+		}
+	}
+
 	.hero-graphic {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		min-width: 260px;
-		max-width: 400px;
 		width: 28vw;
-		height: 400px;
 	}
 
-	.hero-graphic img.fireball-logo {
+	/* Responsive sizing for very small screens */
+	@media screen and (max-width: 400px) {
+		.hero-graphic {
+			min-width: 180px;
+			width: 45vw;
+			max-width: 200px;
+		}
+	}
+
+	/* Add new fireball container wrapper */
+	.fireball-container {
+		position: relative;
 		width: 100%;
-		height: auto;
-		max-width: 380px;
-		max-height: 380px;
-		display: block;
-		filter: drop-shadow(0 4px 24px rgba(255, 140, 0, 0.25));
-		transition: filter 0.2s;
-		position: relative;
-		z-index: 2;
-	}
-
-	.fireball-glow-container {
-		position: relative;
+		height: 100%;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 100%;
-		height: 100%;
+		max-width: 380px;
+		max-height: 380px;
 	}
 
-	.fireball-glow-effect {
-		position: absolute;
-		inset: -2rem;
-		z-index: 1;
-		border-radius: 50%;
-		background: radial-gradient(
-			circle,
-			rgba(255, 140, 0, 0.8) 0%,
-			rgba(255, 69, 0, 0.6) 20%,
-			rgba(255, 165, 0, 0.4) 40%,
-			rgba(255, 215, 0, 0.2) 60%,
-			transparent 80%
-		);
-		opacity: 0;
-		animation: fireballEntranceGlow 2.5s ease-out 1s forwards;
-		filter: blur(20px);
-		pointer-events: none;
-		transform: translate(-64px, 64px) scale(1);
-		transition:
-			opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
-			transform 1s cubic-bezier(0.4, 0, 0.2, 1);
-	}
-
-	@keyframes fireballEntranceGlow {
-		0% {
-			opacity: 0.8;
-			transform: translate(-64px, 64px) scale(0.8);
-		}
-		20% {
-			opacity: 1;
-			transform: translate(-64px, 64px) scale(1.1);
-		}
-		70% {
-			opacity: 0.8;
-			transform: translate(-64px, 64px) scale(1.05);
-		}
-		100% {
-			opacity: 0;
-			transform: translate(-64px, 64px) scale(1);
+	/* Responsive sizing for fireball container */
+	@media screen and (max-width: 400px) {
+		.fireball-container {
+			max-width: 180px;
+			max-height: 180px;
 		}
 	}
 
-	@keyframes fireballHoverGlow {
-		0% {
-			opacity: 0;
-			transform: scale(1);
-		}
-		100% {
-			opacity: 0.6;
-			transform: scale(1.1);
+	@media screen and (min-width: 401px) and (max-width: 767px) {
+		.fireball-container {
+			max-width: 220px;
+			max-height: 220px;
 		}
 	}
 
-	/* Optionally, align logo with top of text block instead of center:
-.hero-graphic {
-	align-items: flex-start;
-}
-*/
-
-	/* Responsive: adjust logo size for small screens */
-	@media (max-width: 900px) {
-		.hero-content {
-			flex-direction: column;
-			align-items: flex-start;
-			gap: 32px;
-		}
-		.hero-graphic {
-			width: 100%;
-			max-width: 320px;
-			height: 320px;
-			margin: 0 auto;
-		}
-		.hero-graphic img.fireball-logo {
-			max-width: 300px;
-			max-height: 300px;
-		}
-	}
-
-	@media (max-width: 640px) {
-		.hero-graphic {
-			max-width: 200px;
-			height: 120px;
-		}
-		.hero-graphic img.fireball-logo {
-			max-width: 120px;
-			max-height: 120px;
-		}
-	}
-
-	.intro-text {
-		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
-		font-size: var(--h6);
-		color: var(--gruv-darkwhite);
-		margin: 0;
-		font-weight: 400;
-		opacity: 0.9;
-	}
-
-	.name {
-		width: 100%;
-		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
-		font-style: normal;
-		font-weight: 400;
-		font-size: 80px;
-		line-height: 1.25;
-		margin: 0;
-		background: linear-gradient(
-			135deg,
-			var(--accent) 0%,
-			var(--secondary) 40%,
-			var(--gruv-red) 100%
-		);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-	}
-
+	/* Add responsive typography classes based on CSS variables */
+	.name,
 	.tagline {
-		width: 100%;
-		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
-		font-style: normal;
-		font-weight: 400;
-		font-size: 80px;
-		line-height: 1.25;
-		margin: 0 0 8px 0;
-		background: linear-gradient(135deg, #ff7a30 0%, var(--secondary) 50%, var(--gruv-red) 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
+		font-size: var(--h1);
+		line-height: 1.2;
 	}
 
 	.typed-text {
-		width: 100%;
-		font-family: 'Nunito Sans', sans-serif;
-		font-style: italic;
-		font-weight: 300;
-		font-size: var(--h5);
-		line-height: 1.4;
-		margin: 0 0 18px 0;
-		min-height: 34px;
-		color: var(--description);
-		position: relative;
+		font-size: var(--small);
 	}
 
 	.description {
 		font-size: var(--p);
-		font-family: 'Nunito Sans', sans-serif;
-		color: var(--description);
-		line-height: 1.6;
-		margin-bottom: 36px;
-		max-width: 764px;
 	}
 
-	/* For rotating gradient */
-	@property --gradient-angle {
-		syntax: '<angle>';
-		initial-value: 0deg;
-		inherits: false;
+	@media screen and (max-width: 767.98px) {
+		.name,
+		.tagline {
+			line-height: 1.1;
+		}
 	}
 
+	/* Use CSS media queries for responsive button layout too */
 	.cta-buttons {
 		display: flex;
-		gap: 24px;
 		width: 100%;
 		max-width: 764px;
-		margin-bottom: 60px;
-		align-self: flex-start; /* This centers just the buttons container */
+		align-self: flex-start;
+		/* Default to row layout until very small screens */
+		flex-direction: row;
+		gap: 16px;
+	}
+
+	/* Only stack buttons on very small mobile screens */
+	@media screen and (max-width: 375px) {
+		.cta-buttons {
+			flex-direction: column;
+			gap: 16px;
+		}
+	}
+
+	/* Adjust button sizes for different screen sizes */
+	@media screen and (min-width: 376px) and (max-width: 767px) {
+		.cta-buttons {
+			gap: 12px; /* Smaller gap on mobile */
+		}
+
+		.button-primary,
+		.button-secondary {
+			padding: 12px 16px; /* Smaller padding on mobile */
+			font-size: 14px; /* Smaller font on mobile */
+		}
 	}
 
 	.button-primary,
@@ -724,6 +714,24 @@
 			transform 0.3s ease,
 			padding 0.3s ease,
 			background 0.3s ease;
+	}
+
+	/* Responsive adjustments for buttons */
+	@media screen and (max-width: 480px) {
+		.button-primary,
+		.button-secondary {
+			padding: 14px 20px;
+			font-size: 15px;
+		}
+	}
+
+	@media screen and (max-width: 375px) {
+		.button-primary,
+		.button-secondary {
+			padding: 12px 16px;
+			font-size: 14px;
+			max-width: 100%;
+		}
 	}
 
 	.button-primary {
@@ -788,7 +796,7 @@
 	.button-primary:hover::after,
 	.button-secondary:hover::before,
 	.button-secondary:hover::after {
-		opacity: 1; /* Visible on hover */
+		opacity: 1;
 	}
 
 	@keyframes rotation {
@@ -798,16 +806,23 @@
 		100% {
 			--gradient-angle: 360deg;
 		}
-	} /* Scroll indicator */
+	}
+
 	.scroll-indicator {
 		position: absolute;
-		bottom: 40px;
+		bottom: 5px;
 		left: 50%;
 		transform: translateX(-50%);
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		opacity: 0.8;
+	}
+
+	@media screen and (max-width: 1024px) {
+		.scroll-indicator {
+			display: none;
+		}
 	}
 
 	.mouse {
@@ -922,7 +937,7 @@
 		align-items: center;
 	}
 
-	.features-cards {
+	.feature-cards-grid {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		gap: 30px;
@@ -974,6 +989,60 @@
 		overflow: hidden;
 		border: 1px solid rgba(69, 133, 136, 0.2); /* Subtle border to show container */
 		border-radius: 10px;
+	}
+
+	/* Adjust height for different screen sizes */
+	@media screen and (max-width: 1024px) {
+		.skills-cloud-container {
+			height: 350px;
+		}
+	}
+
+	@media screen and (max-width: 768px) {
+		.skills-cloud-container {
+			height: 300px;
+		}
+	}
+
+	@media screen and (max-width: 480px) {
+		.skills-cloud-container {
+			height: 250px;
+		}
+	}
+
+	/* When screen width is 920px or less, switch to 4x4 grid layout */
+	@media screen and (max-width: 920px) {
+		.skills-cloud-container {
+			perspective: none;
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			grid-template-rows: repeat(4, 1fr);
+			gap: 10px;
+			height: auto;
+			padding: 20px;
+		}
+
+		.skills-cloud {
+			position: static;
+			width: 100%;
+			height: auto;
+			transform: none;
+			display: contents; /* Let children participate in the grid layout */
+		}
+
+		.skill-tag {
+			position: static;
+			transform: none !important; /* Override any JavaScript transform */
+			backface-visibility: visible;
+			display: flex;
+			justify-content: center;
+			will-change: auto;
+		}
+
+		.skill-tag a {
+			width: 100%;
+			text-align: center;
+		}
 	}
 
 	.skills-cloud {
@@ -1097,5 +1166,146 @@
 		opacity: 0.6;
 		transform: translate(-64px, 64px) scale(1.1);
 		animation: none;
+	}
+
+	.hero-graphic img.fireball-logo {
+		width: 100%;
+		height: auto;
+		max-width: 380px;
+		max-height: 380px;
+		display: block;
+		filter: drop-shadow(0 4px 24px rgba(255, 140, 0, 0.25));
+		transition: filter 0.2s;
+		position: relative;
+		z-index: 2;
+	}
+
+	.fireball-glow-container {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+	}
+
+	.fireball-glow-effect {
+		position: absolute;
+		inset: -2rem;
+		z-index: 1;
+		border-radius: 50%;
+		background: radial-gradient(
+			circle,
+			rgba(255, 140, 0, 0.8) 0%,
+			rgba(255, 69, 0, 0.6) 20%,
+			rgba(255, 165, 0, 0.4) 40%,
+			rgba(255, 215, 0, 0.2) 60%,
+			transparent 80%
+		);
+		opacity: 0;
+		animation: fireballEntranceGlow 2.5s ease-out 1s forwards;
+		filter: blur(20px);
+		pointer-events: none;
+		/* Responsive positioning - center the glow by default */
+		transform: translate(-50%, -50%) scale(1);
+		top: 50%;
+		left: 50%;
+		transition:
+			opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+			transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	@keyframes fireballEntranceGlow {
+		0% {
+			opacity: 0.8;
+			transform: translate(-50%, -50%) scale(0.8);
+		}
+		20% {
+			opacity: 1;
+			transform: translate(-50%, -50%) scale(1.1);
+		}
+		70% {
+			opacity: 0.8;
+			transform: translate(-50%, -50%) scale(1);
+		}
+		100% {
+			opacity: 0.5;
+			transform: translate(-50%, -50%) scale(1);
+		}
+	}
+
+	/* Adjust fireball positioning and size for tablet breakpoint */
+	@media screen and (min-width: 700px) and (max-width: 800px) {
+		.fireball-glow-container {
+			transform: translateY(10px); /* Move slightly down */
+		}
+
+		.fireball-glow-effect {
+			transform: translate(-50%, -50%) scale(0.9); /* Make slightly smaller */
+		}
+	}
+	.intro-text {
+		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
+		font-size: var(--h6);
+		color: var(--gruv-darkwhite);
+		margin: 0;
+		font-weight: 400;
+		opacity: 0.9;
+	}
+
+	.name {
+		width: 100%;
+		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
+		font-style: normal;
+		font-weight: 400;
+		margin: 0;
+		background: linear-gradient(
+			135deg,
+			var(--accent) 0%,
+			var(--secondary) 40%,
+			var(--gruv-red) 100%
+		);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	.tagline {
+		width: 100%;
+		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
+		font-style: normal;
+		font-weight: 400;
+		margin: 0 0 8px 0;
+		background: linear-gradient(135deg, #ff7a30 0%, var(--secondary) 50%, var(--gruv-red) 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	.typed-text {
+		width: 100%;
+		font-family: 'Nunito Sans', sans-serif;
+		font-style: italic;
+		font-weight: 300;
+		line-height: 1.4;
+		margin: 0 0 18px 0;
+		min-height: 34px;
+		color: var(--description);
+		position: relative;
+	}
+
+	.description {
+		font-family: 'Nunito Sans', sans-serif;
+		color: var(--description);
+		line-height: 1.6;
+		margin-bottom: 36px;
+		max-width: 764px;
+	}
+
+	/* For rotating gradient */
+	@property --gradient-angle {
+		syntax: '<angle>';
+		initial-value: 0deg;
+		inherits: false;
 	}
 </style>

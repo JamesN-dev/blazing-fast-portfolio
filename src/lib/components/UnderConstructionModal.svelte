@@ -54,7 +54,7 @@
 
 	.modal-content h2 {
 		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
-		font-size: 32px;
+		font-size: var(--h2);
 		color: var(--accent);
 		margin: 0 0 20px 0;
 		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -62,7 +62,7 @@
 
 	.modal-content p {
 		font-family: 'Nunito Sans', sans-serif;
-		font-size: 18px;
+		font-size: var(--p);
 		color: var(--description);
 		margin: 0 0 30px 0;
 		line-height: 1.6;
@@ -95,17 +95,12 @@
 		transform: translateY(0);
 	}
 
-	@media (max-width: 768px) {
+	/* Responsive adjustments */
+	@media screen and (max-width: 768px) {
+		/* Replaced var(--breakpoint-mobile) */
 		.modal-content {
-			padding: 30px 20px;
-		}
-
-		.modal-content h2 {
-			font-size: 24px;
-		}
-
-		.modal-content p {
-			font-size: 16px;
+			padding: var(--space-6);
+			width: 90%;
 		}
 	}
 </style>

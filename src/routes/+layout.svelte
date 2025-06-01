@@ -9,6 +9,37 @@
 	import FloatingParticles from '$lib/components/FloatingParticles.svelte';
 	import { crossfade } from 'svelte/transition';
 	import { navigating, page } from '$app/stores';
+	import { MediaQuery } from 'svelte/reactivity';
+	import { setContext } from 'svelte';
+	import { browser } from '$app/environment';
+
+	// Mobile-first responsive breakpoints - these values must match CSS custom properties
+	// JavaScript MediaQuery API requires pixel values, but they correspond to our CSS variables:
+	const isMobile = new MediaQuery('(max-width: 767.98px)'); // Mobile and below
+	const isTabletUp = new MediaQuery('(min-width: 768px)'); // Tablet and up
+	const isDesktopUp = new MediaQuery('(min-width: 1024px)'); // Desktop and up
+	const isLargeDesktopUp = new MediaQuery('(min-width: 1440px)'); // Large desktop and up
+
+	// Additional breakpoints for specific cases
+	const isTinyMobile = new MediaQuery('(max-width: 375px)'); // Tiny mobile
+	const isSmallMobile = new MediaQuery('(max-width: 480px)'); // Small mobile
+	const isTabletOnly = new MediaQuery('(min-width: 768px) and (max-width: 1023.98px)'); // Tablet only
+	const isSkillsGridBreakpoint = new MediaQuery('(max-width: 920px)'); // Special breakpoint for skills grid
+
+	// Create a responsive context that any component can use
+	const responsive = {
+		isMobile,
+		isTinyMobile,
+		isSmallMobile,
+		isTabletUp,
+		isTabletOnly,
+		isDesktopUp,
+		isLargeDesktopUp,
+		isSkillsGridBreakpoint
+	};
+
+	// Set context so child components can access breakpoints
+	setContext('responsive', responsive);
 
 	let scrollY = $state(0);
 	let { children } = $props();

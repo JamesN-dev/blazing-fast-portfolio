@@ -1,5 +1,8 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount, getContext } from 'svelte';
+
+	// Get responsive context from layout
+	const responsive = getContext('responsive');
 
 	let isMenuOpen = $state(false);
 	let scrollY = $state(0);
@@ -23,6 +26,14 @@
 			document.body.style.overflow = '';
 		}
 	}
+
+	// Auto-close mobile menu when switching to desktop
+	$effect(() => {
+		if (responsive && responsive.isTabletUp.current && isMenuOpen) {
+			isMenuOpen = false;
+			document.body.style.overflow = '';
+		}
+	});
 
 	onMount(() => {
 		const handleScroll = () => {
@@ -219,8 +230,8 @@
 		transform: translateY(-8px) rotate(-45deg);
 	}
 
-	/* Responsive styles */
-	@media (max-width: 768px) {
+	/* Responsive styles - Mobile First */
+	@media screen and (max-width: 767.98px) {
 		.nav-container {
 			position: fixed;
 			top: 0;

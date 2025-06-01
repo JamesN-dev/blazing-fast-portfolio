@@ -178,7 +178,7 @@
 
 	.contact-header h1 {
 		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
-		font-size: 48px;
+		font-size: var(--h1);
 		color: var(--color-text);
 		margin-bottom: 16px;
 	}
@@ -194,7 +194,7 @@
 	.contact-intro {
 		max-width: 600px;
 		margin: 24px auto 0;
-		font-size: 18px;
+		font-size: var(--p-size);
 		color: var(--description);
 		line-height: 1.6;
 	}
@@ -213,14 +213,14 @@
 
 	.info-item h3 {
 		font-family: 'Nunito Sans', sans-serif;
-		font-size: 24px;
+		font-size: var(--h3-size);
 		color: var(--accent);
 		margin: 0 0 16px 0;
 	}
 
 	.info-item p {
 		font-family: 'Nunito Sans', sans-serif;
-		font-size: 16px;
+		font-size: var(--p-size);
 		line-height: 1.6;
 		color: var(--description);
 		margin: 0;
@@ -357,10 +357,6 @@
 	}
 
 	@media (max-width: 768px) {
-		.contact-header h1 {
-			font-size: 36px;
-		}
-
 		.contact-content {
 			grid-template-columns: 1fr;
 		}

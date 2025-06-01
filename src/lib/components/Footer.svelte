@@ -400,7 +400,7 @@
 	}
 
 	/* Responsive styles */
-	@media (max-width: 768px) {
+	@media screen and (max-width: 767.98px) {
 		.footer-content {
 			grid-template-columns: 1fr;
 			text-align: center;

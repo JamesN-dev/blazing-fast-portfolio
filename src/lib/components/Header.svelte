@@ -27,7 +27,7 @@
 	/* Site header (navbar) */
 	.site-header {
 		position: fixed;
-		height: 86px;
+		height: var(--header-height);
 		left: 0px;
 		right: 0px;
 		top: 0px;
@@ -45,7 +45,7 @@
 	}
 
 	/* Responsive styles */
-	@media (max-width: 768px) {
+	@media screen and (max-width: 767.98px) {
 		.container {
 			padding: 13px 16px;
 		}

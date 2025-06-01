@@ -113,7 +113,7 @@
 
 	.about-header h1 {
 		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
-		font-size: 48px;
+		font-size: var(--h1);
 		color: var(--color-text);
 		margin-bottom: 16px;
 	}
@@ -133,7 +133,7 @@
 	}
 
 	.about-text p {
-		font-size: 18px;
+		font-size: var(--p-size);
 		line-height: 1.6;
 		margin-bottom: 24px;
 		color: var(--description);
@@ -141,7 +141,7 @@
 
 	.about-skills h2 {
 		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
-		font-size: 32px;
+		font-size: var(--h2);
 		color: var(--color-text);
 		margin-bottom: 24px;
 	}
@@ -168,7 +168,7 @@
 
 	.skill-category h3 {
 		font-family: 'Nunito Sans', sans-serif;
-		font-size: 20px;
+		font-size: var(--h5);
 		color: var(--accent);
 		margin-bottom: 16px;
 		border-bottom: 1px solid var(--primary);
@@ -195,30 +195,39 @@
 		color: var(--primary);
 	}
 
-	@media (min-width: 768px) {
+	/* Tablet and Desktop */
+	@media screen and (min-width: 768px) {
+		/* Replaced var(--breakpoint-tablet) */
+		.about-content {
+			flex-direction: row;
+			align-items: flex-start;
+		}
+
 		.about-text {
-			font-size: 20px;
+			order: 1;
+		}
+
+		.about-skills {
+			order: 2;
 		}
 	}
 
-	.section-tagline {
-		font-size: 18px;
-		color: #aaa;
-		margin-bottom: 32px;
-		font-style: italic;
-	}
-
-	@media (max-width: 768px) {
-		.about-container {
-			margin: 20px auto;
-		}
-
+	/* Mobile */
+	@media screen and (max-width: 768px) {
+		/* Replaced var(--breakpoint-mobile) */
 		.about-header h1 {
-			font-size: 36px;
+			font-size: var(--h2); /* Slightly smaller on mobile */
 		}
 
 		.skills-grid {
 			grid-template-columns: 1fr;
 		}
+	}
+
+	.section-tagline {
+		font-size: var(--small);
+		color: #aaa;
+		margin-bottom: 32px;
+		font-style: italic;
 	}
 </style>

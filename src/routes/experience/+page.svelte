@@ -249,9 +249,27 @@
 		background: var(--gruv-darkblue);
 	}
 
-	@media (max-width: 768px) {
-		.experience-header h1 {
-			font-size: 36px;
+	/* Responsive adjustments for smaller screens */
+	@media screen and (max-width: 768px) {
+		/* Replaced var(--breakpoint-mobile) */
+		.timeline-item {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.experience-dot {
+			left: -30px;
+			width: 20px;
+			height: 20px;
+		}
+
+		.experience-content {
+			padding: 16px;
+		}
+
+		.experience-period {
+			padding: 4px 8px;
+			font-size: 12px;
 		}
 
 		.experience-title {
@@ -262,18 +280,18 @@
 			font-size: 16px;
 		}
 
-		.timeline {
-			padding-left: 30px;
+		.experience-description {
+			font-size: 14px;
 		}
 
-		.timeline::before {
-			left: 10px;
+		.experience-skills {
+			flex-direction: column;
+			align-items: flex-start;
 		}
 
-		.experience-dot {
-			left: -30px;
-			width: 20px;
-			height: 20px;
+		.skill-tag {
+			font-size: 10px;
+			padding: 3px 8px;
 		}
 	}
 </style>

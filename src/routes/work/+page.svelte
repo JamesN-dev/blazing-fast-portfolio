@@ -266,7 +266,7 @@
 		background: var(--gruv-darkblue);
 	}
 
-	@media (max-width: 768px) {
+	@media screen and (max-width: 767.98px) {
 		.work-header h1 {
 			font-size: 36px;
 		}
