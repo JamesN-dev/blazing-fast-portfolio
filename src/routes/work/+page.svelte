@@ -152,9 +152,10 @@
 
 	.projects-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-		gap: 30px;
-		margin-top: 40px;
+		/* Enhanced RAM pattern with better responsive behavior */
+		grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
+		gap: var(--space-8);
+		margin-top: var(--space-10);
 	}
 
 	.project-card {
@@ -214,10 +215,11 @@
 	}
 
 	.project-technologies {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 8px;
-		margin-bottom: 20px;
+		/* Enhanced tech tags with RAM pattern */
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(80px, max-content));
+		gap: var(--space-2);
+		margin-bottom: var(--space-5);
 	}
 
 	.tech-tag {

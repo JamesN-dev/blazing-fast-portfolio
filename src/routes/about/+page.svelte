@@ -147,9 +147,10 @@
 	}
 
 	.skills-grid {
+		/* Enhanced RAM pattern with better responsiveness */
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-		gap: 24px;
+		grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+		gap: var(--space-6);
 	}
 
 	.skill-category {

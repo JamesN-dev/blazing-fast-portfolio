@@ -230,9 +230,11 @@
 	}
 
 	.experience-skills {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 8px;
+		/* Enhanced skills grid with RAM pattern */
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(80px, max-content));
+		gap: var(--space-2);
+		justify-content: start;
 	}
 
 	.skill-tag {

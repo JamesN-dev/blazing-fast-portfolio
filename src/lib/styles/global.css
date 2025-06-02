@@ -2,35 +2,38 @@
 
 /* Animation classes */
 .animate-fade-up {
+	opacity: 0;
 	transform: translateY(30px);
+	transition:
+		opacity 0.6s ease,
+		transform 0.6s ease;
 }
 
-.animate-fade-up.animated {
+.animate-fade-up.visible {
+	opacity: 1;
 	transform: translateY(0);
 }
 
 .animate-fade-right {
+	opacity: 0;
 	transform: translateX(-30px);
+	transition:
+		opacity 0.6s ease,
+		transform 0.6s ease;
 }
 
-.animate-fade-right.animated {
-	transform: translateX(0);
-}
-
-.animate-fade-left {
-	transform: translateX(30px);
-}
-
-.animate-fade-left.animated {
+.animate-fade-right.visible {
+	opacity: 1;
 	transform: translateX(0);
 }
 
 .animate-width-grow {
-	width: 0 !important;
+	width: 0;
+	transition: width 0.8s ease;
 }
 
-.animate-width-grow.animated {
-	width: 80px !important;
+.animate-width-grow.visible {
+	width: 100%;
 }
 
 /* Mouse trail effect */
@@ -210,158 +213,406 @@ p,
 	line-height: 1.5;
 }
 
-/* Clean, organized layout components */
+/* ============================================
+   RAM PATTERN UTILITIES (Repeat, Auto, MinMax)
+   ============================================ */
 
-/* Clean layout utilities */
-
-/* Section layouts */
-.section {
-	padding: 60px 0; /* Default for mobile */
+/* Core RAM patterns for different use cases */
+.ram-cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: var(--space-8);
 }
 
-@media screen and (min-width: 768px) {
-	.section {
-		padding: 80px 0;
+.ram-cards-small {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: var(--space-6);
+}
+
+.ram-cards-large {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+	gap: var(--space-8);
+}
+
+.ram-cards-xl {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+	gap: var(--space-10);
+}
+
+/* Project showcase grid */
+.ram-projects {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+	gap: var(--space-8);
+}
+
+/* Blog/article grid */
+.ram-articles {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: var(--space-6);
+}
+
+/* Skills/tech stack grid */
+.ram-skills {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+	gap: var(--space-4);
+}
+
+/* Feature boxes */
+.ram-features {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: var(--space-6);
+}
+
+/* Testimonials */
+.ram-testimonials {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: var(--space-8);
+}
+
+/* Team members */
+.ram-team {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: var(--space-6);
+}
+
+/* ============================================
+   MODERN LAYOUT PATTERNS
+   ============================================ */
+
+/* Holy Grail Layout */
+.layout-holy-grail {
+	display: grid;
+	grid-template: auto 1fr auto / auto 1fr auto;
+	min-height: 100vh;
+}
+
+/* Pancake Stack (Header, Main, Footer) */
+.layout-pancake-stack {
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	min-height: 100vh;
+}
+
+/* Sidebar layouts */
+.layout-sidebar-left {
+	display: grid;
+	grid-template-columns: minmax(200px, 25%) 1fr;
+	gap: var(--space-8);
+}
+
+.layout-sidebar-right {
+	display: grid;
+	grid-template-columns: 1fr minmax(200px, 25%);
+	gap: var(--space-8);
+}
+
+/* Center content with max width */
+.layout-centered {
+	display: grid;
+	place-items: center;
+	min-height: 100vh;
+}
+
+/* ============================================
+   RESPONSIVE GRID UTILITIES
+   ============================================ */
+
+/* Auto-fill vs Auto-fit examples */
+.grid-auto-fill {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: var(--space-4);
+}
+
+.grid-auto-fit {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: var(--space-4);
+}
+
+/* Responsive columns without media queries */
+.grid-responsive-2-4 {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: var(--space-6);
+}
+
+.grid-responsive-3-6 {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: var(--space-4);
+}
+
+/* ============================================
+   GRID ITEM UTILITIES
+   ============================================ */
+
+/* Spanning utilities */
+.span-2 {
+	grid-column: span 2;
+}
+.span-3 {
+	grid-column: span 3;
+}
+.span-4 {
+	grid-column: span 4;
+}
+.span-full {
+	grid-column: 1 / -1;
+}
+
+/* Featured items */
+.featured-item {
+	grid-column: span 2;
+}
+
+@media (max-width: 768px) {
+	.featured-item {
+		grid-column: span 1;
 	}
 }
 
-@media screen and (min-width: 1024px) {
-	.section {
-		padding: 100px 0;
-	}
-}
+/* ============================================
+   ENHANCED EXISTING PATTERNS
+   ============================================ */
 
-.container {
-	max-width: var(--max-width);
-	margin: 0 auto;
-	padding: 0 12px; /* Default for mobile */
-}
-
-@media screen and (min-width: 768px) {
-	.container {
-		padding: 0 16px;
-	}
-}
-
-@media screen and (min-width: 1024px) {
-	.container {
-		padding: 0 20px;
-	}
-}
-
-/* Section titles */
-.section-title {
-	font-size: var(--h3); /* Mobile size using CSS variables */
-	margin-bottom: 2rem;
-	position: relative;
-}
-
-/* Feature cards grid */
+/* Improved feature cards with RAM */
 .feature-cards-grid {
 	display: grid;
-	grid-template-columns: 1fr; /* Default for mobile */
-	gap: 2rem;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: var(--space-8);
 }
 
-@media screen and (min-width: 768px) {
-	.feature-cards-grid {
-		grid-template-columns: repeat(2, 1fr);
-	}
-}
-
-/* Stats grid */
+/* Enhanced stats grid with better breakpoints */
 .stats-grid {
 	display: grid;
-	grid-template-columns: 1fr; /* Default for mobile */
-	gap: 1.5rem;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: var(--space-6);
 }
 
-@media screen and (min-width: 768px) {
-	.stats-grid {
-		grid-template-columns: repeat(2, 1fr);
-	}
-}
+/* ============================================
+   PORTFOLIO-SPECIFIC PATTERNS
+   ============================================ */
 
-@media screen and (min-width: 1024px) {
-	.stats-grid {
-		grid-template-columns: repeat(4, 1fr);
-	}
-}
-
-/* Skills cloud container */
-.skills-cloud-container {
-	position: relative;
-	width: 100%;
-	height: 250px; /* Default for mobile */
-	overflow: hidden;
-	margin: 2rem 0;
-}
-
-@media screen and (min-width: 768px) {
-	.skills-cloud-container {
-		height: 300px;
-	}
-}
-
-@media screen and (min-width: 1024px) {
-	.skills-cloud-container {
-		height: 350px;
-	}
-}
-
-@media screen and (min-width: 1440px) {
-	.skills-cloud-container {
-		height: 400px;
-	}
-}
-
-/* Emoji icon styles */
-.emoji {
-	font-size: 40px;
-	display: inline-block;
-}
-
-/* Additional styles for features and stats sections */
-.features-content {
+/* Experience timeline grid */
+.experience-grid {
 	display: grid;
-	grid-template-columns: 1fr;
-	gap: 40px;
+	grid-template-columns: auto 1fr;
+	gap: var(--space-4);
+	align-items: start;
+}
+
+/* Contact form grid */
+.contact-form-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: var(--space-4);
+}
+
+/* Footer links grid */
+.footer-links-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	gap: var(--space-6);
+}
+
+/* ============================================
+   SPACING & ALIGNMENT UTILITIES
+   ============================================ */
+
+/* Grid gaps */
+.gap-xs {
+	gap: var(--space-2);
+}
+.gap-sm {
+	gap: var(--space-4);
+}
+.gap-md {
+	gap: var(--space-6);
+}
+.gap-lg {
+	gap: var(--space-8);
+}
+.gap-xl {
+	gap: var(--space-12);
+}
+
+/* Grid alignment */
+.items-center {
 	align-items: center;
 }
-
-.features-cards {
-	display: grid;
-	gap: 30px;
-	margin: 0 auto;
+.items-start {
+	align-items: start;
+}
+.items-end {
+	align-items: end;
+}
+.items-stretch {
+	align-items: stretch;
 }
 
-@media screen and (min-width: 768px) {
-	.features-cards {
-		grid-template-columns: 1fr;
+.justify-center {
+	justify-items: center;
+}
+.justify-start {
+	justify-items: start;
+}
+.justify-end {
+	justify-items: end;
+}
+.justify-stretch {
+	justify-items: stretch;
+}
+
+.place-center {
+	place-items: center;
+}
+.place-start {
+	place-items: start;
+}
+.place-end {
+	place-items: end;
+}
+
+/* Content alignment */
+.content-center {
+	place-content: center;
+}
+.content-start {
+	place-content: start;
+}
+.content-end {
+	place-content: end;
+}
+.content-between {
+	place-content: space-between;
+}
+.content-around {
+	place-content: space-around;
+}
+.content-evenly {
+	place-content: space-evenly;
+}
+
+/* ============================================
+   CONTAINER QUERY UTILITIES
+   ============================================ */
+
+/* Container types for different components */
+.container-type-inline {
+	container-type: inline-size;
+}
+
+.container-type-block {
+	container-type: block-size;
+}
+
+.container-type-size {
+	container-type: size;
+}
+
+/* Named containers for specific components */
+.container-hero {
+	container-name: hero;
+	container-type: inline-size;
+}
+
+.container-nav {
+	container-name: navigation;
+	container-type: inline-size;
+}
+
+.container-cards {
+	container-name: cards;
+	container-type: inline-size;
+}
+
+.container-grid {
+	container-name: grid-container;
+	container-type: inline-size;
+}
+
+/* Expanded Container Query Utilities */
+.container-responsive {
+	container-type: inline-size;
+}
+
+@container (min-width: 768px) {
+	.container-responsive .hero-content {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2rem;
+		align-items: center;
 	}
 }
 
-@media screen and (min-width: 1440px) {
-	.features-cards {
-		grid-template-columns: repeat(2, 1fr);
+@container (min-width: 1024px) {
+	.container-responsive .skills-grid {
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 	}
 }
 
-.section-header {
-	text-align: center;
-	margin-bottom: 60px;
+/* ============================================
+   CSS RANGE UTILITIES
+   ============================================ */
+
+/* Container query ranges are preferred over media queries for component-specific layouts */
+/* Example usage:
+   @container hero (600px <= width <= 795px) { ... }
+   @container navigation (width <= 600px) { ... }
+   @container cards (width >= 400px) { ... }
+*/
+
+/* CSS-only Fireball Hover Effects */
+.fireball-container {
+	position: relative;
+	display: inline-block;
+	transition: transform 0.3s ease;
 }
 
-.section-header h2 {
-	font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
-	color: var(--color-text);
-	margin-bottom: 16px;
+.fireball-container:hover {
+	transform: scale(1.05);
 }
 
-.section-intro {
-	max-width: 700px;
-	margin: 24px auto 0;
-	font-size: 18px;
-	color: var(--description);
-	line-height: 1.6;
+.fireball-container::before {
+	content: '';
+	position: absolute;
+	top: -10px;
+	left: -10px;
+	right: -10px;
+	bottom: -10px;
+	background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	pointer-events: none;
+	z-index: -1;
+}
+
+.fireball-container:hover::before {
+	opacity: 0.3;
+}
+
+/* Performance Optimized Animations */
+@media (prefers-reduced-motion: reduce) {
+	.animate-fade-up,
+	.animate-fade-right,
+	.animate-width-grow,
+	.fireball-container {
+		transition: none;
+	}
+
+	.animate-fade-up,
+	.animate-fade-right {
+		opacity: 1;
+		transform: none;
+	}
 }

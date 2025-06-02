@@ -40,14 +40,10 @@
 	.container {
 		max-width: var(--max-width);
 		margin: 0 auto;
-		padding: 13px 29px;
+		/* RAM PATTERN - Dynamic padding that never breaks */
+		padding: clamp(8px, 2vw, 13px) clamp(16px, 4vw, 29px);
 		height: 100%;
-	}
-
-	/* Responsive styles */
-	@media screen and (max-width: 767.98px) {
-		.container {
-			padding: 13px 16px;
-		}
+		display: flex;
+		align-items: center;
 	}
 </style>

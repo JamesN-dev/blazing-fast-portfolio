@@ -91,7 +91,7 @@
 
 				<div class="info-item">
 					<h3>Social</h3>
-					<div class="social-links">
+					<div class="social-links ram-cards-small">
 						<a href="https://github.com/Jamesn-dev" target="_blank" rel="noopener noreferrer"
 							>GitHub</a
 						>
@@ -166,14 +166,14 @@
 <style>
 	.contact-container {
 		width: 90%;
-		max-width: 1200px;
-		margin: 40px auto;
-		padding: 20px;
+		max-width: var(--max-width);
+		margin: var(--space-xl) auto;
+		padding: var(--space-md);
 	}
 
 	.contact-header {
 		text-align: center;
-		margin-bottom: 60px;
+		margin-bottom: var(--space-2xl);
 	}
 
 	.contact-header h1 {
@@ -200,15 +200,17 @@
 	}
 
 	.contact-content {
+		/* RAM PATTERN for responsive layout */
 		display: grid;
-		grid-template-columns: 1fr 2fr;
-		gap: 40px;
+		grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
+		gap: var(--space-xl);
+		align-items: start;
 	}
 
 	.contact-info {
 		display: flex;
 		flex-direction: column;
-		gap: 30px;
+		gap: var(--space-lg);
 	}
 
 	.info-item h3 {
@@ -237,14 +239,20 @@
 	}
 
 	.social-links {
-		display: flex;
-		gap: 16px;
+		/* Using RAM pattern for social links */
 	}
 
 	.social-links a {
 		display: inline-block;
-		padding: 8px 0;
+		padding: var(--space-xs) var(--space-sm);
 		position: relative;
+		border-radius: var(--border-radius-sm);
+		transition: all var(--transition-normal);
+	}
+
+	.social-links a:hover {
+		background: rgba(251, 189, 46, 0.1);
+		transform: translateY(-2px);
 	}
 
 	.social-links a::after {
@@ -263,10 +271,11 @@
 	}
 
 	.contact-form {
-		background: #333333;
-		border-radius: 8px;
-		padding: 30px;
-		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+		background: var(--card-bg);
+		border-radius: var(--border-radius-lg);
+		padding: var(--space-xl);
+		box-shadow: var(--shadow-lg);
+		border: 1px solid var(--border-color);
 	}
 
 	.form-group {

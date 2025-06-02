@@ -1,8 +1,5 @@
 <script>
-	import { onMount, getContext } from 'svelte';
-
-	// Get responsive context from layout
-	const responsive = getContext('responsive');
+	import { onMount } from 'svelte';
 
 	let isMenuOpen = $state(false);
 	let scrollY = $state(0);
@@ -26,14 +23,6 @@
 			document.body.style.overflow = '';
 		}
 	}
-
-	// Auto-close mobile menu when switching to desktop
-	$effect(() => {
-		if (responsive && responsive.isTabletUp.current && isMenuOpen) {
-			isMenuOpen = false;
-			document.body.style.overflow = '';
-		}
-	});
 
 	onMount(() => {
 		const handleScroll = () => {
@@ -100,6 +89,8 @@
 		isolation: isolate;
 		height: 100%;
 		width: 100%;
+		/* Ensure items never overflow */
+		min-width: 0;
 		transition:
 			background-color 0.3s ease,
 			box-shadow 0.3s ease;
@@ -122,13 +113,14 @@
 		height: 100%;
 	}
 
-	/* Navigation links */
+	/* Navigation links - RAM PATTERN RESPONSIVE TEXT! */
 	.nav-links {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
 		padding: 0;
-		gap: 39px;
+		/* Dynamic gap that shrinks on smaller screens */
+		gap: clamp(16px, 5vw, 39px);
 		height: 100%;
 		margin: 0;
 		list-style: none;
@@ -141,12 +133,15 @@
 	.nav-links a {
 		font-family: 'Nunito Sans', sans-serif;
 		font-weight: 400;
-		font-size: 19.25px;
+		/* Dynamic font size that never breaks layout */
+		font-size: clamp(14px, 4vw, 19.25px);
 		line-height: 130%;
 		color: var(--color-text);
 		text-decoration: none;
 		transition: color 0.2s ease;
 		position: relative;
+		/* Prevent text from wrapping */
+		white-space: nowrap;
 	}
 
 	.nav-links a::after {
@@ -165,24 +160,28 @@
 		width: 100%;
 	}
 
-	/* Resume button special styling */
+	/* Resume button special styling - RAM PATTERN SCALING! */
 	.resume-link a {
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
 		align-items: center;
-		padding: 10px 24px;
+		/* Dynamic padding that scales with viewport */
+		padding: clamp(6px, 2vw, 10px) clamp(12px, 4vw, 24px);
 		gap: 10px;
-		width: 103px;
-		height: 44px;
+		/* Dynamic width that never breaks */
+		width: clamp(80px, 20vw, 103px);
+		height: clamp(36px, 8vw, 44px);
 		border: 1.5px solid var(--primary);
 		border-radius: 9px;
-		font-size: 15px;
+		/* Dynamic font size */
+		font-size: clamp(12px, 3vw, 15px);
 		line-height: 160%;
 		transition:
 			background-color 0.3s ease,
 			color 0.3s ease,
 			border-color 0.3s ease;
+		white-space: nowrap;
 	}
 
 	.resume-link a:hover {
@@ -194,12 +193,13 @@
 		display: none;
 	}
 
-	/* Mobile menu toggle */
+	/* Mobile menu toggle - Only shows when absolutely necessary */
 	.menu-toggle {
 		display: none;
 		background: none;
 		border: none;
 		cursor: pointer;
+		/* Fixed sizing - no clamp on hamburger menu */
 		width: 30px;
 		height: 24px;
 		position: relative;
@@ -230,8 +230,15 @@
 		transform: translateY(-8px) rotate(-45deg);
 	}
 
-	/* Responsive styles - Mobile First */
-	@media screen and (max-width: 767.98px) {
+	/* TEAM RAMROD - Container queries for navigation responsiveness */
+	.main-nav {
+		/* Enable container queries for the nav */
+		container-type: inline-size;
+		container-name: navigation;
+	}
+
+	/* Enhanced responsive styles using container queries and ranges */
+	@container navigation (width <= 600px) {
 		.nav-container {
 			position: fixed;
 			top: 0;
@@ -249,29 +256,46 @@
 			padding: 2rem;
 		}
 
-		.nav-container.active {
-			transform: translateX(0);
+		@container navigation (width <= 600px) {
+			.nav-container.active {
+				transform: translateX(0);
+			}
+
+			.nav-links {
+				flex-direction: column;
+				gap: 2rem;
+				align-items: center;
+				height: auto;
+			}
+
+			.nav-links a {
+				/* Larger text in mobile menu */
+				font-size: clamp(20px, 5vw, 24px);
+			}
+
+			.resume-link a {
+				width: auto;
+				padding: 12px 28px;
+				font-size: clamp(18px, 4vw, 20px);
+			}
+
+			.menu-toggle {
+				display: block;
+			}
 		}
 
-		.nav-links {
-			flex-direction: column;
-			gap: 2rem;
-			align-items: center;
-			height: auto;
-		}
+		/* Extra small screens - even tighter constraints using container queries */
+		@container navigation (width <= 400px) {
+			.nav-links a {
+				/* More aggressive scaling for tiny screens */
+				font-size: clamp(12px, 3.5vw, 16px);
+			}
 
-		.nav-links a {
-			font-size: 24px;
-		}
-
-		.resume-link a {
-			width: auto;
-			padding: 12px 28px;
-			font-size: 20px;
-		}
-
-		.menu-toggle {
-			display: block;
+			.resume-link a {
+				/* Smaller resume button on tiny screens */
+				font-size: clamp(10px, 3vw, 14px);
+				padding: clamp(4px, 1.5vw, 8px) clamp(8px, 3vw, 16px);
+			}
 		}
 	}
 </style>
