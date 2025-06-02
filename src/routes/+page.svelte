@@ -733,12 +733,9 @@
 </section>
 
 <style>
-
-	
 	.hero {
-		
 		min-height: clamp(600px, 100vh, 900px);
-		padding: 8rem 2rem 2rem 2rem; 
+		padding: 8rem 2rem 2rem 2rem;
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
 		gap: clamp(1rem, 4vw, 3rem);
@@ -1152,7 +1149,7 @@
 
 	.feature-cards-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr));
 		gap: var(--space-8);
 		margin: 0 auto;
 	}
@@ -1246,39 +1243,46 @@
 			gap: 10px;
 			height: auto;
 			padding: 20px;
-			/* Center the grid content */
 			place-items: center;
 		}
 
 		.skills-cloud {
+			/* CHANGE: Remove display: contents, use grid instead */
 			position: static;
 			width: 100%;
-			height: auto;
-
+			height: 100%;
 			transform: none;
-			display: contents; /* Let children participate in the grid layout */
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			grid-template-rows: repeat(4, 1fr);
+			gap: 10px;
+			place-items: center;
 		}
 
 		.skill-tag {
-			position: static;
+			/* CHANGE: Keep position: absolute for transforms to work */
+			position: relative;
 			backface-visibility: visible;
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			will-change: auto;
-
-			/* Ensure each skill is centered in its grid cell */
-			width: 100%;
-			height: 100%;
+			width: auto;
+			height: auto;
+			min-width: auto;
+			min-height: auto;
+			/* Allow small transforms within grid cells */
+			transform-origin: center;
 		}
 
 		.skill-tag a {
-			width: auto; /* Let the text determine width */
+			width: auto;
+			height: auto;
 			text-align: center;
 			white-space: nowrap;
 			border: 1px solid rgba(255, 255, 255, 0.2);
-			/* Ensure the link fills the available space appropriately */
 			display: inline-block;
+			padding: 8px 14px;
 		}
 	}
 
