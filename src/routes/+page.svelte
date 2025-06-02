@@ -733,14 +733,13 @@
 </section>
 
 <style>
-	/* ===== KEVIN POWELL'S AUTO-FIT CSS GRID METHOD ===== */
-	/* NO 100vh/100svh - Kevin warns against these on mobile */
+
+	
 	.hero {
-		/* Use min-height instead of vh padding for better mobile behavior */
+		
 		min-height: clamp(600px, 100vh, 900px);
-		padding: 8rem 2rem 2rem 2rem; /* Padding is applied inside the max-width */
+		padding: 8rem 2rem 2rem 2rem; 
 		display: grid;
-		/* RAM method: responsive columns. This is the base for wider screens. */
 		grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
 		gap: clamp(1rem, 4vw, 3rem);
 		align-items: center;
@@ -750,9 +749,8 @@
 		width: 100%; /* Takes full width of its parent */
 		max-width: 1200px; /* But not more than 1200px */
 		margin-left: auto; /* Centers the block horizontally */
-		margin-right: auto; /* Centers the block horizontally */
+		margin-right: auto;
 
-		/* Setup for container queries based on .hero's own width */
 		container-type: inline-size;
 		container-name: hero-section;
 	}
@@ -771,7 +769,6 @@
 		min-height: 300px;
 	}
 
-	/* Typography with fluid sizing */
 	.name,
 	.tagline {
 		font-size: clamp(2rem, 4vw, 4rem);
@@ -918,8 +915,6 @@
 		opacity: 1;
 	}
 
-	/* TEAM RAMROD - Container queries with CSS ranges for better responsiveness! */
-	/* This query should apply when the .hero container itself is 795px or narrower */
 	@container hero-section (width <= 795px) {
 		.hero {
 			/* Stack vertically to a single column */
@@ -946,7 +941,6 @@
 		}
 	}
 
-	/* TEAM RAMROD - Center text and buttons between 475-800px */
 	@container hero-section (475px <= width <= 795.02px) {
 		.button-primary,
 		.button-secondary {
@@ -1157,7 +1151,6 @@
 	}
 
 	.feature-cards-grid {
-		/* Enhanced with RAM pattern utility class */
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
 		gap: var(--space-8);
@@ -1208,7 +1201,7 @@
 		perspective-origin: center center;
 		overflow: hidden;
 		border: 2px solid transparent;
-		border-radius: 16px;
+		border-radius: 10px;
 
 		border-image: linear-gradient(
 				120deg,
@@ -1283,8 +1276,6 @@
 			width: auto; /* Let the text determine width */
 			text-align: center;
 			white-space: nowrap;
-			backdrop-filter: blur(8px);
-			-webkit-backdrop-filter: blur(8px);
 			border: 1px solid rgba(255, 255, 255, 0.2);
 			/* Ensure the link fills the available space appropriately */
 			display: inline-block;
