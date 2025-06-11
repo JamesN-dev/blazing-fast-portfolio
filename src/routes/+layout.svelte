@@ -13,6 +13,7 @@
 	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
 
 	injectSpeedInsights();
+	injectAnalytics();
 
 	let scrollY = $state(0);
 	let { children } = $props();
