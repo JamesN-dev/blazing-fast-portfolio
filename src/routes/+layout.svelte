@@ -9,6 +9,10 @@
 	import { crossfade } from 'svelte/transition';
 	import { navigating, page } from '$app/stores';
 	import { browser } from '$app/environment';
+	import { injectAnalytics } from '@vercel/analytics/sveltekit';
+	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
+
+	injectSpeedInsights();
 
 	let scrollY = $state(0);
 	let { children } = $props();
