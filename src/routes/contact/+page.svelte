@@ -1,62 +1,64 @@
 <script>
 	import { onMount } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
+	import { Github, Linkedin, Mail, MapPin, Twitter } from '@lucide/svelte';
+	import { createForm } from 'felte';
+	import { validator } from '@felte/validator-yup';
+	import * as yup from 'yup';
+	import toast, { Toaster } from 'svelte-french-toast';
 
 	let visible = $state(false);
-	let name = $state('');
-	let email = $state('');
-	let message = $state('');
-	let isSubmitting = $state(false);
-	let isSubmitted = $state(false);
-	let errorMessage = $state('');
 
-	function validateEmail(email) {
-		const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		return re.test(email);
-	}
+	// Yup validation schema
+	const schema = yup.object({
+		name: yup.string().required('Please enter your name').trim(),
+		email: yup
+			.string()
+			.required('Please enter your email')
+			.email('Please enter a valid email address'),
+		message: yup.string().required('Please enter your message').trim()
+	});
 
-	function handleSubmit() {
-		// Reset error state
-		errorMessage = '';
+	let hasSubmitted = false;
 
-		// Validate form
-		if (!name.trim()) {
-			errorMessage = 'Please enter your name';
+	// Create form with Felte - no validation, just form handling
+	const { form, isSubmitting } = createForm({
+		onSubmit: (values, { form: formElement }) => {
+			// Let the browser handle the actual submission to Formspree
+			// Success toast is handled in handleFormSubmit
+		}
+	});
+
+	// Function to handle form submission attempts
+	function handleFormSubmit(event) {
+		hasSubmitted = true;
+		
+		// Get current form values
+		const formData = new FormData(event.target);
+		const name = formData.get('name')?.toString().trim() || '';
+		const email = formData.get('email')?.toString().trim() || '';
+		const message = formData.get('message')?.toString().trim() || '';
+		
+		// Check for missing fields and show toasts
+		if (!name) {
+			event.preventDefault();
+			toast.error("You forgot your name");
 			return;
 		}
-
-		if (!email.trim()) {
-			errorMessage = 'Please enter your email';
+		if (!email) {
+			event.preventDefault();
+			toast.error("You forgot your email");
 			return;
 		}
-
-		if (!validateEmail(email)) {
-			errorMessage = 'Please enter a valid email address';
+		if (!message) {
+			event.preventDefault();
+			toast.error("You forgot your message");
 			return;
 		}
-
-		if (!message.trim()) {
-			errorMessage = 'Please enter your message';
-			return;
-		}
-
-		// Simulate form submission
-		isSubmitting = true;
-
-		setTimeout(() => {
-			isSubmitting = false;
-			isSubmitted = true;
-
-			// Reset form
-			name = '';
-			email = '';
-			message = '';
-
-			// Reset submission state after 3 seconds
-			setTimeout(() => {
-				isSubmitted = false;
-			}, 3000);
-		}, 1500);
+		
+		// If we get here, all fields are filled
+		// Show success toast immediately since validation passed
+		toast.success("Message sent! Check your email for confirmation.");
 	}
 
 	onMount(() => {
@@ -80,45 +82,53 @@
 		<div class="contact-content" transition:fly={{ delay: 300, duration: 600, y: 30 }}>
 			<div class="contact-info">
 				<div class="info-item">
-					<h3>Email</h3>
-					<p><a href="mailto:james@blazingfast.app">james@blazingfast.app</a></p>
+					<div class="info-header">
+						<Mail size={20} />
+						<h3>Email</h3>
+					</div>
+					<p><a href="mailto:james@jamesn.design">james@jamesn.design</a></p>
 				</div>
 
 				<div class="info-item">
-					<h3>Location</h3>
+					<div class="info-header">
+						<MapPin size={20} />
+						<h3>Location</h3>
+					</div>
 					<p>Central/Southern Illinois, USA</p>
 				</div>
 
 				<div class="info-item">
-					<h3>Social</h3>
-					<div class="social-links ram-cards-small">
-						<a href="https://github.com/Jamesn-dev" target="_blank" rel="noopener noreferrer"
-							>GitHub</a
-						>
-						<a
-							href="https://linkedin.com/in/james-niemerg"
-							target="_blank"
-							rel="noopener noreferrer">LinkedIn</a
-						>
+					<div class="info-header">
+						<Github size={20} />
+						<h3>Social</h3>
+					</div>
+					<div class="social-links">
+						<a href="https://github.com/Jamesn-dev" target="_blank" rel="noopener noreferrer" class="social-link">
+							<Github size={20} />
+							<span>GitHub</span>
+						</a>
+						<a href="https://linkedin.com/in/james-niemerg" target="_blank" rel="noopener noreferrer" class="social-link">
+							<Linkedin size={20} />
+							<span>LinkedIn</span>
+						</a>
+						<a href="https://twitter.com/yourhandle" target="_blank" rel="noopener noreferrer" class="social-link">
+							<Twitter size={20} />
+							<span>Twitter</span>
+						</a>
 					</div>
 				</div>
 			</div>
 
 			<div class="contact-form">
-				<form
-					onsubmit={(e) => {
-						e.preventDefault();
-						handleSubmit();
-					}}
-				>
+				<form use:form action="https://formspree.io/f/mqabbzdq" method="POST" on:submit={handleFormSubmit}>
 					<div class="form-group">
 						<label for="name">Name</label>
 						<input
 							type="text"
 							id="name"
+							name="name"
 							placeholder="Your name"
-							bind:value={name}
-							disabled={isSubmitting}
+							disabled={$isSubmitting}
 						/>
 					</div>
 
@@ -127,9 +137,9 @@
 						<input
 							type="email"
 							id="email"
+							name="email"
 							placeholder="Your email"
-							bind:value={email}
-							disabled={isSubmitting}
+							disabled={$isSubmitting}
 						/>
 					</div>
 
@@ -137,25 +147,15 @@
 						<label for="message">Message</label>
 						<textarea
 							id="message"
+							name="message"
 							placeholder="What would you like to discuss?"
 							rows="6"
-							bind:value={message}
-							disabled={isSubmitting}
+							disabled={$isSubmitting}
 						></textarea>
 					</div>
 
-					{#if errorMessage}
-						<div class="error-message">
-							{errorMessage}
-						</div>
-					{/if}
-
-					{#if isSubmitted}
-						<div class="success-message">Message sent successfully! I'll get back to you soon.</div>
-					{/if}
-
-					<button type="submit" class="submit-button" disabled={isSubmitting}>
-						{isSubmitting ? 'Sending...' : 'Send Message'}
+					<button type="submit" class="submit-button" disabled={$isSubmitting}>
+						{$isSubmitting ? 'Sending...' : 'Send Message'}
 					</button>
 				</form>
 			</div>
@@ -163,17 +163,40 @@
 	{/if}
 </div>
 
+<!-- Toast notifications -->
+<Toaster 
+	containerClass="toast-container"
+	toastOptions={{
+		duration: 4000,
+		className: 'toast-base',
+		success: {
+			className: 'toast-success',
+			iconTheme: {
+				primary: '#fbbd2f',
+				secondary: '#458588'
+			}
+		},
+		error: {
+			className: 'toast-error',
+			iconTheme: {
+				primary: '#fbf1c7',
+				secondary: '#cc241d'
+			}
+		}
+	}}
+/>
+
 <style>
 	.contact-container {
 		width: 90%;
 		max-width: var(--max-width);
-		margin: var(--space-xl) auto;
-		padding: var(--space-md);
+		margin: 0 auto;
+		padding: calc(var(--header-height) + 2rem) var(--space-6) var(--space-8);
 	}
 
 	.contact-header {
 		text-align: center;
-		margin-bottom: var(--space-2xl);
+		margin-bottom: var(--space-16);
 	}
 
 	.contact-header h1 {
@@ -203,26 +226,46 @@
 		/* RAM PATTERN for responsive layout */
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
-		gap: var(--space-xl);
+		gap: var(--space-8);
 		align-items: start;
+		container-type: inline-size;
+	}
+
+	/* Mobile: Form first, then contact info */
+	@container (max-width: 750px) {
+		.contact-form {
+			order: 1;
+		}
+		
+		.contact-info {
+			order: 2;
+		}
 	}
 
 	.contact-info {
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-lg);
+		gap: var(--space-8);
+		padding: var(--space-4);
 	}
 
-	.info-item h3 {
+	.info-header {
+		display: flex;
+		align-items: center;
+		gap: var(--space-3);
+		margin-bottom: var(--space-4);
+	}
+
+	.info-header h3 {
 		font-family: 'Nunito Sans', sans-serif;
-		font-size: var(--h3-size);
+		font-size: var(--h5);
 		color: var(--accent);
-		margin: 0 0 16px 0;
+		margin: 0;
 	}
 
 	.info-item p {
 		font-family: 'Nunito Sans', sans-serif;
-		font-size: var(--p-size);
+		font-size: var(--p);
 		line-height: 1.6;
 		color: var(--description);
 		margin: 0;
@@ -239,47 +282,55 @@
 	}
 
 	.social-links {
-		/* Using RAM pattern for social links */
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-3);
+		align-items: flex-start;
 	}
 
-	.social-links a {
-		display: inline-block;
-		padding: var(--space-xs) var(--space-sm);
-		position: relative;
+	.social-link {
+		display: flex;
+		align-items: center;
+		gap: var(--space-3);
+		padding: var(--space-3) var(--space-4);
+		background: rgba(69, 133, 136, 0.1);
+		border: 1px solid var(--primary);
 		border-radius: var(--border-radius-sm);
+		color: var(--description) !important;
+		text-decoration: none;
 		transition: all var(--transition-normal);
+		font-size: 16px;
+		font-weight: 500;
+		width: 130px;
 	}
 
-	.social-links a:hover {
+	.social-link:hover {
 		background: rgba(251, 189, 46, 0.1);
+		border-color: var(--accent);
+		color: var(--color-text) !important;
 		transform: translateY(-2px);
 	}
 
-	.social-links a::after {
-		content: '';
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		width: 0;
-		height: 2px;
-		background-color: var(--accent);
-		transition: width 0.3s ease;
+	.social-link span {
+		font-family: 'Nunito Sans', sans-serif;
 	}
 
-	.social-links a:hover::after {
-		width: 100%;
+	.social-link :global(svg) {
+		flex-shrink: 0;
+		width: 20px;
+		height: 20px;
 	}
 
 	.contact-form {
-		background: var(--card-bg);
+		background: #333333;
 		border-radius: var(--border-radius-lg);
-		padding: var(--space-xl);
+		padding: var(--space-8);
 		box-shadow: var(--shadow-lg);
-		border: 1px solid var(--border-color);
+		border: 1px solid var(--primary);
 	}
 
 	.form-group {
-		margin-bottom: 20px;
+		margin-bottom: var(--space-6);
 	}
 
 	.form-group label {
@@ -287,7 +338,7 @@
 		font-family: 'Nunito Sans', sans-serif;
 		font-size: 16px;
 		color: var(--color-text);
-		margin-bottom: 8px;
+		margin-bottom: var(--space-3);
 	}
 
 	.form-group input,
@@ -332,7 +383,7 @@
 		transition:
 			background 0.3s ease,
 			transform 0.3s ease;
-		margin-top: 24px;
+		margin-top: var(--space-6);
 	}
 
 	.submit-button:hover:not(:disabled) {
@@ -345,38 +396,47 @@
 		cursor: not-allowed;
 	}
 
-	.error-message {
-		background: rgba(205, 36, 30, 0.1);
-		border-left: 3px solid var(--gruv-red);
-		padding: 12px 16px;
+	.field-error {
 		font-family: 'Nunito Sans', sans-serif;
 		font-size: 14px;
 		color: var(--gruv-red);
-		margin-bottom: 20px;
+		margin-top: var(--space-2);
+		padding-left: var(--space-1);
 	}
 
-	.success-message {
-		background: rgba(69, 133, 136, 0.1);
-		border-left: 3px solid var(--primary);
-		padding: 12px 16px;
+	:global(.toast-container) {
+		position: fixed;
+		top: calc(var(--header-height) + 1rem);
+		right: 1rem;
+		z-index: 9999;
+	}
+
+	:global(.toast-base) {
+		background: rgba(40, 40, 40, 0.4);
+		color: #fbf1c7;
+		border-radius: 8px;
+		backdrop-filter: blur(12px);
+		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+		border: 1px solid rgba(69, 133, 136, 0.3);
 		font-family: 'Nunito Sans', sans-serif;
-		font-size: 14px;
-		color: var(--accent);
-		margin-bottom: 20px;
+		min-width: 280px;
+		padding: 12px 16px;
 	}
 
-	@media (max-width: 768px) {
-		.contact-content {
-			grid-template-columns: 1fr;
-		}
-
-		.contact-info {
-			order: 2;
-		}
-
-		.contact-form {
-			order: 1;
-			margin-bottom: 40px;
-		}
+	:global(.toast-success) {
+		background: rgba(69, 133, 136, 0.4);
+		border: 1px solid var(--primary);
+		color: #fbf1c7;
+		min-width: 280px;
+		padding: 12px 16px;
 	}
+
+	:global(.toast-error) {
+		background: rgba(204, 36, 29, 0.4);
+		border: 1px solid var(--gruv-red);
+		color: #fbf1c7;
+		min-width: 280px;
+		padding: 12px 16px;
+	}
+
 </style>
