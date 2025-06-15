@@ -5,7 +5,7 @@
 	import { createForm } from 'felte';
 	import { validator } from '@felte/validator-yup';
 	import * as yup from 'yup';
-	import toast, { Toaster } from 'svelte-french-toast';
+	import { toast, Toaster } from 'svelte-sonner';
 
 	let visible = $state(false);
 
@@ -165,23 +165,25 @@
 
 <!-- Toast notifications -->
 <Toaster 
-	containerClass="toast-container"
+	theme="dark"
+	position="top-right"
+	offset="calc(var(--header-height) + 1rem)"
+	duration={4000}
 	toastOptions={{
-		duration: 4000,
-		className: 'toast-base',
-		success: {
-			className: 'toast-success',
-			iconTheme: {
-				primary: '#fbbd2f',
-				secondary: '#458588'
-			}
-		},
-		error: {
-			className: 'toast-error',
-			iconTheme: {
-				primary: '#fbf1c7',
-				secondary: '#cc241d'
-			}
+		style: `
+			background: rgba(40, 40, 40, 0.4);
+			color: #fbf1c7;
+			border-radius: 8px;
+			backdrop-filter: blur(12px);
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+			border: 1px solid rgba(69, 133, 136, 0.3);
+			font-family: 'Nunito Sans', sans-serif;
+			min-width: 280px;
+			padding: 12px 16px;
+		`,
+		classes: {
+			success: 'toast-success-custom',
+			error: 'toast-error-custom'
 		}
 	}}
 />
@@ -404,39 +406,16 @@
 		padding-left: var(--space-1);
 	}
 
-	:global(.toast-container) {
-		position: fixed;
-		top: calc(var(--header-height) + 1rem);
-		right: 1rem;
-		z-index: 9999;
+	:global(.toast-success-custom) {
+		background: rgba(69, 133, 136, 0.4) !important;
+		border: 1px solid var(--primary) !important;
+		color: #fbf1c7 !important;
 	}
 
-	:global(.toast-base) {
-		background: rgba(40, 40, 40, 0.4);
-		color: #fbf1c7;
-		border-radius: 8px;
-		backdrop-filter: blur(12px);
-		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-		border: 1px solid rgba(69, 133, 136, 0.3);
-		font-family: 'Nunito Sans', sans-serif;
-		min-width: 280px;
-		padding: 12px 16px;
-	}
-
-	:global(.toast-success) {
-		background: rgba(69, 133, 136, 0.4);
-		border: 1px solid var(--primary);
-		color: #fbf1c7;
-		min-width: 280px;
-		padding: 12px 16px;
-	}
-
-	:global(.toast-error) {
-		background: rgba(204, 36, 29, 0.4);
-		border: 1px solid var(--gruv-red);
-		color: #fbf1c7;
-		min-width: 280px;
-		padding: 12px 16px;
+	:global(.toast-error-custom) {
+		background: rgba(204, 36, 29, 0.4) !important;
+		border: 1px solid var(--gruv-red) !important;
+		color: #fbf1c7 !important;
 	}
 
 </style>
