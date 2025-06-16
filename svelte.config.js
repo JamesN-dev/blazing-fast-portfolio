@@ -1,5 +1,3 @@
-```javascript
-import { vitePreprocess } from '@sveltejs/kit/vite';
 import adapter from '@sveltejs/adapter-auto';
 import { mdsvex } from 'mdsvex';
 import remarkGfm from 'remark-gfm';
@@ -8,7 +6,7 @@ import remarkMath from 'remark-math';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeKatex from 'rehype-katex';
-import { getHighlighter } from 'shiki'; // Using getHighlighter as per previous successful step
+const { getHighlighter } = await import('shiki');
 import remarkWikiLink from 'remark-wiki-link';
 import rehypeCodeTitles from 'rehype-code-titles';
 import remarkReadingTime from 'remark-reading-time';
@@ -54,7 +52,6 @@ const mdsvexOptions = {
 const config = {
   extensions: ['.svelte', '.md', '.svx'],
   preprocess: [
-    vitePreprocess(),
     mdsvex(mdsvexOptions)
   ],
   kit: {
@@ -63,4 +60,4 @@ const config = {
 };
 
 export default config;
-```
+
