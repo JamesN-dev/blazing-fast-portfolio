@@ -912,12 +912,20 @@
 		opacity: 1;
 	}
 
+	/* Add more left padding when window gets narrow */
+	@container hero-section (600px <= width <= 900px) {
+		.hero {
+			padding-left: 3rem;
+		}
+	}
+
 	@container hero-section (width <= 795px) {
 		.hero {
 			/* Stack vertically to a single column */
 			grid-template-columns: 1fr;
 			gap: 2rem;
 			text-align: center;
+			padding-left: 2rem; /* Reset to normal when stacked */
 		}
 
 		.cta-buttons {

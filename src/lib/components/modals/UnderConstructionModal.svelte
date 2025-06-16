@@ -4,9 +4,9 @@
 	// Props with defaults
 	let {
 		show = $bindable(true),
-		title = '🚧 Under Construction 🚧',
+		title = '🚧 Coming Soon! 🚧',
 		message = "This page isn't done yet. Check back soon!",
-		buttonText = 'OK, whatever',
+		buttonText = "C'mon, bro, ship faster!",
 		icon = '🚧',
 		customClass = ''
 	} = $props();
@@ -53,23 +53,23 @@
 	}
 
 	.modal-content h2 {
-		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
-		font-size: var(--h2);
+		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans Variable', sans-serif;
+		font-size: 32px;
 		color: var(--accent);
 		margin: 0 0 20px 0;
 		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 	}
 
 	.modal-content p {
-		font-family: 'Nunito Sans', sans-serif;
-		font-size: var(--p);
+		font-family: 'Nunito Sans Variable', sans-serif;
+		font-size: 18px;
 		color: var(--description);
 		margin: 0 0 30px 0;
 		line-height: 1.6;
 	}
 
 	.modal-content button {
-		font-family: 'Nunito Sans', sans-serif;
+		font-family: 'Nunito Sans Variable', sans-serif;
 		font-size: 16px;
 		font-weight: 600;
 		color: var(--color-text);
@@ -95,12 +95,17 @@
 		transform: translateY(0);
 	}
 
-	/* Responsive adjustments */
-	@media screen and (max-width: 768px) {
-		/* Replaced var(--breakpoint-mobile) */
+	@media (max-width: 768px) {
 		.modal-content {
-			padding: var(--space-6);
-			width: 90%;
+			padding: 30px 20px;
+		}
+
+		.modal-content h2 {
+			font-size: 24px;
+		}
+
+		.modal-content p {
+			font-size: 16px;
 		}
 	}
 </style>

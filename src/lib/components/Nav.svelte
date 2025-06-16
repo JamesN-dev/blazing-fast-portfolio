@@ -29,6 +29,7 @@
 			scrollY = window.scrollY;
 		};
 
+
 		window.addEventListener('scroll', handleScroll);
 
 		return () => {
@@ -112,6 +113,7 @@
 	.nav-container {
 		height: 100%;
 	}
+
 
 	/* Navigation links - RAM PATTERN RESPONSIVE TEXT! */
 	.nav-links {
@@ -247,7 +249,7 @@
 			height: 100vh;
 			background-color: rgba(40, 40, 40, 0.95);
 			transform: translateX(100%);
-			transition: transform 0.3s ease;
+			transition: none;
 			z-index: 90;
 			display: flex;
 			flex-direction: column;
@@ -259,6 +261,7 @@
 		@container navigation (width <= 600px) {
 			.nav-container.active {
 				transform: translateX(0);
+				transition: transform 0.3s ease;
 			}
 
 			.nav-links {

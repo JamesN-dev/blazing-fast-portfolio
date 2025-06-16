@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { fade, fly, scale } from 'svelte/transition';
-	import UnderConstructionModal from '$lib/components/UnderConstructionModal.svelte';
+	import UnderConstructionModal from '$lib/components/modals/UnderConstructionModal.svelte';
 
 	let showModal = $state(true);
 	let visible = $state(false);
@@ -56,14 +56,10 @@
 <div class="work-container">
 	<UnderConstructionModal
 		bind:show={showModal}
-		title="Coming Soon!"
-		message="This feature is being worked on. Stay tuned!"
-		buttonText="C'mon bro, ship faster!"
-		icon="🎯"
 	/>
 
 	{#if visible}
-		<div class="work-header" transition:fade={{ duration: 500 }}>
+		<div class="work-header" transition:fade={{ duration: showModal ? 0 : 500 }}>
 			<h1>My Work</h1>
 			<div class="underline"></div>
 			<p class="work-intro">
@@ -76,8 +72,8 @@
 				<div
 					class="project-card"
 					transition:fly={{
-						delay: 300 + i * 150,
-						duration: 600,
+						delay: showModal ? 0 : 300 + i * 150,
+						duration: showModal ? 0 : 600,
 						y: 30
 					}}
 				>

@@ -2,64 +2,37 @@
 	import { onMount } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
 	import { Github, Linkedin, Mail, MapPin, Twitter } from '@lucide/svelte';
-	import { createForm } from 'felte';
-	import { validator } from '@felte/validator-yup';
-	import * as yup from 'yup';
 	import { toast, Toaster } from 'svelte-sonner';
+	import { enhance } from '$app/forms';
+
+	/** @type {import('./$types').PageProps} */
+	let { data, form } = $props();
 
 	let visible = $state(false);
 
-	// Yup validation schema
-	const schema = yup.object({
-		name: yup.string().required('Please enter your name').trim(),
-		email: yup
-			.string()
-			.required('Please enter your email')
-			.email('Please enter a valid email address'),
-		message: yup.string().required('Please enter your message').trim()
+	let isSubmitting = $state(false);
+
+	// Handle form validation errors and success
+	$effect(() => {
+		if (form?.missing) {
+			const field = form.missing;
+			if (field === 'name') toast.error("You forgot your name");
+			else if (field === 'email') toast.error("You forgot your email");
+			else if (field === 'message') toast.error("You forgot your message");
+		}
+		
+		if (form?.invalid === 'email') {
+			toast.error("Please enter a valid email address");
+		}
+		
+		if (form?.success) {
+			toast.success("Message sent! Thanks for reaching out.");
+		}
+		
+		if (form?.error) {
+			toast.error("Failed to send message. Please try again.");
+		}
 	});
-
-	let hasSubmitted = false;
-
-	// Create form with Felte - no validation, just form handling
-	const { form, isSubmitting } = createForm({
-		onSubmit: (values, { form: formElement }) => {
-			// Let the browser handle the actual submission to Formspree
-			// Success toast is handled in handleFormSubmit
-		}
-	});
-
-	// Function to handle form submission attempts
-	function handleFormSubmit(event) {
-		hasSubmitted = true;
-		
-		// Get current form values
-		const formData = new FormData(event.target);
-		const name = formData.get('name')?.toString().trim() || '';
-		const email = formData.get('email')?.toString().trim() || '';
-		const message = formData.get('message')?.toString().trim() || '';
-		
-		// Check for missing fields and show toasts
-		if (!name) {
-			event.preventDefault();
-			toast.error("You forgot your name");
-			return;
-		}
-		if (!email) {
-			event.preventDefault();
-			toast.error("You forgot your email");
-			return;
-		}
-		if (!message) {
-			event.preventDefault();
-			toast.error("You forgot your message");
-			return;
-		}
-		
-		// If we get here, all fields are filled
-		// Show success toast immediately since validation passed
-		toast.success("Message sent! Check your email for confirmation.");
-	}
 
 	onMount(() => {
 		// Small delay before showing animations
@@ -81,14 +54,6 @@
 
 		<div class="contact-content" transition:fly={{ delay: 300, duration: 600, y: 30 }}>
 			<div class="contact-info">
-				<div class="info-item">
-					<div class="info-header">
-						<Mail size={20} />
-						<h3>Email</h3>
-					</div>
-					<p><a href="mailto:james@jamesn.design">james@jamesn.design</a></p>
-				</div>
-
 				<div class="info-item">
 					<div class="info-header">
 						<MapPin size={20} />
@@ -120,7 +85,13 @@
 			</div>
 
 			<div class="contact-form">
-				<form use:form action="https://formspree.io/f/mqabbzdq" method="POST" on:submit={handleFormSubmit}>
+				<form method="POST" use:enhance={() => {
+					isSubmitting = true;
+					return async ({ update }) => {
+						isSubmitting = false;
+						await update();
+					};
+				}}>
 					<div class="form-group">
 						<label for="name">Name</label>
 						<input
@@ -128,7 +99,8 @@
 							id="name"
 							name="name"
 							placeholder="Your name"
-							disabled={$isSubmitting}
+							value={form?.name ?? ''}
+							disabled={isSubmitting}
 						/>
 					</div>
 
@@ -139,7 +111,8 @@
 							id="email"
 							name="email"
 							placeholder="Your email"
-							disabled={$isSubmitting}
+							value={form?.email ?? ''}
+							disabled={isSubmitting}
 						/>
 					</div>
 
@@ -150,12 +123,12 @@
 							name="message"
 							placeholder="What would you like to discuss?"
 							rows="6"
-							disabled={$isSubmitting}
-						></textarea>
+							disabled={isSubmitting}
+						>{form?.message ?? ''}</textarea>
 					</div>
 
-					<button type="submit" class="submit-button" disabled={$isSubmitting}>
-						{$isSubmitting ? 'Sending...' : 'Send Message'}
+					<button type="submit" class="submit-button" disabled={isSubmitting}>
+						{isSubmitting ? 'Sending...' : 'Send Message'}
 					</button>
 				</form>
 			</div>
@@ -178,7 +151,7 @@
 			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 			border: 1px solid rgba(69, 133, 136, 0.3);
 			font-family: 'Nunito Sans', sans-serif;
-			min-width: 280px;
+			min-width: 250px;
 			padding: 12px 16px;
 		`,
 		classes: {
@@ -225,16 +198,25 @@
 	}
 
 	.contact-content {
-		/* RAM PATTERN for responsive layout */
+		/* RAM PATTERN for responsive layout - 50/50 split on desktop, stack on mobile */
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr));
 		gap: var(--space-8);
 		align-items: start;
 		container-type: inline-size;
 	}
 
-	/* Mobile: Form first, then contact info */
-	@container (max-width: 750px) {
+	/* Desktop: Contact info left, form right */
+	.contact-info {
+		order: 1;
+	}
+	
+	.contact-form {
+		order: 2;
+	}
+
+	/* Mobile: Form on top, contact info below */
+	@media (max-width: 800px) {
 		.contact-form {
 			order: 1;
 		}
@@ -249,6 +231,10 @@
 		flex-direction: column;
 		gap: var(--space-8);
 		padding: var(--space-4);
+		justify-content: center;
+		align-items: flex-start;
+		max-width: 300px;
+		margin: 0 auto;
 	}
 
 	.info-header {
