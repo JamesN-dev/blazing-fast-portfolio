@@ -62,6 +62,14 @@
 	--gruv-darkorange: rgba(161, 59, 30, 1);
 	--gruv-blue-linear: rgba(0, 0, 0, 0); /* Transparent */
 
+	/* RGB versions for Callout component transparency */
+	--rgb-primary: 69, 133, 136; /* from --gruv-blue */
+	--rgb-blue: 69, 133, 136; /* from --gruv-blue */
+	--rgb-yellow: 251, 189, 46; /* from --gruv-yellow */
+	--rgb-red: 205, 36, 30; /* from --gruv-red */
+	--rgb-green: 74, 159, 101; /* A generic green, as no --gruv-green exists */
+	--rgb-orange: 234, 115, 47; /* from --gruv-orange */
+
 	/* Mobile-first responsive text sizes */
 	/* Base (mobile) sizes */
 	--h1: 2.5rem; /* 40px */
