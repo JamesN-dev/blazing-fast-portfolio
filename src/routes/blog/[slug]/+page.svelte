@@ -1,6 +1,6 @@
 <script lang="ts">
 	import BlogPostLayout from '$lib/components/blog/BlogPostLayout.svelte';
-	// import { page } from '$app/stores'; // For page store, if needed for other things
+	import { page } from '$app/state'; // For page store, if needed for other things
 
 	// Data from the load function in +page.server.js
 	let { data } = $props();

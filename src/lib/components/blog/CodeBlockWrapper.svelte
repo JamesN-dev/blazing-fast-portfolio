@@ -1,30 +1,40 @@
 <script lang="ts">
 	import { tick } from 'svelte';
 
-	let { lang = 'text', title = '', code = '' } = $props();
+	// Explicitly get children snippet from props
+	let { lang = 'text', title = '', code = '', children } = $props();
 
 	let copyText = $state('Copy');
-	let codeElement = $state(null);
+	let codeElement = $state(null); // To bind to the div containing the code
 	let showTooltip = $state(false);
 
 	async function copyCode() {
 		if (!codeElement) return;
 
+		// Attempt to get text from the rendered children first (Shiki output)
+		// This relies on the rendered children having a <pre><code> structure or just <pre>
 		let codeToCopy = '';
-		if (codeElement.querySelector('pre > code')) {
-			// If Shiki output with pre > code structure
-			codeToCopy = codeElement.querySelector('pre > code').innerText;
-		} else if (codeElement.querySelector('pre')) {
-			// If Shiki output is just pre
-			codeToCopy = codeElement.querySelector('pre').innerText;
+		const preElement = codeElement.querySelector('pre');
+		if (preElement) {
+			codeToCopy = preElement.innerText;
 		} else {
-			// Fallback for plain text or unexpected structure
+			// Fallback if no <pre> found (e.g. if children rendered something else)
+			// Or if the 'code' prop is used directly
 			codeToCopy = codeElement.innerText;
 		}
 
-		// If code prop was passed directly (e.g. for non-MDsveX usage)
-		if (!codeToCopy && code) {
+		// If codeToCopy is still empty and 'code' prop was given, use that.
+		// This handles the case where children snippet is empty/not what we expect, but code prop is there.
+		if (!codeToCopy.trim() && code) {
 			codeToCopy = code;
+		}
+
+
+		if (!codeToCopy.trim()) {
+			copyText = 'Nothing to copy';
+			showTooltip = true;
+			setTimeout(() => { showTooltip = false; copyText = 'Copy'; }, 2000);
+			return;
 		}
 
 		try {
@@ -42,9 +52,6 @@
 			}, 2000);
 		}
 	}
-
-	// This allows MDsveX to slot its highlighted HTML output here
-	// The `code` prop is a fallback if not used with MDsveX's slot
 </script>
 
 <div class="code-block-wrapper bg-gray-800 dark:bg-black rounded-lg my-6 overflow-hidden shadow-lg">
@@ -60,7 +67,7 @@
 					{copyText}
 				</button>
 				{#if showTooltip}
-					<div class="tooltip absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-black text-white text-xs rounded-md shadow-lg whitespace-nowrap">
+					<div class="tooltip absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-black text-white text-xs rounded-md shadow-lg whitespace-nowrap z-10">
 						{copyText}
 					</div>
 				{/if}
@@ -68,13 +75,14 @@
 		</div>
 	{/if}
 	<div class="code-content p-4" bind:this={codeElement}>
-		{#if $$slots.default}
-			<!-- MDsveX highlighted HTML will be slotted here -->
-			{#snippet children()}{/snippet}
+		{#if children}
 			{@render children()}
 		{:else if code}
-			<!-- Fallback to render raw code if no slot content and code prop exists -->
+			<!-- Fallback to render raw code if no children snippet and code prop exists -->
 			<pre class="language-{lang}"><code>{@html code}</code></pre>
+		{:else}
+			<!-- Optional: placeholder if neither is available. Shiki should fill via children. -->
+			<pre class="language-{lang}"><code>{''}</code></pre>
 		{/if}
 	</div>
 </div>

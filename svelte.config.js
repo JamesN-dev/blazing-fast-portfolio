@@ -6,7 +6,7 @@ import remarkMath from 'remark-math';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeKatex from 'rehype-katex';
-const { getHighlighter } = await import('shiki');
+const { createHighlighter } = await import('shiki');
 import remarkWikiLink from 'remark-wiki-link';
 import rehypeCodeTitles from 'rehype-code-titles';
 import remarkReadingTime from 'remark-reading-time';
@@ -34,7 +34,7 @@ const mdsvexOptions = {
   ],
   highlight: {
     highlighter: async (code, lang) => {
-      const highlighter = await getHighlighter({
+      const highlighter = await createHighlighter({
         themes: ['github-dark'],
         langs: ['javascript', 'typescript', 'css', 'yaml', 'svelte', 'bash', 'shell', 'json', 'markdown']
       });

@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { basename }_from_app_modules_import_meta_glob_src_lib_posts_md_
+import { basename } from 'path';
 // Dynamically import all .md files from the posts directory
 // The `eager: true` option ensures that the modules are imported immediately,
 // and their content is available synchronously.
