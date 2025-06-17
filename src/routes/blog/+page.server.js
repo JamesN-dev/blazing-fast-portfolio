@@ -77,7 +77,7 @@ export async function load() {
 	return {
 		posts,
 		meta: {
-			title: 'Blog | My Portfolio',
+			title: 'Blog',
 			description: 'Read the latest articles and updates on web development, Svelte, and more.'
 		}
 	};

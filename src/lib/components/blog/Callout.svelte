@@ -1,5 +1,5 @@
 <script lang="ts">
-	let { type = 'info', title = '', icon = '' } = $props();
+	let { type = 'info', title = '', icon = '', children } = $props();
 
 	const typeClasses = {
 		info: {
@@ -38,9 +38,6 @@
 				<p class="font-bold text-lg mb-1">{title}</p>
 			{/if}
 			<div class="prose dark:prose-invert max-w-none">
-				{#snippet children()}
-					<!-- Content goes here -->
-				{/snippet}
 				{@render children()}
 			</div>
 		</div>

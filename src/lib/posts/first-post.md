@@ -30,6 +30,30 @@ We are leveraging some fantastic tools here:
   A host of `remark` and `rehype` plugins are also working behind the scenes to make features like table of contents, slugged headings, and GFM tables possible.
 </Callout>
 
+<div class="feature-box">
+  <h3>🚀 Cool New Features</h3>
+  <p>This blog showcases some sick modern styling:</p>
+  <ul>
+    <li>Gradient headings with cyan highlights</li>
+    <li>Glassmorphism effects and backdrop blur</li>
+    <li>Hover animations that actually feel good</li>
+    <li>Tech badges like the homepage</li>
+  </ul>
+</div>
+
+### Tech Stack Badges
+
+<span class="tech-badge">SvelteKit</span>
+<span class="tech-badge">MDsveX</span>
+<span class="tech-badge">TypeScript</span>
+<span class="tech-badge">Shiki</span>
+<span class="tech-badge">KaTeX</span>
+<span class="tech-badge">CSS Grid</span>
+
+<div class="info-panel success">
+  <strong>Pro Tip:</strong> All these badges are interactive and match the homepage design!
+</div>
+
 ## Markdown Features Test
 
 Let's try out a few things.
@@ -40,44 +64,39 @@ Here's a simple JavaScript snippet that should be highlighted by Shiki:
 
 ```javascript title="Example: console.log"
 function greet(name) {
-  console.log(`Hello, ${name}! Welcome to the MDsveX world.`);
+	console.log('Hello, ' + name + '! Welcome to the MDsveX world.');
 }
 
 greet('Developer');
-And a Svelte component example:
-
-<script>
-  let count = $state(0);
-</script>
-
-<button on:click={() => count++}>
-  Clicked: {count}
-</button>
-
-<style>
-  button {
-    background-color: var(--primary);
-    color: white;
-    padding: 0.5em 1em;
-    border-radius: 5px;
-  }
-</style>
 ```
 
-Lists
-Unordered item 1
-Nested item A
-Nested item B
-Unordered item 2
-Ordered item 1
-Nested ordered item i
-Nested ordered item ii
-Ordered item 2
-Blockquotes
-This is a blockquote. It should stand out from the regular text and provide some emphasis or citation. It can span multiple lines.
+### Lists
 
-Math Equations
-Let's test an inline equation like $ax^2 + bx + c = 0$. And a block equation: $$ \sum\_{i=1}^{n} i = \frac{n(n+1)}{2} $$
+**Unordered Lists:**
+
+- Unordered item 1
+  - Nested item A
+  - Nested item B
+- Unordered item 2
+
+**Ordered Lists:**
+
+1. Ordered item 1
+   1. Nested ordered item i
+   2. Nested ordered item ii
+2. Ordered item 2
+
+### Blockquotes
+
+> This is a blockquote. It should stand out from the regular text and provide some emphasis or citation. It can span multiple lines.
+
+## Math Equations
+
+Let's test an inline equation like $ax^2 + bx + c = 0$. And a block equation:
+
+$$
+\sum_{i=1}^{n} i = \frac{n(n+1)}{2}
+$$
 
 Conclusion
 This post serves as a basic test. If you're seeing this rendered correctly, with a table of contents, syntax highlighting, and styled elements, then things are looking good!

@@ -1,105 +1,263 @@
 <script lang="ts">
-	import { page } from '$app/stores'; // Using $app/stores for page data access
-	// For Svelte 5, direct prop passing is preferred if $app/stores is legacy for page data.
-	// However, $props() is for component inputs, page data comes from load functions.
-	// Let's assume `data` is correctly passed as a prop by SvelteKit's runtime for +page.svelte
-	// when a +page.server.js load function returns data.
+	import '$lib/styles/blog.css'; // Import blog styles
+	import { page } from '$app/stores';
 
 	let { data } = $props(); // data from the load function in +page.server.js
 
-	// SEO Metadata (can also be set in +layout.svelte if consistent across blog pages)
-	// For specific page titles/descriptions, it's often best here or in a head component fed by `data`
+	// SEO Metadata
 	let metaTitle = $derived(data.meta?.title || 'Blog');
 	let metaDescription = $derived(data.meta?.description || 'Welcome to our blog.');
-
 </script>
 
 <svelte:head>
 	<title>{metaTitle}</title>
 	<meta name="description" content={metaDescription} />
-	<!-- Add other relevant meta tags, e.g., Open Graph, Twitter Cards -->
 	<meta property="og:title" content={metaTitle} />
 	<meta property="og:description" content={metaDescription} />
-	<!-- <meta property="og:image" content={data.meta?.featuredImage || '/default-blog-image.png'} /> -->
 	<meta property="og:type" content="website" />
-	<!-- <meta name="twitter:card" content="summary_large_image" /> -->
 </svelte:head>
 
-<div class="container mx-auto px-4 py-8">
-	<header class="mb-12 text-center">
-		<h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">
+<!-- Follow the same container pattern as other pages -->
+<div class="blog-container">
+	<header class="blog-index-header">
+		<h1 class="blog-index-title">
 			{metaTitle}
 		</h1>
 		{#if data.posts && data.posts.length > 0}
-			<p class="mt-4 text-xl text-gray-600 dark:text-gray-300">
+			<p class="blog-index-description">
 				{metaDescription}
 			</p>
 		{/if}
+		<div class="underline"></div>
 	</header>
 
 	{#if data.posts && data.posts.length > 0}
-		<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+		<div class="blog-posts-grid ram-articles">
 			{#each data.posts as post (post.slug)}
-				<article class="flex flex-col overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ease-in-out hover:scale-105 bg-white dark:bg-gray-800">
-					<!-- {#if post.featuredImage}
-						<a href="/blog/{post.slug}" class="block">
-							<img src={post.featuredImage} alt="Featured image for {post.title}" class="h-48 w-full object-cover">
-						</a>
-					{/if} -->
-					<div class="flex flex-1 flex-col justify-between p-6">
-						<div class="flex-1">
+				<article class="blog-post-card">
+					<div class="blog-post-content">
+						<div class="blog-post-body">
 							{#if post.tags && post.tags.length > 0}
-								<div class="mb-2 text-xs font-medium text-indigo-600 dark:text-indigo-400">
+								<div class="blog-post-tags">
 									{#each post.tags as tag, i (tag)}
-										<a href="/blog/tag/{tag}" class="hover:underline">{tag.toUpperCase()}</a>{i < post.tags.length - 1 ? ', ' : ''}
+										<a href="/blog/tag/{tag}" class="blog-tag-link">#{tag}</a>
 									{/each}
 								</div>
 							{/if}
-							<a href="/blog/{post.slug}" class="mt-2 block">
-								<h2 class="text-xl font-semibold text-gray-900 dark:text-white hover:text-indigo-700 dark:hover:text-indigo-400">
+							<a href="/blog/{post.slug}" class="blog-post-link">
+								<h2 class="blog-post-title">
 									{post.title}
 								</h2>
-								<p class="mt-3 text-base text-gray-500 dark:text-gray-400 line-clamp-3">
+								<p class="blog-post-description">
 									{post.description}
 								</p>
 							</a>
 						</div>
-						<div class="mt-6 flex items-center">
-							<!-- Author info can go here if available -->
-							<div class="text-sm text-gray-500 dark:text-gray-400">
-								<time datetime={post.date}>{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
-							</div>
+						<div class="blog-post-meta">
+							<time datetime={post.date} class="blog-post-date">
+								{new Date(post.date).toLocaleDateString('en-US', {
+									year: 'numeric',
+									month: 'long',
+									day: 'numeric'
+								})}
+							</time>
 						</div>
 					</div>
 				</article>
 			{/each}
 		</div>
 	{:else}
-		<div class="text-center py-12">
-			<svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-				<path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2zm3-8V3m10 2V3" />
-			</svg>
-			<h3 class="mt-2 text-xl font-semibold text-gray-900 dark:text-white">No Posts Yet</h3>
-			<p class="mt-1 text-base text-gray-500 dark:text-gray-400">
+		<div class="blog-empty-state">
+			<div class="empty-icon">📝</div>
+			<h3 class="empty-title">No Posts Yet</h3>
+			<p class="empty-description">
 				It looks like there are no blog posts available at the moment. Please check back later!
 			</p>
-			<!-- Optional: Link to homepage or other sections -->
-			<!-- <div class="mt-6">
-				<a href="/" class="text-base font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">
-					Go back home
-					<span aria-hidden="true"> &rarr;</span>
-				</a>
-			</div> -->
 		</div>
 	{/if}
 </div>
 
 <style>
-	/* For line-clamp, you might need a utility class or Tailwind plugin if not default */
-	.line-clamp-3 {
+	/* Blog Index Page Styling - matches site design system */
+	.blog-index-header {
+		text-align: center;
+		margin-bottom: var(--space-12);
+	}
+
+	.blog-index-title {
+		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
+		font-size: var(--h1);
+		/* Sick cyan gradient */
+		background: linear-gradient(
+			135deg,
+			var(--color-text) 0%,
+			#00ffff 30%,
+			var(--accent) 70%,
+			#0099cc 100%
+		);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		margin-bottom: var(--space-4);
+		text-align: center;
+	}
+
+	.blog-index-description {
+		font-size: var(--h5);
+		color: var(--description);
+		margin-bottom: var(--space-6);
+	}
+
+	.underline {
+		height: 4px;
+		width: 120px; /* Wider */
+		/* Sick cyan gradient for underline */
+		background: linear-gradient(90deg, #00ffff, var(--accent), #0099cc, var(--primary));
+		margin: 0 auto;
+		border-radius: 2px;
+		box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+	}
+
+	/* Blog posts grid using RAM pattern */
+	.blog-posts-grid {
+		margin-top: var(--space-10);
+	}
+
+	.blog-post-card {
+		background: linear-gradient(135deg, rgba(40, 80, 83, 0.4), rgba(51, 51, 51, 0.8));
+		border-radius: 16px;
+		overflow: hidden;
+		transition: all 0.4s ease;
+		border: 1px solid rgba(0, 255, 255, 0.2);
+		backdrop-filter: blur(10px);
+		position: relative;
+	}
+
+	.blog-post-card::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 2px;
+		background: linear-gradient(90deg, #00ffff, var(--accent), #0099cc);
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	.blog-post-card:hover {
+		transform: translateY(-8px) scale(1.02);
+		box-shadow: 0 20px 40px rgba(0, 255, 255, 0.2);
+		border-color: rgba(0, 255, 255, 0.4);
+	}
+
+	.blog-post-card:hover::before {
+		opacity: 1;
+	}
+
+	.blog-post-content {
+		padding: var(--space-6);
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+
+	.blog-post-body {
+		flex: 1;
+	}
+
+	.blog-post-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-2);
+		margin-bottom: var(--space-4);
+	}
+
+	.blog-tag-link {
+		background: linear-gradient(145deg, rgba(69, 133, 136, 0.2), rgba(69, 133, 136, 0.1));
+		border: 1px solid var(--primary);
+		border-radius: 12px;
+		padding: var(--space-1) var(--space-3);
+		font-size: 0.75rem;
+		font-weight: 600;
+		color: var(--color-text);
+		text-decoration: none;
+		transition: all 0.3s ease;
+	}
+
+	.blog-tag-link:hover {
+		background: var(--primary);
+		transform: translateY(-1px);
+	}
+
+	.blog-post-link {
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.blog-post-title {
+		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
+		font-size: var(--h4);
+		color: var(--color-text);
+		margin-bottom: var(--space-3);
+		transition: color 0.3s ease;
+	}
+
+	.blog-post-link:hover .blog-post-title {
+		background: linear-gradient(
+			135deg,
+			var(--color-text) 0%,
+			var(--accent) 50%,
+			var(--primary) 100%
+		);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	.blog-post-description {
+		color: var(--description);
+		font-size: var(--p-size);
+		line-height: 1.6;
 		display: -webkit-box;
 		-webkit-line-clamp: 3;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
+	}
+
+	.blog-post-meta {
+		margin-top: var(--space-4);
+		padding-top: var(--space-4);
+		border-top: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	.blog-post-date {
+		font-size: var(--small);
+		color: var(--description);
+	}
+
+	/* Empty state styling */
+	.blog-empty-state {
+		text-align: center;
+		padding: var(--space-12) var(--space-4);
+	}
+
+	.empty-icon {
+		font-size: 4rem;
+		margin-bottom: var(--space-4);
+	}
+
+	.empty-title {
+		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
+		font-size: var(--h3);
+		color: var(--color-text);
+		margin-bottom: var(--space-3);
+	}
+
+	.empty-description {
+		font-size: var(--p-size);
+		color: var(--description);
+		max-width: 500px;
+		margin: 0 auto;
 	}
 </style>

@@ -34,7 +34,7 @@ export async function load({ params }) {
 		});
 	}
 
-	const { default: content, metadata } = postModule;
+	const { metadata } = postModule;
 
 	if (!metadata) {
 		console.warn(`Metadata not found for post: ${slug}`);
@@ -64,7 +64,8 @@ export async function load({ params }) {
 
 	return {
 		slug,
-		content, // This is the compiled Svelte component for the post body
+		// Don't return the component directly - it's not serializable
+		// The component will be loaded client-side in +page.js
 		frontmatter: { // Pass all frontmatter for flexibility in the layout/page
 			...frontmatter, // spread existing frontmatter
 			title, // ensure title is set

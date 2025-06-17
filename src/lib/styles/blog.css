@@ -1,0 +1,703 @@
+/* ============================================
+   MODERN BLOG STYLING SYSTEM
+   Cooler than the main site but cohesive
+   ============================================ */
+
+/* Blog Container - follows site pattern with better responsive */
+.blog-container {
+	width: 95%;
+	max-width: 900px; /* Smaller max width */
+	margin: 20px auto; /* Less margin */
+	padding: 16px; /* Less padding */
+}
+
+@media (max-width: 768px) {
+	.blog-container {
+		width: 98%;
+		margin: 10px auto;
+		padding: 12px;
+	}
+}
+
+/* Blog Post Layout */
+.blog-post-layout {
+	position: relative;
+	background: var(--background);
+	color: var(--color-text);
+}
+
+/* Header Styling with Gradient Text */
+.blog-header {
+	text-align: center;
+	margin-bottom: var(--space-12);
+	padding-bottom: var(--space-8);
+	border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+	position: relative;
+}
+
+.blog-header::after {
+	content: '';
+	position: absolute;
+	bottom: -2px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 120px; /* Wider like the blog index */
+	height: 2px;
+	/* Cyan gradient to match blog index */
+	background: linear-gradient(90deg, #00ffff, var(--accent), #0099cc, var(--primary));
+	border-radius: 1px;
+	box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); /* Glow effect */
+}
+
+.blog-title {
+	font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
+	font-size: clamp(1.2rem, 3vw, 1.8rem); /* Much smaller - was clamp(1.8rem, 4vw, 2.5rem) */
+	font-weight: 600; /* Lighter weight */
+	line-height: 1.2;
+	margin: 0 0 var(--space-4) 0;
+	color: var(--color-text); /* Remove the crazy gradient for now */
+	text-align: center;
+}
+
+.blog-meta {
+	font-family: 'Nunito Sans', sans-serif;
+	font-size: var(--small);
+	color: var(--description);
+	margin-bottom: var(--space-4);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-2);
+	flex-wrap: wrap;
+}
+
+.meta-separator {
+	color: var(--accent);
+	font-weight: bold;
+}
+
+/* Tags Styling with Hover Effects - using RAM pattern for layout */
+.blog-tags {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(80px, max-content));
+	justify-content: center;
+	gap: var(--space-3);
+	margin-top: var(--space-6);
+}
+
+.blog-tag {
+	display: inline-block;
+	background: linear-gradient(145deg, rgba(69, 133, 136, 0.2), rgba(69, 133, 136, 0.1));
+	border: 1px solid var(--primary);
+	border-radius: 20px;
+	padding: var(--space-2) var(--space-4);
+	font-family: 'Nunito Sans', sans-serif;
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: var(--color-text);
+	text-decoration: none;
+	transition: all 0.3s ease;
+	position: relative;
+	overflow: hidden;
+	text-align: center;
+}
+
+.blog-tag:hover {
+	background: var(--primary);
+	color: var(--color-text);
+	transform: translateY(-2px);
+	box-shadow: 0 8px 25px rgba(69, 133, 136, 0.3);
+}
+
+.blog-tag::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+	transition: left 0.5s ease;
+}
+
+.blog-tag:hover::before {
+	left: 100%;
+}
+
+/* Legacy tag class for compatibility */
+.tag {
+	display: inline-block;
+	background: linear-gradient(145deg, rgba(69, 133, 136, 0.2), rgba(69, 133, 136, 0.1));
+	border: 1px solid var(--primary);
+	border-radius: 20px;
+	padding: var(--space-2) var(--space-4);
+	font-family: 'Nunito Sans', sans-serif;
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: var(--color-text);
+	text-decoration: none;
+	transition: all 0.3s ease;
+	position: relative;
+	overflow: hidden;
+}
+
+.tag:hover {
+	background: var(--primary);
+	color: var(--color-text);
+	transform: translateY(-2px);
+	box-shadow: 0 8px 25px rgba(69, 133, 136, 0.3);
+}
+
+.tag::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+	transition: left 0.5s ease;
+}
+
+.tag:hover::before {
+	left: 100%;
+}
+
+/* Featured Image with Cool Effects */
+.featured-image-container {
+	margin-bottom: var(--space-10);
+	border-radius: 16px;
+	overflow: hidden;
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+	position: relative;
+}
+
+.featured-image {
+	width: 100%;
+	height: auto;
+	max-height: 500px;
+	object-fit: cover;
+	transition: transform 0.3s ease;
+}
+
+.featured-image-container:hover .featured-image {
+	transform: scale(1.02);
+}
+
+/* Content Layout */
+.blog-content-wrapper {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--space-8);
+	align-items: start;
+}
+
+@media (min-width: 1024px) {
+	.blog-content-wrapper {
+		grid-template-columns: 1fr 300px;
+		gap: var(--space-12);
+	}
+}
+
+/* Main Content Typography - Responsive and clean */
+.main-content {
+	font-family: 'Nunito Sans', sans-serif;
+	font-size: 1rem; /* Smaller base font */
+	line-height: 1.6; /* Tighter line height */
+	color: var(--color-text);
+	max-width: 100%; /* Prevent overflow */
+	overflow-wrap: break-word; /* Break long words */
+	word-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+	.main-content {
+		font-size: 0.9rem; /* Even smaller on mobile */
+		line-height: 1.5;
+	}
+}
+
+/* Enhanced Typography for Blog Content - Higher specificity to override global */
+.blog-container .main-content :global(h1),
+.blog-container .main-content :global(h2),
+.blog-container .main-content :global(h3),
+.blog-container .main-content :global(h4),
+.blog-container .main-content :global(h5),
+.blog-container .main-content :global(h6) {
+	font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif !important;
+	color: var(--color-text) !important;
+	margin: var(--space-6) 0 var(--space-3) 0 !important;
+	scroll-margin-top: 6rem;
+	position: relative;
+	line-height: 1.2 !important;
+}
+
+.blog-container .main-content :global(h2) {
+	font-size: 1.1rem !important; /* Force override */
+	font-weight: 600 !important;
+	color: var(--color-text) !important;
+	border-left: 3px solid var(--accent) !important;
+	padding-left: var(--space-3) !important;
+	margin-left: -var(--space-4) !important;
+}
+
+.blog-container .main-content :global(h3) {
+	font-size: 1rem !important; /* Force override */
+	font-weight: 600 !important;
+	color: var(--color-text) !important;
+	border-left: 2px solid var(--primary) !important;
+	padding-left: var(--space-3) !important;
+	margin-left: -var(--space-4) !important;
+}
+
+.blog-container .main-content :global(h4) {
+	font-size: 0.95rem !important; /* Force override */
+	font-weight: 600 !important;
+	color: var(--color-text) !important;
+	border-left: 2px solid var(--gruv-darkorange) !important;
+	padding-left: var(--space-3) !important;
+	margin-left: -var(--space-4) !important;
+}
+
+@media (max-width: 768px) {
+	.main-content :global(h2) {
+		font-size: 1rem;
+		border-left-width: 2px;
+		padding-left: var(--space-2);
+		margin-left: -var(--space-3);
+	}
+
+	.main-content :global(h3) {
+		font-size: 0.95rem;
+		padding-left: var(--space-2);
+		margin-left: -var(--space-3);
+	}
+
+	.main-content :global(h4) {
+		font-size: 0.9rem;
+		padding-left: var(--space-2);
+		margin-left: -var(--space-3);
+	}
+}
+
+.main-content :global(p) {
+	margin: var(--space-4) 0; /* Less margin */
+	color: var(--description);
+	font-size: inherit; /* Use main content font size */
+}
+
+.main-content :global(strong) {
+	color: var(--accent);
+	font-weight: 700;
+}
+
+.main-content :global(em) {
+	color: var(--primary);
+	font-style: italic;
+}
+
+/* Links with Cool Hover Effects */
+.main-content :global(a) {
+	color: var(--accent);
+	text-decoration: none;
+	position: relative;
+	font-weight: 600;
+}
+
+.main-content :global(a::after) {
+	content: '';
+	position: absolute;
+	bottom: -2px;
+	left: 0;
+	width: 0;
+	height: 2px;
+	background: linear-gradient(90deg, var(--accent), var(--primary));
+	transition: width 0.3s ease;
+}
+
+.main-content :global(a:hover::after) {
+	width: 100%;
+}
+
+/* Lists with Better Styling - More like homepage badges */
+.main-content :global(ul),
+.main-content :global(ol) {
+	margin: var(--space-6) 0;
+	padding-left: 0;
+	list-style: none;
+}
+
+.main-content :global(li) {
+	margin: var(--space-2) 0;
+	padding: var(--space-3) var(--space-4);
+	background: rgba(40, 80, 83, 0.2);
+	border: 1px solid rgba(69, 133, 136, 0.3);
+	border-radius: 8px;
+	color: var(--color-text);
+	position: relative;
+	transition: all 0.2s ease;
+	border-left: 3px solid var(--accent);
+}
+
+.main-content :global(li:hover) {
+	background: rgba(40, 80, 83, 0.4);
+	transform: translateX(4px);
+}
+
+.main-content :global(li::before) {
+	content: '▸';
+	color: var(--accent);
+	font-weight: bold;
+	margin-right: var(--space-2);
+}
+
+/* Ordered lists get numbers instead */
+.main-content :global(ol li::before) {
+	content: counter(list-item) '. ';
+	counter-increment: list-item;
+	color: var(--primary);
+}
+
+.main-content :global(ol) {
+	counter-reset: list-item;
+}
+
+/* Nested lists */
+.main-content :global(li ul),
+.main-content :global(li ol) {
+	margin: var(--space-3) 0;
+	padding-left: var(--space-4);
+}
+
+/* Blockquotes with Style */
+.main-content :global(blockquote) {
+	margin: var(--space-8) 0;
+	padding: var(--space-6) var(--space-8);
+	background: linear-gradient(135deg, rgba(69, 133, 136, 0.1), rgba(40, 80, 83, 0.2));
+	border-left: 4px solid var(--accent);
+	border-radius: 0 8px 8px 0;
+	position: relative;
+	font-style: italic;
+	color: var(--color-text);
+}
+
+.main-content :global(blockquote::before) {
+	content: '"';
+	position: absolute;
+	top: -10px;
+	left: var(--space-4);
+	font-size: 3rem;
+	color: var(--accent);
+	opacity: 0.3;
+}
+
+/* TABLE OF CONTENTS - Sick sidebar */
+.toc-sidebar {
+	background: rgba(40, 80, 83, 0.3);
+	backdrop-filter: blur(10px);
+	border: 1px solid rgba(69, 133, 136, 0.3);
+	border-radius: 16px;
+	padding: 1.5rem;
+	position: sticky;
+	top: 2rem;
+	height: fit-content;
+}
+
+.toc-title {
+	font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
+	color: var(--accent);
+	font-size: 1.2rem;
+	font-weight: 600;
+	margin: 0 0 1rem 0;
+	text-align: center;
+}
+
+.toc-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.toc-item {
+	margin: 0.3rem 0;
+}
+
+.toc-link {
+	color: var(--description);
+	text-decoration: none;
+	font-size: 0.9rem;
+	transition: all 0.3s ease;
+	display: block;
+	padding: 0.4rem 0.8rem;
+	border-radius: 6px;
+}
+
+.toc-link:hover {
+	color: var(--accent);
+	background: rgba(69, 133, 136, 0.2);
+	transform: translateX(3px);
+}
+
+.toc-level-2 {
+	padding-left: 0;
+}
+.toc-level-3 {
+	padding-left: 1rem;
+	font-size: 0.85rem;
+}
+.toc-level-4 {
+	padding-left: 1.5rem;
+	font-size: 0.8rem;
+}
+
+/* LAYOUT - Two column when we have TOC */
+.blog-content-wrapper {
+	display: grid;
+	grid-template-columns: 1fr 250px;
+	gap: 2rem;
+	align-items: start;
+}
+
+/* FOOTER */
+.blog-footer {
+	margin-top: 3rem;
+	padding-top: 2rem;
+	border-top: 1px solid rgba(69, 133, 136, 0.3);
+	text-align: center;
+}
+
+.footer-text {
+	color: var(--description);
+	font-style: italic;
+}
+
+/* RESPONSIVE - Stack on mobile */
+@media (max-width: 1023px) {
+	.blog-post-layout {
+		margin: 1rem auto;
+		padding: 2rem 1.5rem;
+	}
+
+	.blog-content-wrapper {
+		grid-template-columns: 1fr;
+		gap: 1.5rem;
+	}
+
+	.toc-sidebar {
+		position: relative;
+		top: auto;
+		order: -1;
+	}
+}
+
+.main-content :global(.katex) {
+	color: var(--accent) !important;
+}
+
+/* Smooth Animations */
+* {
+	scroll-behavior: smooth;
+}
+
+/* Selection Styling */
+.main-content :global(::selection) {
+	background: var(--accent);
+	color: var(--background);
+}
+
+/* Cool scroll indicator */
+.blog-post-layout::before {
+	content: '';
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 0%;
+	height: 3px;
+	background: linear-gradient(90deg, var(--primary), var(--accent));
+	z-index: 1000;
+	transition: width 0.1s ease;
+}
+
+/* Subtle hover effects for better interactivity */
+.main-content :global(h2:hover),
+.main-content :global(h3:hover),
+.main-content :global(h4:hover) {
+	transform: translateX(2px); /* Much more subtle movement */
+	transition: transform 0.2s ease;
+}
+
+/* Tables with modern styling */
+.main-content :global(table) {
+	width: 100%;
+	margin: var(--space-8) 0;
+	border-collapse: collapse;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.main-content :global(th) {
+	background: var(--primary);
+	color: var(--color-text);
+	padding: var(--space-4);
+	font-weight: 600;
+	text-align: left;
+}
+
+.main-content :global(td) {
+	padding: var(--space-3) var(--space-4);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	color: var(--description);
+}
+
+.main-content :global(tr:hover) {
+	background: rgba(69, 133, 136, 0.05);
+}
+
+/* Image styling with cool effects */
+.main-content :global(img) {
+	max-width: 100%;
+	height: auto;
+	border-radius: 8px;
+	margin: var(--space-8) 0;
+	box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+	transition: transform 0.3s ease;
+}
+
+.main-content :global(img:hover) {
+	transform: scale(1.02);
+}
+
+/* Modern callout styling for components */
+.main-content :global(.callout) {
+	margin: var(--space-8) 0;
+	padding: var(--space-6);
+	border-radius: 8px;
+	border-left: 4px solid var(--accent);
+	background: rgba(69, 133, 136, 0.1);
+}
+
+/* Button styling for any buttons in content */
+.main-content :global(button),
+.main-content :global(.btn) {
+	background: linear-gradient(145deg, var(--primary), var(--accent));
+	color: var(--color-text);
+	border: none;
+	padding: var(--space-3) var(--space-6);
+	border-radius: 8px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	text-decoration: none;
+	display: inline-block;
+}
+
+.main-content :global(button:hover),
+.main-content :global(.btn:hover) {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 25px rgba(69, 133, 136, 0.3);
+}
+
+/* Heading anchor links styling */
+.main-content :global(h2 a),
+.main-content :global(h3 a),
+.main-content :global(h4 a) {
+	color: inherit;
+	text-decoration: none;
+	position: relative;
+}
+
+.main-content :global(h2 a::before),
+.main-content :global(h3 a::before),
+.main-content :global(h4 a::before) {
+	content: '#';
+	position: absolute;
+	left: -1.5rem;
+	opacity: 0;
+	color: var(--accent);
+	font-weight: 400;
+	transition: opacity 0.2s ease;
+}
+
+.main-content :global(h2:hover a::before),
+.main-content :global(h3:hover a::before),
+.main-content :global(h4:hover a::before) {
+	opacity: 0.6;
+}
+
+.main-content :global(h2 a:hover::before),
+.main-content :global(h3 a:hover::before),
+.main-content :global(h4 a:hover::before) {
+	opacity: 1;
+}
+
+/* SICK FEATURE SHOWCASING STYLES */
+
+/* Feature highlight boxes */
+.main-content :global(.feature-box) {
+	background: linear-gradient(135deg, rgba(69, 133, 136, 0.2), rgba(40, 80, 83, 0.3));
+	border: 1px solid var(--accent);
+	border-radius: 12px;
+	padding: var(--space-6);
+	margin: var(--space-8) 0;
+	position: relative;
+	overflow: hidden;
+}
+
+.main-content :global(.feature-box::before) {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 4px;
+	background: linear-gradient(90deg, var(--accent), var(--primary), var(--gruv-darkorange));
+}
+
+.main-content :global(.feature-box h3) {
+	color: var(--accent);
+	margin-top: 0;
+	border: none;
+	padding: 0;
+	margin-left: 0;
+}
+
+/* Tech badges like homepage */
+.main-content :global(.tech-badge) {
+	display: inline-block;
+	background: rgba(40, 80, 83, 0.3);
+	border: 1px solid var(--primary);
+	border-radius: 20px;
+	padding: var(--space-2) var(--space-4);
+	margin: var(--space-1);
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: var(--color-text);
+	transition: all 0.3s ease;
+}
+
+.main-content :global(.tech-badge:hover) {
+	background: var(--primary);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(69, 133, 136, 0.4);
+}
+
+/* Cool info panels */
+.main-content :global(.info-panel) {
+	background: rgba(40, 80, 83, 0.2);
+	border-left: 4px solid var(--accent);
+	border-radius: 0 8px 8px 0;
+	padding: var(--space-4) var(--space-6);
+	margin: var(--space-6) 0;
+	backdrop-filter: blur(5px);
+}
+
+.main-content :global(.info-panel.warning) {
+	border-left-color: var(--gruv-darkorange);
+	background: rgba(214, 93, 14, 0.1);
+}
+
+.main-content :global(.info-panel.success) {
+	border-left-color: var(--primary);
+	background: rgba(69, 133, 136, 0.1);
+}
