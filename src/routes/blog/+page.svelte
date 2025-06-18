@@ -1,19 +1,12 @@
-<script lang="ts">
-	import '$lib/styles/blog.css'; // Import blog styles
-	import { page } from '$app/stores';
-
-	let { data } = $props(); // data from the load function in +page.server.js
-
-	// SEO Metadata
-	let metaTitle = $derived(data.meta?.title || 'Blog');
-	let metaDescription = $derived(data.meta?.description || 'Welcome to our blog.');
+<script>
+	let { data } = $props();
 </script>
 
 <svelte:head>
-	<title>{metaTitle}</title>
-	<meta name="description" content={metaDescription} />
-	<meta property="og:title" content={metaTitle} />
-	<meta property="og:description" content={metaDescription} />
+	<title>{data.meta.title}</title>
+	<meta name="description" content={data.meta.description} />
+	<meta property="og:title" content={data.meta.title} />
+	<meta property="og:description" content={data.meta.description} />
 	<meta property="og:type" content="website" />
 </svelte:head>
 
@@ -21,17 +14,17 @@
 <div class="blog-container">
 	<header class="blog-index-header">
 		<h1 class="blog-index-title">
-			{metaTitle}
+			{data.meta.title}
 		</h1>
 		{#if data.posts && data.posts.length > 0}
 			<p class="blog-index-description">
-				{metaDescription}
+				{data.meta.description}
 			</p>
 		{/if}
 		<div class="underline"></div>
 	</header>
 
-	{#if data.posts && data.posts.length > 0}
+	{#if data.posts.length > 0}
 		<div class="blog-posts-grid ram-articles">
 			{#each data.posts as post (post.slug)}
 				<article class="blog-post-card">
@@ -78,6 +71,22 @@
 </div>
 
 <style>
+	/* Critical CSS moved here to prevent hydration jump */
+	.blog-container {
+		width: 95%;
+		max-width: 900px;
+		margin: 20px auto;
+		padding: 16px;
+	}
+
+	@media (max-width: 768px) {
+		.blog-container {
+			width: 98%;
+			margin: 10px auto;
+			padding: 12px;
+		}
+	}
+
 	/* Blog Index Page Styling - matches site design system */
 	.blog-index-header {
 		text-align: center;
@@ -146,7 +155,7 @@
 	}
 
 	.blog-post-card:hover {
-		transform: translateY(-8px) scale(1.02);
+		transform: translateY(-8px);
 		box-shadow: 0 20px 40px rgba(0, 255, 255, 0.2);
 		border-color: rgba(0, 255, 255, 0.4);
 	}
@@ -183,6 +192,23 @@
 		color: var(--color-text);
 		text-decoration: none;
 		transition: all 0.3s ease;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.blog-tag-link::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -100%;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+		transition: left 0.5s ease;
+	}
+
+	.blog-tag-link:hover::before {
+		left: 100%;
 	}
 
 	.blog-tag-link:hover {

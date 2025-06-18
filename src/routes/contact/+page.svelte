@@ -16,21 +16,21 @@
 	$effect(() => {
 		if (form?.missing) {
 			const field = form.missing;
-			if (field === 'name') toast.error("You forgot your name");
-			else if (field === 'email') toast.error("You forgot your email");
-			else if (field === 'message') toast.error("You forgot your message");
+			if (field === 'name') toast.error('You forgot your name');
+			else if (field === 'email') toast.error('You forgot your email');
+			else if (field === 'message') toast.error('You forgot your message');
 		}
-		
+
 		if (form?.invalid === 'email') {
-			toast.error("Please enter a valid email address");
+			toast.error('Please enter a valid email address');
 		}
-		
+
 		if (form?.success) {
-			toast.success("Message sent! Thanks for reaching out.");
+			toast.success('Message sent! Thanks for reaching out.');
 		}
-		
+
 		if (form?.error) {
-			toast.error("Failed to send message. Please try again.");
+			toast.error('Failed to send message. Please try again.');
 		}
 	});
 
@@ -68,15 +68,30 @@
 						<h3>Social</h3>
 					</div>
 					<div class="social-links">
-						<a href="https://github.com/Jamesn-dev" target="_blank" rel="noopener noreferrer" class="social-link">
+						<a
+							href="https://github.com/Jamesn-dev"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="social-link"
+						>
 							<Github size={20} />
 							<span>GitHub</span>
 						</a>
-						<a href="https://linkedin.com/in/james-niemerg" target="_blank" rel="noopener noreferrer" class="social-link">
+						<a
+							href="https://linkedin.com/in/james-niemerg"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="social-link"
+						>
 							<Linkedin size={20} />
 							<span>LinkedIn</span>
 						</a>
-						<a href="https://twitter.com/yourhandle" target="_blank" rel="noopener noreferrer" class="social-link">
+						<a
+							href="https://twitter.com/yourhandle"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="social-link"
+						>
 							<Twitter size={20} />
 							<span>Twitter</span>
 						</a>
@@ -85,13 +100,16 @@
 			</div>
 
 			<div class="contact-form">
-				<form method="POST" use:enhance={() => {
-					isSubmitting = true;
-					return async ({ update }) => {
-						isSubmitting = false;
-						await update();
-					};
-				}}>
+				<form
+					method="POST"
+					use:enhance={() => {
+						isSubmitting = true;
+						return async ({ update }) => {
+							isSubmitting = false;
+							await update();
+						};
+					}}
+				>
 					<div class="form-group">
 						<label for="name">Name</label>
 						<input
@@ -123,8 +141,8 @@
 							name="message"
 							placeholder="What would you like to discuss?"
 							rows="6"
-							disabled={isSubmitting}
-						>{form?.message ?? ''}</textarea>
+							disabled={isSubmitting}>{form?.message ?? ''}</textarea
+						>
 					</div>
 
 					<button type="submit" class="submit-button" disabled={isSubmitting}>
@@ -137,7 +155,7 @@
 </div>
 
 <!-- Toast notifications -->
-<Toaster 
+<Toaster
 	theme="dark"
 	position="top-right"
 	offset="calc(var(--header-height) + 1rem)"
@@ -200,7 +218,7 @@
 	.contact-content {
 		/* RAM PATTERN for responsive layout - 50/50 split on desktop, stack on mobile */
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(min(399px, 100%), 1fr));
 		gap: var(--space-8);
 		align-items: start;
 		container-type: inline-size;
@@ -210,17 +228,17 @@
 	.contact-info {
 		order: 1;
 	}
-	
+
 	.contact-form {
 		order: 2;
 	}
 
 	/* Mobile: Form on top, contact info below */
-	@media (max-width: 800px) {
+	@container (max-width: 800px) {
 		.contact-form {
 			order: 1;
 		}
-		
+
 		.contact-info {
 			order: 2;
 		}
@@ -384,14 +402,6 @@
 		cursor: not-allowed;
 	}
 
-	.field-error {
-		font-family: 'Nunito Sans', sans-serif;
-		font-size: 14px;
-		color: var(--gruv-red);
-		margin-top: var(--space-2);
-		padding-left: var(--space-1);
-	}
-
 	:global(.toast-success-custom) {
 		background: rgba(69, 133, 136, 0.4) !important;
 		border: 1px solid var(--primary) !important;
@@ -403,5 +413,4 @@
 		border: 1px solid var(--gruv-red) !important;
 		color: #fbf1c7 !important;
 	}
-
 </style>

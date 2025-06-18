@@ -29,11 +29,13 @@
 			codeToCopy = code;
 		}
 
-
 		if (!codeToCopy.trim()) {
 			copyText = 'Nothing to copy';
 			showTooltip = true;
-			setTimeout(() => { showTooltip = false; copyText = 'Copy'; }, 2000);
+			setTimeout(() => {
+				showTooltip = false;
+				copyText = 'Copy';
+			}, 2000);
 			return;
 		}
 
@@ -54,71 +56,135 @@
 	}
 </script>
 
-<div class="code-block-wrapper bg-gray-800 dark:bg-black rounded-lg my-6 overflow-hidden shadow-lg">
+<div class="code-block-wrapper">
 	{#if title || lang}
-		<div class="header flex justify-between items-center p-3 bg-gray-700 dark:bg-gray-900 text-gray-300 dark:text-gray-400 text-sm">
-			<span class="title font-mono">{title || lang}</span>
-			<div class="relative">
-				<button
-					onclick={copyCode}
-					class="copy-button bg-gray-600 hover:bg-gray-500 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-200 dark:text-gray-300 py-1 px-3 rounded-md text-xs transition-colors"
-					aria-label="Copy code to clipboard"
-				>
+		<div class="code-header">
+			<span class="code-title">{title || lang}</span>
+			<div class="copy-section">
+				<button onclick={copyCode} class="copy-button" aria-label="Copy code to clipboard">
 					{copyText}
 				</button>
 				{#if showTooltip}
-					<div class="tooltip absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-black text-white text-xs rounded-md shadow-lg whitespace-nowrap z-10">
+					<div class="copy-tooltip">
 						{copyText}
 					</div>
 				{/if}
 			</div>
 		</div>
 	{/if}
-	<div class="code-content p-4" bind:this={codeElement}>
+	<div class="code-content" bind:this={codeElement}>
 		{#if children}
 			{@render children()}
 		{:else if code}
-			<!-- Fallback to render raw code if no children snippet and code prop exists -->
 			<pre class="language-{lang}"><code>{@html code}</code></pre>
 		{:else}
-			<!-- Optional: placeholder if neither is available. Shiki should fill via children. -->
 			<pre class="language-{lang}"><code>{''}</code></pre>
 		{/if}
 	</div>
 </div>
 
 <style>
+	.code-block-wrapper {
+		background: rgba(20, 20, 20, 0.9);
+		border: 1px solid rgba(69, 133, 136, 0.3);
+		border-radius: 12px;
+		margin: var(--space-6) 0;
+		overflow: hidden;
+		box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+	}
+
+	.code-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: var(--space-3) var(--space-4);
+		background: rgba(40, 80, 83, 0.4);
+		border-bottom: 1px solid rgba(69, 133, 136, 0.3);
+	}
+
+	.code-title {
+		font-family: 'Fira Code', 'Source Code Pro', monospace;
+		font-size: var(--small);
+		color: var(--accent);
+		font-weight: 500;
+	}
+
+	.copy-section {
+		position: relative;
+	}
+
+	.copy-button {
+		background: rgba(69, 133, 136, 0.2);
+		border: 1px solid rgba(69, 133, 136, 0.4);
+		color: var(--accent);
+		padding: var(--space-1) var(--space-3);
+		border-radius: 6px;
+		font-size: var(--small);
+		font-family: 'Fira Code', 'Source Code Pro', monospace;
+		cursor: pointer;
+		transition: all 0.2s ease;
+	}
+
+	.copy-button:hover {
+		background: rgba(69, 133, 136, 0.3);
+		border-color: var(--primary);
+	}
+
+	.copy-tooltip {
+		position: absolute;
+		bottom: calc(100% + 8px);
+		left: 50%;
+		transform: translateX(-50%);
+		background: rgba(0, 0, 0, 0.9);
+		color: var(--color-text);
+		padding: var(--space-1) var(--space-2);
+		border-radius: 4px;
+		font-size: var(--small);
+		white-space: nowrap;
+		z-index: 10;
+		pointer-events: none;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+	}
+
+	.code-content {
+		padding: var(--space-4);
+		background: rgba(10, 10, 10, 0.5);
+		overflow-x: auto;
+	}
+
 	.code-block-wrapper :global(pre) {
-		margin: 0 !important; /* Override any prose or theme margins */
-		padding: 0 !important; /* Override any prose or theme paddings */
-		background-color: transparent !important; /* Ensure wrapper controls background */
+		margin: 0 !important;
+		padding: 0 !important;
+		background-color: transparent !important;
 		border-radius: 0 !important;
-		line-height: 1.6; /* Adjust for readability */
+		line-height: 1.6;
+		overflow-x: auto;
 	}
+
 	.code-block-wrapper :global(code) {
-		font-family: 'Fira Code', 'Operator Mono', 'Source Code Pro', monospace; /* Example font stack */
-		font-size: 0.9em; /* Slightly smaller for better fit */
+		font-family: 'Fira Code', 'Source Code Pro', monospace;
+		font-size: 0.85em;
+		line-height: 1.6;
 	}
 
-	.tooltip {
-		pointer-events: none; /* Prevent tooltip from interfering with clicks */
-	}
-
-	/* Custom scrollbar styling for webkit browsers */
+	/* Custom scrollbar styling */
 	.code-content :global(pre::-webkit-scrollbar) {
 		width: 8px;
 		height: 8px;
 	}
+
 	.code-content :global(pre::-webkit-scrollbar-track) {
 		background: transparent;
 	}
+
 	.code-content :global(pre::-webkit-scrollbar-thumb) {
-		background-color: rgba(107, 114, 128, 0.5); /* gray-500 with opacity */
+		background-color: rgba(69, 133, 136, 0.4);
 		border-radius: 4px;
 		border: 2px solid transparent;
 		background-clip: content-box;
 	}
+
 	.code-content :global(pre::-webkit-scrollbar-thumb:hover) {
-		background-color: rgba(75, 85, 99, 0.7); /* gray-600 with opacity */
+		background-color: rgba(69, 133, 136, 0.6);
 	}
 </style>

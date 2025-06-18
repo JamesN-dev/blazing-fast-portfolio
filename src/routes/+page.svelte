@@ -1,6 +1,6 @@
 <script>
-	import { onMount } from 'svelte'; // Removed browser import from svelte/internal
-	import { browser } from '$app/environment'; // Correct way to import browser
+	import { onMount } from 'svelte';
+	import { browser } from '$app/environment';
 	import { fade, fly, scale } from 'svelte/transition';
 	import { quintOut, elasticOut } from 'svelte/easing';
 	import TypedText from '$lib/components/TypedText.svelte';
@@ -18,9 +18,9 @@
 	let fireballGlowHovering = $state(false);
 
 	// Reactive variable to control scroll indicator visibility
-	let showScrollIndicator = $state(true); // Default to true, will be updated on client
+	let showScrollIndicator = $state(true);
 
-	// Skills physics state using Svelte 5 runes
+	// Skills physics state
 	let throwingSkillsSet = $state(new Set());
 
 	// Function to handle parallax effect
@@ -63,20 +63,20 @@
 		'Accessibility'
 	];
 
-	// Reactive skill positions using runes - Pure 2D with visual depth
+	// Reactive skill positions using runes
 	let skillPositions = $state(
 		skills.map((skill, index) => ({
 			x: -300 + Math.random() * 600,
 			y: -50 + Math.random() * 100,
 			skill: skill,
-			speedX: (Math.random() - 0.5) * 1.2, // Increased base speed for more natural movement
-			speedY: (Math.random() - 0.5) * 0.8, // Increased base speed for more natural movement
+			speedX: (Math.random() - 0.5) * 1.2, // Base speed X
+			speedY: (Math.random() - 0.5) * 0.8, // Base speed Y
 			phase: Math.random() * Math.PI * 2,
 			scale: 0.8 + Math.random() * 0.4, // Scale for visual depth (0.8 to 1.2)
 			opacity: 0.7 + Math.random() * 0.3, // Opacity for depth (0.7 to 1.0)
-			scaleSpeed: (Math.random() - 0.5) * 0.003, // Much slower scale animation (10x slower)
-			mode: 'floating', // 'floating' | 'dragging' | 'throwing'
-			sineWaveDisabled: false, // New state variable to control sine wave motion
+			scaleSpeed: (Math.random() - 0.5) * 0.003, // Scale animation speed
+			mode: 'floating', // 'floating' | 'dragging' | 'throwing' states
+			sineWaveDisabled: false, // State variable to control sine wave motion
 			sineWaveReenableTime: 0 // Timestamp to re-enable sine wave after throwing
 		}))
 	);

@@ -1,8 +1,8 @@
 ---
-title: 'My First Awesome Post: Exploring Svelte and MDsveX'
-date: '2024-07-25' # Earlier date than showcase post
-tags: ['svelte', 'mdsvex', 'testing', 'tutorial']
-description: 'A quick look into setting up a Svelte project with MDsveX and some initial thoughts.'
+title: 'Hello World'
+date: '2025-06-17'
+tags: ['svelte', 'mdsvex', 'testing']
+description: 'Testing Svelte and MDsveX setup with some initial thoughts.'
 ---
 
 <script>

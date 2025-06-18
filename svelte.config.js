@@ -50,13 +50,14 @@ const mdsvexOptions = {
   rehypePlugins: [
     rehypeSlug,
     [rehypeAutolinkHeadings, { behavior: 'wrap' }],
+    rehypeCodeTitles, // This should run before your custom highlighter
     rehypeKatexSvelte,
-    rehypeCodeTitles,
     rehypeUnwrapImages
   ],
   highlight: {
-    highlighter: async (code, lang = 'text') => {
-      // Use the cached highlighter instance
+    highlighter: async (code, lang = 'text', meta) => {
+      // Extract title from meta if present
+      const title = meta?.match(/title="([^"]+)"/)?.[1];
       const effectiveLang = highlighter.getLoadedLanguages().includes(lang) ? lang : 'text';
 
       const html = escapeSvelte(
@@ -65,6 +66,15 @@ const mdsvexOptions = {
           theme: 'github-dark'
         })
       );
+
+      // If there's a title, wrap the code block with title
+      if (title) {
+        return `<div class="code-block-with-title">
+          <div class="code-title">${escapeSvelte(title)}</div>
+          {@html \`${html}\`}
+        </div>`;
+      }
+
       return `{@html \`${html}\`}`;
     }
   }
@@ -82,4 +92,3 @@ const config = {
 };
 
 export default config;
-

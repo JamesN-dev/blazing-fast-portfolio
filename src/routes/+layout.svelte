@@ -46,16 +46,18 @@
 </script>
 
 <div class="site-wrapper">
-	<!-- Floating particles that appear gradually when scrolling -->
-	<FloatingParticles
-		count={30}
-		minSize={3}
-		maxSize={12}
-		color="var(--accent)"
-		startOnScroll={true}
-		scrollThreshold={100}
-		transitionLength={250}
-	/>
+	<!-- Floating particles that appear gradually when scrolling (disabled on blog posts) -->
+	{#if !$page.url.pathname.startsWith('/blog/')}
+		<FloatingParticles
+			count={30}
+			minSize={3}
+			maxSize={12}
+			color="var(--accent)"
+			startOnScroll={true}
+			scrollThreshold={100}
+			transitionLength={250}
+		/>
+	{/if}
 
 	<Header />
 	<main>
