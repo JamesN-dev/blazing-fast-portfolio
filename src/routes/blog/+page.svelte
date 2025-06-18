@@ -54,6 +54,10 @@
 									day: 'numeric'
 								})}
 							</time>
+							<span class="meta-separator">&bull;</span>
+							<span class="blog-post-reading-time">
+								{post.readingTime}
+							</span>
 						</div>
 					</div>
 				</article>
@@ -255,9 +259,9 @@
 		margin-top: var(--space-4);
 		padding-top: var(--space-4);
 		border-top: 1px solid rgba(255, 255, 255, 0.1);
-	}
-
-	.blog-post-date {
+		display: flex;
+		align-items: center;
+		gap: var(--space-3);
 		font-size: var(--small);
 		color: var(--description);
 	}

@@ -735,7 +735,7 @@
 <style>
 	.hero {
 		min-height: clamp(600px, 100vh, 900px);
-		padding: 8rem 2rem 2rem 2rem;
+		padding: 8rem 4rem 2rem 4rem;
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
 		gap: clamp(1rem, 4vw, 3rem);
@@ -756,7 +756,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1.5rem;
-		min-width: 0; /* Prevent grid overflow */
+		min-width: 0;
 	}
 
 	.hero-fireball-container {
@@ -768,10 +768,8 @@
 
 	.name,
 	.tagline {
-		font-size: clamp(2rem, 4vw, 4rem);
-		line-height: 1.1;
-		font-weight: 700;
-		color: var(--color-text);
+		font-size: clamp(3rem, 5vw, 4rem);
+		line-height: normal;
 		margin: 0;
 	}
 
@@ -779,15 +777,7 @@
 		font-size: clamp(1rem, 2.5vw, 1.5rem);
 		color: var(--description);
 		margin: 0;
-		line-height: 1.4;
-	}
-
-	.description {
-		font-size: clamp(0.9rem, 2.5vw, 1.125rem);
-		color: var(--description);
-		line-height: 1.6;
-		margin: 0;
-		max-width: 50ch;
+		line-height: 1.3;
 	}
 
 	@property --gradient-angle {
@@ -1631,7 +1621,7 @@
 		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
 		font-style: normal;
 		font-weight: 400;
-		margin: 0 0 8px 0;
+		margin: 0;
 		background: linear-gradient(135deg, #ff7a30 0%, var(--secondary) 50%, var(--gruv-red) 100%);
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
@@ -1639,10 +1629,11 @@
 	}
 
 	.description {
-		font-family: 'Nunito Sans', sans-serif;
+		font-family: 'Inter', 'Nunito Sans', sans-serif;
 		color: var(--description);
-		line-height: 1.6;
 		margin-bottom: 36px;
-		max-width: 764px;
+		max-width: 50ch;
+		font-size: clamp(0.9rem, 1.5vw, 1rem);
+		margin: 0;
 	}
 </style>

@@ -165,7 +165,7 @@
 		--h4: 2.25rem; /* 36px - reduced from 40px */
 		--h5: 1.875rem; /* 30px - reduced from 32px */
 		--h6: 1.5rem; /* 24px - unchanged */
-		--p: 1.25rem; /* 20px - reduced from 22px */
+		--p: 1rem; /* 20px - reduced from 22px */
 	}
 }
 
@@ -173,7 +173,7 @@
 h1,
 .h1 {
 	font-size: var(--h1);
-	line-height: 1.2;
+	line-height: 1.4;
 	font-weight: 700;
 }
 

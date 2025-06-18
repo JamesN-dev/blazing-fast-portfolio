@@ -8,7 +8,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeKatexSvelte from 'rehype-katex-svelte';
 import remarkWikiLink from 'remark-wiki-link';
 import rehypeCodeTitles from 'rehype-code-titles';
-import remarkReadingTime from 'remark-reading-time';
+import readingTime from "mdsvex-reading-time";
 import rehypeUnwrapImages from 'rehype-unwrap-images';
 import { createHighlighter } from 'shiki';
 import { escapeSvelte } from 'mdsvex';
@@ -45,7 +45,7 @@ const mdsvexOptions = {
     [remarkToc, { tight: true, ordered: true }],
     remarkMath,
     [remarkWikiLink, { pageResolver: (name) => [name.replace(/ /g, '-').toLowerCase()], hrefTemplate: (permalink) => `/blog/${permalink}` }],
-    remarkReadingTime
+    readingTime,
   ],
   rehypePlugins: [
     rehypeSlug,

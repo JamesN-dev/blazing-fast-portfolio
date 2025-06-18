@@ -55,10 +55,10 @@ export async function load({ params }) {
 	const description = frontmatter.description || 'No description available.';
 	const date = frontmatter.date || new Date().toISOString().split('T')[0];
 	const tags = frontmatter.tags || [];
-	const featuredImage = frontmatter.featuredImage || null; // Example for social sharing
+	const featuredImage = frontmatter.featuredImage || null; // For social media sharing
 
 	// Reading time is often added to metadata by remark-reading-time plugin
-	const readingTime = frontmatter.readingTime?.text || 'N/A';
+	const readingTime = frontmatter.readingTime?.text || frontmatter.readingTime || 'N/A';
 
 	// Table of Contents (ToC)
 	// remark-toc (configured in mdsvex options) should add `toc` to the metadata.

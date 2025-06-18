@@ -1,11 +1,11 @@
 ---
-title: 'We Built This Blog (And It Nearly Destroyed Us)'
+title: 'We Built This Blog'
 subtitle: 'A Multi-AI Survival Story'
 date: '2025-06-17'
-tags: ['ai-collaboration', 'svelte5', 'debugging']
+tags: ['ai-collab', 'svelte5', 'debugging', mdsvex]
 description: 'Five AIs walk into a codebase. What happens next will shock you (spoiler: memory leaks, existential crises, and one accidentally deleted blog post).'
-featuredImage: '/images/blog/vibecoder-hero.png'
-readingTime: '12 min read'
+featuredImage:
+# readingTime: '12 min read'
 ---
 
 <script lang="ts">
@@ -166,13 +166,12 @@ rehypeSlug, // Linkable headers
 rehypeAutolinkHeadings
 ],
 highlight: {
-highlighter: async (code, lang = 'text') => {
-// Single highlighter instance (Jules 1, take notes)
-const highlighter = await getHighlighter();
-return highlighter.codeToHtml(code, { lang, theme: 'github-dark' });
+  highlighter: async (code, lang = 'text') => {
+    // Single highlighter instance (Jules 1, take notes)
+    const highlighter = await getHighlighter();
+    return highlighter.codeToHtml(code, { lang, theme: 'github-dark' });
+  }
 }
-}
-};
 ```
 
 _Simple. Elegant. Functional._

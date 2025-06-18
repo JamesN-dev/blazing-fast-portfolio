@@ -52,10 +52,8 @@
 			{/if}
 			<div class="blog-meta">
 				<span>Published on <time datetime={date}>{formattedDate}</time></span>
-				{#if readingTime}
-					<span class="meta-separator">&bull;</span>
-					<span>{readingTime}</span>
-				{/if}
+				<span class="meta-separator">&bull;</span>
+				<span>{readingTime}</span>
 			</div>
 			{#if tags && tags.length > 0}
 				<div class="blog-tags">
@@ -108,30 +106,31 @@
 
 <style>
 	.grid-container {
-		/* Use same grid system as other pages */
 		display: grid;
 		grid-template-columns: repeat(var(--grid-cols, 16), 1fr);
 		gap: var(--space-4);
 		width: 100%;
 		max-width: var(--max-width);
 		margin: 0 auto;
-		padding: var(--space-8) var(--space-4);
+		padding: var(--space-12) var(--space-4) var(--space-8) var(--space-4);
 		box-sizing: border-box;
 		min-height: 100vh;
+		/* Enable container queries */
+		container-type: inline-size;
 		/* Responsive grid columns */
 		--grid-cols: 16;
 		--max-width: 1400px;
 	}
 
-	/* Responsive adjustments */
-	@media (max-width: 1200px) {
+	/* Responsive adjustments using container queries */
+	@container (max-width: 1200px) {
 		.grid-container {
 			--grid-cols: 12;
 			--max-width: 1200px;
 		}
 	}
 
-	@media (max-width: 768px) {
+	@container (max-width: 768px) {
 		.grid-container {
 			--grid-cols: 8;
 			--max-width: 768px;
@@ -139,7 +138,7 @@
 		}
 	}
 
-	@media (max-width: 480px) {
+	@container (max-width: 480px) {
 		.grid-container {
 			--grid-cols: 4;
 			--max-width: 480px;
@@ -155,8 +154,8 @@
 		width: 100%;
 	}
 
-	/* Responsive blog layout */
-	@media (max-width: 768px) {
+	/* Responsive blog layout using container queries */
+	@container (max-width: 768px) {
 		.blog-post-layout {
 			grid-column: 1 / -1; /* Use full width on mobile */
 		}
@@ -165,6 +164,8 @@
 	.blog-title {
 		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
 		font-size: var(--h1);
+		font-weight: 500;
+		padding-top: 8px;
 		background: linear-gradient(
 			135deg,
 			var(--color-text) 0%,
@@ -177,16 +178,15 @@
 		background-clip: text;
 		margin-bottom: var(--space-2);
 		text-align: center;
-		line-height: 1.1;
+		line-height: 1.4;
 	}
 
 	.blog-subtitle {
-		font-family: 'Nunito Sans', sans-serif;
-		font-size: var(--h4);
+		font-family: 'JetBrains Mono', sans-serif;
+		font-size: var(--h5);
 		color: var(--description);
 		margin-bottom: var(--space-4);
 		text-align: center;
-		font-weight: 400;
 		opacity: 0.8;
 	}
 
@@ -284,6 +284,7 @@
 		color: var(--color-text);
 	}
 
+	/* Typography */
 	.main-content :global(h2) {
 		font-size: 1.1rem;
 		font-weight: 700;
@@ -391,7 +392,9 @@
 	.main-content :global(.code-title) {
 		background: rgba(69, 133, 136, 0.9);
 		color: var(--color-text);
-		font-family: 'Fira Code', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+		font-family:
+			'Fira Code', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New',
+			monospace;
 		font-size: 0.75rem;
 		font-weight: 600;
 		padding: var(--space-2) var(--space-4);
@@ -499,8 +502,8 @@
 		}
 	}
 
-	/* Fix responsive container issues */
-	@media (max-width: 768px) {
+	/* Fix responsive container issues using container queries */
+	@container (max-width: 768px) {
 		.blog-post-layout {
 			grid-column: 1 / -1;
 			width: 100%;

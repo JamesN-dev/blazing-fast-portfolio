@@ -13,6 +13,7 @@ export async function load() {
 				date: frontmatter.date || new Date().toISOString().split('T')[0],
 				description: frontmatter.description || 'No description available.',
 				tags: Array.isArray(frontmatter.tags) ? frontmatter.tags : (frontmatter.tags ? frontmatter.tags.split(',').map(tag => tag.trim()) : []),
+				readingTime: frontmatter.readingTime?.text || 'Unknown reading time',
 			};
 		} catch (e) {
 			console.error(`Error processing file ${filePath}:`, e);
@@ -35,7 +36,7 @@ export async function load() {
 		posts,
 		meta: {
 			title: 'Blog',
-			description: 'The blazingfast blog - web development, Svelte, and more.'
+			description: 'The blazingfast blog - web development, Svelte, Python, AI, and more.'
 		}
 	};
 }
