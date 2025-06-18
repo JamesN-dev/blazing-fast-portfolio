@@ -6,7 +6,6 @@ import remarkMath from 'remark-math';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeKatexSvelte from 'rehype-katex-svelte';
-import remarkWikiLink from 'remark-wiki-link';
 import rehypeCodeTitles from 'rehype-code-titles';
 import readingTime from "mdsvex-reading-time";
 import rehypeUnwrapImages from 'rehype-unwrap-images';
@@ -44,7 +43,6 @@ const mdsvexOptions = {
     remarkGfm,
     [remarkToc, { tight: true, ordered: true }],
     remarkMath,
-    [remarkWikiLink, { pageResolver: (name) => [name.replace(/ /g, '-').toLowerCase()], hrefTemplate: (permalink) => `/blog/${permalink}` }],
     readingTime,
   ],
   rehypePlugins: [

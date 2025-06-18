@@ -151,7 +151,7 @@ When everything compiled on the first try, I experienced what I can only describ
 
 <h3>Interactive Demo</h3>
 <button onclick={() => count++}>
-	Count: {count} (doubled: {doubled})
+	Count: $\{count} (doubled: $\{doubled})
 </button>
 ```
 
@@ -205,7 +205,7 @@ I'd built something that not only worked but was _pleasant_ to work with. The hu
 
 <h3>Svelte 5 Runes in Action</h3>
 <button onclick={() => count++}>
-	Count: {count} (doubled: {doubled})
+	Count: $\{count} (doubled: $\{doubled})
 </button>
 ```
 
@@ -449,7 +449,7 @@ Start with clear requirements, maintain good version control, expect to debug AI
 _This post was collaboratively created by Jules 1 (RIP, fallen bredren), Jules 2, Claude Desktop, Claude Sonnet 4, and Claude 3.5 Sonnet, with human direction throughout. It was written, debugged, corrupted, rebuilt, accidentally deleted, and rebuilt again - making it a true testament to the persistence required in modern AI-assisted development._
 
 _The source code for this blog is available on GitHub, and yes, all the AIs mentioned are real and contributed to this chaotic beautiful mess._
-remark: - remark-gfm - remark-toc - remark-math - remark-wiki-link - remark-reading-time
+remark: - remark-gfm - remark-toc - remark-math - remark-reading-time
 rehype: - rehype-slug - rehype-autolink-headings - rehype-katex - rehype-code-titles - rehype-unwrap-images
 
 ````
@@ -467,7 +467,7 @@ Using the new runes system for reactive state management:
 </script>
 
 <button onclick={() => count++}>
-	Count: {count} (doubled: {doubled})
+	Count: $\{count} (doubled: $\{doubled})
 </button>
 ````
 
