@@ -1,88 +1,73 @@
 import adapter from '@sveltejs/adapter-auto';
-import { mdsvex } from 'mdsvex';
+import { mdsvex, escapeSvelte } from 'mdsvex';
+import { createHighlighter } from 'shiki';
 import remarkGfm from 'remark-gfm';
-import remarkToc from 'remark-toc';
 import remarkMath from 'remark-math';
+import headings from '@sveltinio/remark-headings';
+import readingTime from "mdsvex-reading-time";
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeKatexSvelte from 'rehype-katex-svelte';
 import rehypeCodeTitles from 'rehype-code-titles';
-import readingTime from "mdsvex-reading-time";
 import rehypeUnwrapImages from 'rehype-unwrap-images';
-import { createHighlighter } from 'shiki';
-import { escapeSvelte } from 'mdsvex';
 
-// Create singleton highlighter instance
-const highlighter = await createHighlighter({
-  themes: ['github-dark'],
-  langs: [
-    'javascript',
-    'typescript',
-    'svelte',
-    'html',
-    'css',
-    'json',
-    'markdown',
-    'yaml',
-    'toml',
-    'bash',
-    'shell',
-    'python',
-    'rust',
-    'go',
-    'java',
-    'c',
-    'cpp'
-  ]
-});
+// Singleton highlighter (create once, use everywhere)
+let highlighterInstance;
+
+const getHighlighter = async () => {
+  if (!highlighterInstance) {
+    highlighterInstance = await createHighlighter({
+      themes: ['gruvbox-dark-hard'],
+      langs: ['javascript', 'typescript', 'svelte', 'html', 'css', 'json', 'markdown', 'python', 'rust', 'go', 'java', 'c', 'cpp', 'shell', 'tex', 'latex', 'diff', 'bash']
+    });
+  }
+  return highlighterInstance;
+};
 
 /** @type {import('mdsvex').MdsvexOptions} */
 const mdsvexOptions = {
   extensions: ['.md', '.svx'],
+  highlight: {
+    highlighter: async (code, lang) => {
+      const highlighter = await getHighlighter();
+
+      // Map 'math' to 'tex' for LaTeX syntax highlighting
+      const language = lang === 'math' ? 'tex' : lang;
+
+      const html = escapeSvelte(
+        highlighter.codeToHtml(code, {
+          lang: language,
+          theme: 'gruvbox-dark-hard'
+        })
+      );
+
+      return `{@html \`${html}\`}`;
+    }
+  },
   remarkPlugins: [
     remarkGfm,
-    [remarkToc, { tight: true, ordered: true }],
+    headings, // Extracts headings to frontmatter.headings
     remarkMath,
-    readingTime,
+    readingTime
   ],
   rehypePlugins: [
     rehypeSlug,
     [rehypeAutolinkHeadings, { behavior: 'wrap' }],
-    rehypeCodeTitles, // This should run before your custom highlighter
     rehypeKatexSvelte,
+    rehypeCodeTitles,
     rehypeUnwrapImages
   ],
-  highlight: {
-    highlighter: async (code, lang = 'text', meta) => {
-      // Extract title from meta if present
-      const title = meta?.match(/title="([^"]+)"/)?.[1];
-      const effectiveLang = highlighter.getLoadedLanguages().includes(lang) ? lang : 'text';
-
-      const html = escapeSvelte(
-        highlighter.codeToHtml(code, {
-          lang: effectiveLang,
-          theme: 'github-dark'
-        })
-      );
-
-      // If there's a title, wrap the code block with title
-      if (title) {
-        return `<div class="code-block-with-title">
-          <div class="code-title">${escapeSvelte(title)}</div>
-          {@html \`${html}\`}
-        </div>`;
-      }
-
-      return `{@html \`${html}\`}`;
-    }
+  smartypants: {
+    dashes: 'oldschool'
   }
+  // No layout - using SvelteKit route-based layout instead
 };
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   extensions: ['.svelte', '.md', '.svx'],
   preprocess: [
-    mdsvex(mdsvexOptions)
+    mdsvex(mdsvexOptions),
   ],
   kit: {
     adapter: adapter()

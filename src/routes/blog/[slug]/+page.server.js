@@ -3,15 +3,15 @@ import { basename } from 'path';
 // Dynamically import all .md files from the posts directory
 // The `eager: true` option ensures that the modules are imported immediately,
 // and their content is available synchronously.
-const modules = import.meta.glob('$lib/posts/*.md', { eager: true });
+const modules = import.meta.glob('/src/lib/posts/*.md', { eager: true });
 
 export async function load({ params }) {
 	const { slug } = params;
 
 	// Try both possible path formats that Vite might generate
 	const possiblePaths = [
-		`$lib/posts/${slug}.md`,
-		`/src/lib/posts/${slug}.md`
+		`/src/lib/posts/${slug}.md`,
+		`$lib/posts/${slug}.md`
 	];
 
 	let postModule;
@@ -61,9 +61,27 @@ export async function load({ params }) {
 	const readingTime = frontmatter.readingTime?.text || frontmatter.readingTime || 'N/A';
 
 	// Table of Contents (ToC)
-	// remark-toc (configured in mdsvex options) should add `toc` to the metadata.
-	// It's an array of objects {level: number, id: string, text: string}
-	const toc = frontmatter.toc || [];
+	// @sveltinio/remark-headings adds `headings` to the metadata.
+	// Convert to the format expected by BlogPostLayout: {id: string, text: string, level: number}[]
+	const headings = frontmatter.headings || [];
+
+	// Transform the nested structure to flat array for TOC sidebar
+	const flattenHeadings = (headingsArray, result = []) => {
+		headingsArray.forEach(heading => {
+			result.push({
+				id: heading.id,
+				text: heading.value,
+				level: heading.depth
+			});
+			if (heading.children) {
+				flattenHeadings(heading.children, result);
+			}
+		});
+		return result;
+	};
+
+	const toc = flattenHeadings(headings);
+	console.log('TOC data for', slug, ':', toc);
 
 
 	return {

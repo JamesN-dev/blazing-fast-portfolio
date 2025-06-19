@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	// Interactive demo component for blog posts
 	// Features:
 	// - Shows live code examples

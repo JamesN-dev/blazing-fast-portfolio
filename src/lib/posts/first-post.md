@@ -1,5 +1,6 @@
 ---
 title: 'Hello World'
+subtitle: 'Testing Svelte and MDsveX setup'
 date: '2025-06-17'
 tags: ['svelte', 'mdsvex', 'testing']
 description: 'Testing Svelte and MDsveX setup with some initial thoughts.'
@@ -24,7 +25,7 @@ We are leveraging some fantastic tools here:
 1.  **SvelteKit**: For the overall application structure, routing, and server-side capabilities.
 2.  **MDsveX**: To allow writing content in Markdown while seamlessly integrating Svelte components.
 3.  **Shiki**: For beautiful syntax highlighting in our code blocks.
-4.  **KaTeX**: To render mathematical notations.
+4.  **$\KaTeX$**: To render mathematical notations.
 
 <Callout type="info" title="Plugin Power!">
   A host of `remark` and `rehype` plugins are also working behind the scenes to make features like table of contents, slugged headings, and GFM tables possible.
@@ -92,7 +93,7 @@ greet('Developer');
 
 ## Math Equations
 
-Let's test an inline equation like $ax^2 + bx + c = 0$. And a block equation:
+Let's test an inline equation like `ax^2 + bx + c = 0`. And a block equation:
 
 $$
 \sum_{i=1}^{n} i = \frac{n(n+1)}{2}

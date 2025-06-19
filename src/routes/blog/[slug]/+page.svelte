@@ -1,6 +1,6 @@
 <script>
 	import BlogPostLayout from '$lib/components/blog/BlogPostLayout.svelte';
-	import { page } from '$app/state'; // For page store, if needed for other things
+	import { page } from '$app/stores'; // For page store, if needed for other things
 
 	// Data from the load function in +page.server.js
 	let { data } = $props();
@@ -25,7 +25,7 @@
 	{#if frontmatter.featuredImage}
 		<meta property="og:image" content={frontmatter.featuredImage} />
 	{/if}
-	<meta property="og:url" content={page.url.href} />
+	<meta property="og:url" content={page?.url?.href || ''} />
 	{#if frontmatter.date}
 		<meta property="article:published_time" content={new Date(frontmatter.date).toISOString()} />
 	{/if}
@@ -52,12 +52,14 @@
 	featuredImage={frontmatter.featuredImage}
 	slug={data.slug}
 >
-	{#if ContentComponent}
-		<ContentComponent />
-	{:else}
-		<p>Error: Blog post content could not be loaded.</p>
-		<!-- This should ideally be caught by the 404 in +page.server.js if content is truly missing -->
-	{/if}
+	{#snippet children()}
+		{#if ContentComponent}
+			<ContentComponent />
+		{:else}
+			<p>Error: Blog post content could not be loaded.</p>
+			<!-- This should ideally be caught by the 404 in +page.server.js if content is truly missing -->
+		{/if}
+	{/snippet}
 </BlogPostLayout>
 
 <style>

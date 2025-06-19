@@ -573,14 +573,14 @@ p,
 }
 
 /* ============================================
-   CSS RANGE UTILITIES
+  CSS RANGE UTILITIES
    ============================================ */
 
 /* Container query ranges are preferred over media queries for component-specific layouts */
 /* Example usage:
-   @container hero (600px <= width <= 795px) { ... }
-   @container navigation (width <= 600px) { ... }
-   @container cards (width >= 400px) { ... }
+  @container hero (600px <= width <= 795px) { ... }
+  @container navigation (width <= 600px) { ... }
+  @container cards (width >= 400px) { ... }
 */
 
 /* CSS-only Fireball Hover Effects */
@@ -626,4 +626,25 @@ p,
 		opacity: 1;
 		transform: none;
 	}
+}
+
+/* KaTeX Math Styling */
+.katex {
+	font-size: 1.1em;
+}
+
+.katex-display {
+	margin: 1.5rem 0;
+}
+
+/* Dark theme adjustments for KaTeX */
+.katex .mord,
+.katex .mrel,
+.katex .mbin,
+.katex .mop {
+	color: #e0def4; /* Rose Pine text */
+}
+
+.katex .base {
+	color: #e0def4;
 }

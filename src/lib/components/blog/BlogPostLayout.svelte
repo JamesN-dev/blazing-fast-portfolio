@@ -1,4 +1,6 @@
 <script>
+	import TocCard from '$lib/components/blog/TocCard.svelte';
+
 	// Define props using Svelte 5 runes
 	let {
 		title = 'Untitled Post',
@@ -21,21 +23,6 @@
 				})
 			: 'Date not available'
 	);
-
-	function getTocClass(level) {
-		switch (level) {
-			case 1:
-				return 'toc-level-1'; // Should not happen often in ToC from post body
-			case 2:
-				return 'toc-level-2'; // Main headings in ToC
-			case 3:
-				return 'toc-level-3'; // Sub-headings
-			case 4:
-				return 'toc-level-4'; // Deeper sub-headings
-			default:
-				return 'toc-level-deep';
-		}
-	}
 </script>
 
 <!-- Follow the same container pattern as other pages -->
@@ -46,9 +33,9 @@
 				{title}
 			</h1>
 			{#if subtitle}
-				<h2 class="blog-subtitle">
+				<p class="blog-subtitle">
 					{subtitle}
-				</h2>
+				</p>
 			{/if}
 			<div class="blog-meta">
 				<span>Published on <time datetime={date}>{formattedDate}</time></span>
@@ -79,23 +66,8 @@
 				{@render children()}
 			</div>
 
-			<!-- Table of Contents Sidebar -->
-			{#if tocItems && tocItems.length > 0}
-				<aside class="toc-sidebar">
-					<h2 class="toc-title">On this page</h2>
-					<nav aria-label="Table of contents">
-						<ul class="toc-list">
-							{#each tocItems as item (item.id)}
-								<li class="toc-item {getTocClass(item.level)}">
-									<a href="#{item.id}" class="toc-link">
-										{item.text}
-									</a>
-								</li>
-							{/each}
-						</ul>
-					</nav>
-				</aside>
-			{/if}
+			<!-- Scroll-Controlled Table of Contents -->
+			<TocCard {tocItems} />
 		</div>
 
 		<footer class="blog-footer">
@@ -149,7 +121,7 @@
 	.blog-post-layout {
 		grid-column: 2 / -2; /* Leave margin columns on both sides */
 		/* Center the content within the grid */
-		max-width: 900px;
+		max-width: 1200px; /* Increased to accommodate TOC properly */
 		margin: 0 auto;
 		width: 100%;
 	}
@@ -273,15 +245,20 @@
 
 	.blog-content-wrapper {
 		display: grid;
-		grid-template-columns: 1fr;
-		gap: var(--space-8);
+		grid-template-columns: 1fr 300px; /* Main content + TOC sidebar */
+		gap: var(--space-12);
+		align-items: start;
+		max-width: 100%;
+		width: 100%;
 	}
 
 	.main-content {
-		font-family: 'Inter', 'Nunito Sans', sans-serif;
-		font-size: 1rem;
-		line-height: 1.6;
+		font-family: 'Inter', system-ui, sans-serif;
+		font-size: 1.1rem;
+		line-height: 1.7;
 		color: var(--color-text);
+		max-width: 65ch; /* Optimal reading width - about 65 characters per line */
+		width: 100%;
 	}
 
 	/* Typography */
@@ -497,8 +474,15 @@
 
 	@container (min-width: 1024px) {
 		.blog-content-wrapper {
-			grid-template-columns: 1fr 300px;
-			gap: var(--space-12);
+			grid-template-columns: 1fr 320px;
+			gap: var(--space-16);
+		}
+	}
+
+	@container (min-width: 1024px) {
+		.blog-content-wrapper {
+			grid-template-columns: 1fr 320px;
+			gap: var(--space-16);
 		}
 	}
 
@@ -512,6 +496,11 @@
 
 		.grid-container {
 			min-width: 320px; /* Ensure minimum usable width */
+		}
+
+		.blog-content-wrapper {
+			grid-template-columns: 1fr; /* Single column on mobile */
+			gap: var(--space-6);
 		}
 	}
 </style>
