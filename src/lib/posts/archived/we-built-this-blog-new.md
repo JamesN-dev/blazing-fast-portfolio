@@ -1,22 +1,23 @@
 ---
-title: 'Building a SvelteKit 5 Blog in 3 Days: A Multi-AI Collaboration Story'
-subtitle: 'How Claude, Jules, and GitHub Copilot helped architect a modern blog with MDSvex, Shiki, and way too many config rewrites'
+title: 'Three AIs, Three Days, One Blog'
+subtitle: 'How Claude, Jules, and GitHub Copilot built this SvelteKit blog'
 description: 'The technical journey of building a SvelteKit 5 + MDSvex blog through AI collaboration, featuring LaTeX corruption chaos, TOC positioning hell, and the quest for the perfect svelte.config.js'
 date: '2025-01-16'
-published: true
-featured: true
+published: false
+archived: true
 tags: ['svelte', 'sveltekit', 'mdsvex', 'ai-collaboration', 'technical-blog', 'shiki', 'markdown']
 ---
 
-*A meta-story about building this very blog you're reading, featuring three AI assistants, one determined human, and enough configuration rewrites to make any developer weep.*
+_A meta-story about building this very blog you're reading, featuring three AI assistants, one determined human, and enough configuration rewrites to make any developer weep._
 
 ## Prologue: The Three-Day Sprint
 
 What you're about to read is the true story of how this blog came to life over exactly three days in January 2025. Not months of careful planning, not weeks of meticulous development, but three intense days of AI-human collaboration that produced something actually worth shipping.
 
 The cast of characters:
+
 - **The Human**: Armed with ambition and a dangerous amount of coffee
-- **Claude**: The planner and architect, full of measured optimism  
+- **Claude**: The planner and architect, full of measured optimism
 - **Jules** (Jules.google): The coding workhorse who turned plans into reality
 - **GitHub Copilot**: The debugging specialist who arrived on Day 3 to clean up the mess
 
@@ -33,18 +34,18 @@ Claude, ever the optimist, responded with the kind of measured enthusiasm that s
 ```javascript title="claude-naive-optimism.js"
 // Claude's first suggestion
 const blogPlan = {
-  framework: "SvelteKit 5", // "It's stable now!"
-  content: "MDSvex", // "Perfect integration!"
-  styling: "Simple CSS", // Famous last words
-  timeline: "A few hours", // 😂
-  confidence: "High" // Oh, sweet summer child
+	framework: 'SvelteKit 5', // "It's stable now!"
+	content: 'MDSvex', // "Perfect integration!"
+	styling: 'Simple CSS', // Famous last words
+	timeline: 'A few hours', // 😂
+	confidence: 'High' // Oh, sweet summer child
 };
 ```
 
 We spent Day 1 planning the architecture, discussing component structure, and Claude confidently explaining how SvelteKit 5's new features would make everything "straightforward." The plan looked beautiful on paper:
 
 - Clean route-based layouts
-- MDSvex for markdown processing  
+- MDSvex for markdown processing
 - Syntax highlighting with Shiki
 - Table of contents generation
 - Responsive design with CSS Grid
@@ -116,16 +117,16 @@ By this point, our `svelte.config.js` had been rewritten so many times that it d
 
 ```svelte title="working-svelte5-component.svelte"
 <script>
-  // Jules finally cracking the Svelte 5 syntax
-  let { post } = $props(); // Not props() anymore!
-  let content = $state(post.content); // State management evolution
-  
-  // After hours of "why isn't this working?"
-  // Turns out Svelte 5 changed everything
+	// Jules finally cracking the Svelte 5 syntax
+	let { post } = $props(); // Not props() anymore!
+	let content = $state(post.content); // State management evolution
+
+	// After hours of "why isn't this working?"
+	// Turns out Svelte 5 changed everything
 </script>
 
 <article>
-  {@html content}
+	{@html content}
 </article>
 ```
 
@@ -133,24 +134,24 @@ The plugin configuration alone went through more iterations than a machine learn
 
 ```javascript title="jules2-final-config.js"
 // Attempt #1: Minimal plugins (naive)
-// Attempt #7: Every plugin we could find (chaos)  
+// Attempt #7: Every plugin we could find (chaos)
 // Attempt #12: Back to minimal (wisdom through suffering)
 // Attempt #18: The goldilocks zone (just right)
 
 const mdsvexOptions = {
-  remarkPlugins: [
-    remarkGfm, // For GitHub-flavored markdown
-    headings, // TOC extraction that actually works
-    remarkMath, // LaTeX support (finally!)
-    readingTime // Because readers need hope
-  ],
-  rehypePlugins: [
-    rehypeSlug, // Anchor links for headings
-    [rehypeAutolinkHeadings, { behavior: 'wrap' }],
-    rehypeKatexSvelte, // Math rendering salvation
-    rehypeCodeTitles, // Code block titles (when they work)
-    rehypeUnwrapImages // Image handling sanity
-  ]
+	remarkPlugins: [
+		remarkGfm, // For GitHub-flavored markdown
+		headings, // TOC extraction that actually works
+		remarkMath, // LaTeX support (finally!)
+		readingTime // Because readers need hope
+	],
+	rehypePlugins: [
+		rehypeSlug, // Anchor links for headings
+		[rehypeAutolinkHeadings, { behavior: 'wrap' }],
+		rehypeKatexSvelte, // Math rendering salvation
+		rehypeCodeTitles, // Code block titles (when they work)
+		rehypeUnwrapImages // Image handling sanity
+	]
 };
 ```
 
@@ -165,13 +166,13 @@ The solution came in the form of Shiki with a singleton pattern:
 let highlighterInstance;
 
 const getHighlighter = async () => {
-  if (!highlighterInstance) {
-    highlighterInstance = await createHighlighter({
-      themes: ['gruvbox-dark-hard'], // Finally, readable code!
-      langs: ['javascript', 'typescript', 'svelte', 'html', 'css', 'json']
-    });
-  }
-  return highlighterInstance;
+	if (!highlighterInstance) {
+		highlighterInstance = await createHighlighter({
+			themes: ['gruvbox-dark-hard'], // Finally, readable code!
+			langs: ['javascript', 'typescript', 'svelte', 'html', 'css', 'json']
+		});
+	}
+	return highlighterInstance;
 };
 ```
 
@@ -195,7 +196,7 @@ The Table of Contents was our final boss battle. We wanted a sticky sidebar that
 - Sidebar content that was too wide for any reasonable container
 
 ```javascript title="The solution that saved us"
-// After trying CSS sticky, fixed positioning, 
+// After trying CSS sticky, fixed positioning,
 // JavaScript scroll listeners, and briefly considering jQuery (dark times),
 // we found the answer in CSS Grid and proper container constraints
 
@@ -257,7 +258,7 @@ import { createHighlighter } from 'shiki';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import headings from '@sveltinio/remark-headings';
-import readingTime from "mdsvex-reading-time";
+import readingTime from 'mdsvex-reading-time';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeKatexSvelte from 'rehype-katex-svelte';
@@ -268,59 +269,76 @@ import rehypeUnwrapImages from 'rehype-unwrap-images';
 let highlighterInstance;
 
 const getHighlighter = async () => {
-  if (!highlighterInstance) {
-    highlighterInstance = await createHighlighter({
-      themes: ['gruvbox-dark-hard'],
-      langs: ['javascript', 'typescript', 'svelte', 'html', 'css', 'json', 
-              'markdown', 'python', 'rust', 'go', 'java', 'c', 'cpp', 
-              'shell', 'tex', 'latex', 'diff', 'bash']
-    });
-  }
-  return highlighterInstance;
+	if (!highlighterInstance) {
+		highlighterInstance = await createHighlighter({
+			themes: ['gruvbox-dark-hard'],
+			langs: [
+				'javascript',
+				'typescript',
+				'svelte',
+				'html',
+				'css',
+				'json',
+				'markdown',
+				'python',
+				'rust',
+				'go',
+				'java',
+				'c',
+				'cpp',
+				'shell',
+				'tex',
+				'latex',
+				'diff',
+				'bash'
+			]
+		});
+	}
+	return highlighterInstance;
 };
 
 const mdsvexOptions = {
-  extensions: ['.md', '.svx'],
-  highlight: {
-    highlighter: async (code, lang) => {
-      const highlighter = await getHighlighter();
-      const language = lang === 'math' ? 'tex' : lang;
+	extensions: ['.md', '.svx'],
+	highlight: {
+		highlighter: async (code, lang) => {
+			const highlighter = await getHighlighter();
+			const language = lang === 'math' ? 'tex' : lang;
 
-      const html = escapeSvelte(
-        highlighter.codeToHtml(code, {
-          lang: language,
-          theme: 'gruvbox-dark-hard'
-        })
-      );
+			const html = escapeSvelte(
+				highlighter.codeToHtml(code, {
+					lang: language,
+					theme: 'gruvbox-dark-hard'
+				})
+			);
 
-      return `{@html \`${html}\`}`;
-    }
-  },
-  remarkPlugins: [
-    remarkGfm,                    // GitHub-flavored markdown
-    headings,                     // TOC extraction
-    remarkMath,                   // LaTeX math support
-    readingTime                   // Reading time estimation
-  ],
-  rehypePlugins: [
-    rehypeSlug,                   // Generate heading IDs
-    [rehypeAutolinkHeadings, { behavior: 'wrap' }],
-    rehypeKatexSvelte,           // Render LaTeX with KaTeX
-    rehypeCodeTitles,            // Code block titles
-    rehypeUnwrapImages           // Better image handling
-  ],
-  smartypants: {
-    dashes: 'oldschool'          // Typography improvements
-  }
-  // No layout - using SvelteKit route-based layout instead
+			return `{@html \`${html}\`}`;
+		}
+	},
+	remarkPlugins: [
+		remarkGfm, // GitHub-flavored markdown
+		headings, // TOC extraction
+		remarkMath, // LaTeX math support
+		readingTime // Reading time estimation
+	],
+	rehypePlugins: [
+		rehypeSlug, // Generate heading IDs
+		[rehypeAutolinkHeadings, { behavior: 'wrap' }],
+		rehypeKatexSvelte, // Render LaTeX with KaTeX
+		rehypeCodeTitles, // Code block titles
+		rehypeUnwrapImages // Better image handling
+	],
+	smartypants: {
+		dashes: 'oldschool' // Typography improvements
+	}
+	// No layout - using SvelteKit route-based layout instead
 };
 
 const config = {
-  extensions: ['.svelte', '.md', '.svx'],
-  preprocess: [mdsvex(mdsvexOptions)],
-  kit: {
-    adapter: adapter()
-  }
+	extensions: ['.svelte', '.md', '.svx'],
+	preprocess: [mdsvex(mdsvexOptions)],
+	kit: {
+		adapter: adapter()
+	}
 };
 
 export default config;
@@ -333,12 +351,14 @@ export default config;
 As of 2025, MDSvex remains the go-to solution for Markdown in Svelte, but it's not without its quirks:
 
 **Known Issues:**
+
 1. **Svelte 5 Template Syntax**: Curly braces in markdown can be interpreted as Svelte templates
 2. **Plugin Compatibility**: Not all remark/rehype plugins play nicely with MDSvex's processing pipeline
 3. **LaTeX Integration**: Math expressions require careful escaping and plugin configuration
 4. **Performance**: Syntax highlighting can be slow without proper caching
 
 **Our Solutions:**
+
 1. **escapeSvelte()**: Used liberally in our highlighter function to prevent template interpretation
 2. **Careful Plugin Selection**: We tested extensively and removed incompatible plugins
 3. **KaTeX + rehype-katex-svelte**: Proper LaTeX rendering without corruption
@@ -378,6 +398,7 @@ This wasn't just about getting code written faster - it was about having differe
 What started as a simple "let's build a blog" project became an exploration of AI-assisted development. We battled LaTeX corruption, conquered configuration hell, and emerged with a blog that's both functional and beautiful.
 
 The final result? A SvelteKit 5 blog with:
+
 - ✅ **Fast, server-side rendered pages**
 - ✅ **Beautiful syntax highlighting with Gruvbox theme**
 - ✅ **Responsive design that works on all devices**
@@ -390,8 +411,8 @@ But more importantly, we learned that the future of development isn't about repl
 
 The blog you're reading right now is proof that this approach works. It was built in three days by a human who knew what they wanted and three AI assistants who knew how to make it happen.
 
-*And yes, GitHub Copilot wrote this conclusion while simultaneously helping debug a CSS Grid issue. The future is weird and wonderful.*
+_And yes, GitHub Copilot wrote this conclusion while simultaneously helping debug a CSS Grid issue. The future is weird and wonderful._
 
 ---
 
-*Want to build your own SvelteKit 5 blog? Our battle-tested configuration is in the code blocks above. May your builds be fast and your configurations be stable.*
+_Want to build your own SvelteKit 5 blog? Our battle-tested configuration is in the code blocks above. May your builds be fast and your configurations be stable._

@@ -2,6 +2,8 @@
 title: 'Hello World'
 subtitle: 'Testing Svelte and MDsveX setup'
 date: '2025-06-17'
+published: true
+archived: false
 tags: ['svelte', 'mdsvex', 'testing']
 description: 'Testing Svelte and MDsveX setup with some initial thoughts.'
 ---
@@ -44,12 +46,12 @@ We are leveraging some fantastic tools here:
 
 ### Tech Stack Badges
 
-<span class="tech-badge">SvelteKit</span>
-<span class="tech-badge">MDsveX</span>
-<span class="tech-badge">TypeScript</span>
-<span class="tech-badge">Shiki</span>
-<span class="tech-badge">KaTeX</span>
-<span class="tech-badge">CSS Grid</span>
+<span class="blog-tag">SvelteKit</span>
+<span class="blog-tag">MDsveX</span>
+<span class="blog-tag">TypeScript</span>
+<span class="blog-tag">Shiki</span>
+<span class="blog-tag">KaTeX</span>
+<span class="blog-tag">CSS Grid</span>
 
 <div class="info-panel success">
   <strong>Pro Tip:</strong> All these badges are interactive and match the homepage design!

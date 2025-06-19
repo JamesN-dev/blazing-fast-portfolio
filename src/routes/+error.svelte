@@ -1,104 +1,196 @@
 <script>
-	import { page } from '$app/stores'; // (or '$app/state' in some versions)
+	import { page } from '$app/state';
 	import { fly, fade } from 'svelte/transition';
+	import { quintOut } from 'svelte/easing';
 
 	let visible = $state(false);
+
+	// Show animation after mount
+	$effect(() => {
+		setTimeout(() => {
+			visible = true;
+		}, 100);
+	});
 </script>
 
-{#if $page.status === 404}
-	<div class="not-found-container" in:fade>
-		<svg
-			width="140"
-			height="140"
-			viewBox="0 0 140 140"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-			class="mushroom-cloud"
-		>
-			<ellipse cx="70" cy="100" rx="35" ry="20" fill="#ccc2ab" opacity="0.9" />
-			<ellipse cx="70" cy="80" rx="45" ry="25" fill="#fff4db" opacity="0.7" />
-			<ellipse cx="70" cy="60" rx="50" ry="30" fill="#fbbd2e" opacity="0.85" />
-			<ellipse cx="70" cy="45" rx="40" ry="18" fill="#ea732f" opacity="0.75" />
-			<ellipse cx="70" cy="30" rx="22" ry="10" fill="#cd241e" opacity="0.6" />
-		</svg>
-		<h1 class="code" in:fly={{ y: -20, duration: 400 }}>404</h1>
-		<p class="message" in:fly={{ y: 20, duration: 400, delay: 150 }}>
-			I build. I ship. I get wrekt.
-		</p>
-		<a class="home-link" href="/">Go back home</a>
-	</div>
-{:else}
-	<!-- For other error types, show something less memey -->
-	<div class="not-found-container" in:fade>
-		<h1 class="code" in:fly={{ y: -20, duration: 1200 }}>{$page.status}</h1>
-		<p class="message" in:fly={{ y: 20, duration: 1200, delay: 150 }}>
-			{$page.error?.message || 'Unknown error.'}
-		</p>
-		<a class="home-link" href="/">Go back home</a>
-	</div>
-{/if}
+<div class="error-container">
+	{#if visible}
+		<div class="error-content" transition:fade={{ duration: 600 }}>
+			<div
+				class="error-graphic"
+				transition:fly={{ delay: 200, duration: 800, y: -50, easing: quintOut }}
+			>
+				<div class="error-code">{page.status}</div>
+				<div class="fireball-error">🔥</div>
+			</div>
+
+			<div
+				class="error-text"
+				transition:fly={{ delay: 400, duration: 800, y: 30, easing: quintOut }}
+			>
+				<h1>Oops! Something went wrong</h1>
+				<p class="error-message">{page.error?.message || 'Page not found'}</p>
+				<p class="error-description">
+					{#if page.status === 404}
+						The page you're looking for doesn't exist or has been moved.
+					{:else if page.status === 500}
+						We're having some technical difficulties. Please try again later.
+					{:else}
+						An unexpected error occurred. Our team has been notified.
+					{/if}
+				</p>
+			</div>
+
+			<div
+				class="error-actions"
+				transition:fly={{ delay: 600, duration: 800, y: 20, easing: quintOut }}
+			>
+				<a href="/" class="button-primary">
+					<span>← Back to Home</span>
+				</a>
+				<button onclick={() => history.back()} class="button-secondary">
+					<span>Go Back</span>
+				</button>
+			</div>
+		</div>
+	{/if}
+</div>
 
 <style>
-	.not-found-container {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: flex-start; /* Changed from center to flex-start */
+	.error-container {
 		min-height: 100vh;
-		width: 100%;
-		background-color: var(--background);
-		color: var(--color-text);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: var(--background);
+		padding: 2rem;
+	}
+
+	.error-content {
 		text-align: center;
-		padding: 120px 20px 20px 20px; /* Added top padding to push content down from top */
-		box-sizing: border-box;
+		max-width: 600px;
+		width: 100%;
 	}
 
-	.code {
-		font-size: 96px;
-		font-weight: bold;
-		margin-bottom: 40px; /* Reduced from 60px */
-		color: var(--accent);
-		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
+	.error-graphic {
+		position: relative;
+		margin-bottom: 2rem;
 	}
 
-	.message {
-		font-size: 24px;
-		font-family: 'Nunito Sans', sans-serif;
-		margin-bottom: 30px; /* Reduced from 50px */
-		color: var(--description);
+	.error-code {
+		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans Variable', sans-serif;
+		font-size: clamp(6rem, 15vw, 12rem);
+		font-weight: 700;
+		background: linear-gradient(
+			135deg,
+			var(--accent) 0%,
+			var(--secondary) 40%,
+			var(--gruv-red) 100%
+		);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		line-height: 1;
+		margin-bottom: 1rem;
 	}
 
-	.home-link {
-		font-size: 18px;
-		color: var(--primary);
-		text-decoration: none;
-		border: 2px solid var(--primary);
-		padding: 10px 60px;
-		border-radius: 4px;
-		transition:
-			background 0.3s ease,
-			color 0.3s ease;
+	.fireball-error {
+		font-size: 4rem;
+		animation: flicker 2s infinite alternate;
 	}
 
-	.home-link:hover {
-		background: var(--primary);
-		color: var(--background);
-	}
-
-	.mushroom-cloud {
-		margin: 0 auto 24px auto;
-		display: block;
-		filter: drop-shadow(0 4px 24px #cd241e99);
-		animation: puff-in 1.5s cubic-bezier(0.32, 1.56, 0.64, 1) 0.2s both;
-	}
-	@keyframes puff-in {
-		from {
-			opacity: 0;
-			transform: scale(0.5);
-		}
-		to {
+	@keyframes flicker {
+		0% {
 			opacity: 1;
 			transform: scale(1);
+		}
+		50% {
+			opacity: 0.8;
+			transform: scale(1.05);
+		}
+		100% {
+			opacity: 1;
+			transform: scale(1);
+		}
+	}
+
+	.error-text h1 {
+		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans Variable', sans-serif;
+		font-size: clamp(2rem, 5vw, 3rem);
+		color: var(--color-text);
+		margin-bottom: 1rem;
+	}
+
+	.error-message {
+		font-size: 1.25rem;
+		color: var(--accent);
+		font-weight: 600;
+		margin-bottom: 1rem;
+	}
+
+	.error-description {
+		font-size: 1rem;
+		color: var(--description);
+		line-height: 1.6;
+		margin-bottom: 2.5rem;
+	}
+
+	.error-actions {
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+	.button-primary,
+	.button-secondary {
+		position: relative;
+		border-radius: 0.5rem;
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		padding: 1rem 2rem;
+		text-decoration: none;
+		font-family: 'Nunito Sans Variable', sans-serif;
+		font-size: 1rem;
+		font-weight: 500;
+		color: var(--color-text-light);
+		border: none;
+		cursor: pointer;
+		transition:
+			transform 0.2s ease,
+			background 0.2s ease;
+		min-width: 140px;
+	}
+
+	.button-primary {
+		background: var(--gruv-darkorange);
+	}
+
+	.button-secondary {
+		background: var(--primary);
+	}
+
+	.button-primary:hover,
+	.button-secondary:hover {
+		transform: translateY(-2px);
+	}
+
+	.button-primary:active,
+	.button-secondary:active {
+		transform: translateY(0);
+	}
+
+	@media (max-width: 640px) {
+		.error-actions {
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.button-primary,
+		.button-secondary {
+			width: 100%;
+			max-width: 280px;
 		}
 	}
 </style>

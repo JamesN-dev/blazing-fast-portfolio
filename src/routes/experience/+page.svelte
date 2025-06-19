@@ -109,7 +109,7 @@
 						<p class="experience-description">{exp.description}</p>
 						<div class="experience-skills">
 							{#each exp.skills as skill}
-								<span class="skill-tag">{skill}</span>
+								<span class="blog-tag">{skill}</span>
 							{/each}
 						</div>
 					</div>
@@ -237,19 +237,7 @@
 		justify-content: start;
 	}
 
-	.skill-tag {
-		font-family: 'Nunito Sans', sans-serif;
-		font-size: 12px;
-		color: var(--color-text);
-		background: var(--primary);
-		padding: 4px 10px;
-		border-radius: 4px;
-		transition: background 0.3s ease;
-	}
-
-	.skill-tag:hover {
-		background: var(--gruv-darkblue);
-	}
+	/* skill-tag styles removed - now using global .blog-tag class */
 
 	/* Responsive adjustments for smaller screens */
 	@media screen and (max-width: 768px) {
@@ -291,9 +279,6 @@
 			align-items: flex-start;
 		}
 
-		.skill-tag {
-			font-size: 10px;
-			padding: 3px 8px;
-		}
+		/* blog-tag styles are now global, no mobile overrides needed */
 	}
 </style>

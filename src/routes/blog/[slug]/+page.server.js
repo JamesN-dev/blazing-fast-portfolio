@@ -1,17 +1,24 @@
 import { error } from '@sveltejs/kit';
 import { basename } from 'path';
-// Dynamically import all .md files from the posts directory
-// The `eager: true` option ensures that the modules are imported immediately,
-// and their content is available synchronously.
-const modules = import.meta.glob('/src/lib/posts/*.md', { eager: true });
+// Dynamically import all .md files from both main and archived posts directories
+const mainModules = import.meta.glob('/src/lib/posts/*.md', { eager: true });
+const archivedModules = import.meta.glob('/src/lib/posts/archived/*.md', { eager: true });
+const modules = { ...mainModules, ...archivedModules };
 
 export async function load({ params }) {
 	const { slug } = params;
 
-	// Try both possible path formats that Vite might generate
+	// TEMPORARY: Trigger 500 error for testing
+	if (slug === 'test-500') {
+		throw new Error('This is a test 500 error!');
+	}
+
+	// Try possible path formats in both main and archived directories
 	const possiblePaths = [
 		`/src/lib/posts/${slug}.md`,
-		`$lib/posts/${slug}.md`
+		`$lib/posts/${slug}.md`,
+		`/src/lib/posts/archived/${slug}.md`,
+		`$lib/posts/archived/${slug}.md`
 	];
 
 	let postModule;
@@ -44,11 +51,17 @@ export async function load({ params }) {
 
 	if (!metadata) {
 		console.warn(`Metadata not found for post: ${slug}`);
-
 	}
 
-
 	const frontmatter = metadata || {}; // Fallback if metadata is somehow missing
+
+	// Check if the post is unpublished (but allow archived posts)
+	if (frontmatter.published === false) {
+		error(404, {
+			message: `Blog post not found: ${slug}`,
+			details: `This post is unpublished.`
+		});
+	}
 
 	// Ensure essential frontmatter for SEO and display
 	const title = frontmatter.title || 'Untitled Post';
@@ -110,6 +123,17 @@ export async function load({ params }) {
 // This function can be used by SvelteKit to determine which dynamic routes to prerender
 // if you enable prerendering for this route.
 export async function entries() {
-	const postFiles = Object.keys(modules).map(path => basename(path, '.md'));
-	return postFiles.map(slug => ({ slug }));
+	const postSlugs = [];
+
+	Object.entries(modules).forEach(([path, module]) => {
+		const slug = basename(path, '.md');
+		const metadata = module.metadata || {};
+
+		// Only include published, non-archived posts for prerendering
+		if (metadata.published !== false && metadata.archived !== true) {
+			postSlugs.push({ slug });
+		}
+	});
+
+	return postSlugs;
 }

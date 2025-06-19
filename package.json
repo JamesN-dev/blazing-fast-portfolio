@@ -12,7 +12,8 @@
 		"lint": "prettier --check . && eslint .",
 		"test:unit": "vitest",
 		"test": "npm run test:unit -- --run",
-		"start": "npm run dev -- --open"
+		"start": "npm run dev -- --open",
+		"archive-posts": "node scripts/archive-posts.js"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.5",

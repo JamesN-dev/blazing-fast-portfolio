@@ -38,8 +38,8 @@
 <style>
 	.toc-sidebar {
 		position: sticky;
-		top: 70vh; /* Stick when it reaches 40% down the viewport */
-		transform: translateY(-50%); /* Center it at that position */
+		top: 20vh; /* Lower position to avoid nav overlap */
+		transform: translateY(0); /* Remove centering transform */
 		width: 300px;
 		max-height: 400px;
 		overflow-y: auto;
@@ -52,6 +52,7 @@
 		transition: all 0.4s ease;
 		scrollbar-width: thin;
 		scrollbar-color: var(--gruv-yellow) transparent;
+		z-index: 1; /* Lower z-index to stay behind nav */
 	}
 
 	.toc-sidebar::before {
@@ -147,5 +148,12 @@
 		font-size: 0.65rem;
 		padding-left: var(--space-10);
 		color: var(--color-text-muted);
+	}
+
+	/* Hide TOC on mobile using container queries */
+	@container (max-width: 1000px) {
+		.toc-sidebar {
+			display: none;
+		}
 	}
 </style>

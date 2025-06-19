@@ -51,6 +51,8 @@
 	tocItems={toc}
 	featuredImage={frontmatter.featuredImage}
 	slug={data.slug}
+	archived={frontmatter.archived || false}
+	archivedDate={frontmatter.archivedDate}
 >
 	{#snippet children()}
 		{#if ContentComponent}
@@ -63,5 +65,4 @@
 </BlogPostLayout>
 
 <style>
-	/* Clean, simple blog post styling */
 </style>

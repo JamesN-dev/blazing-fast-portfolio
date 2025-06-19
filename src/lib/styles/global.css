@@ -79,10 +79,10 @@
 	--h2: 2.125rem; /* 34px */
 	--h3: 1.75rem; /* 28px */
 	--h4: 1.5rem; /* 24px */
-	--h5: 1.25rem; /* 20px */
-	--h6: 1.125rem; /* 18px */
-	--p: 1rem; /* 16px */
-	--small: 0.875rem; /* 14px */
+	--h5: 1rem; /* 20px */
+	--h6: 0.85rem; /* 18px */
+	--p: 0.75rem; /* 16px */
+	--small: 0.75rem; /* 14px */
 
 	/* Semantic styles */
 	--description: var(--gruv-darkwhite);
@@ -130,6 +130,43 @@
 	/* Layout */
 	--max-width: 1200px;
 	--header-height: 5rem;
+}
+
+/* Mobile-first responsive base */
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	overflow-x: hidden;
+	min-width: 0;
+}
+
+/* Ensure all text content can wrap properly */
+p,
+div,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	hyphens: auto;
+	min-width: 0;
+}
+
+/* Prevent horizontal scrolling on mobile */
+.container,
+.grid-container,
+main,
+article {
+	max-width: 100%;
+	min-width: 0;
+	overflow-x: hidden;
 }
 
 /* Responsive typography scaling */
@@ -647,4 +684,157 @@ p,
 
 .katex .base {
 	color: #e0def4;
+}
+
+/* Tech Stack Badges for Blog Posts - Use existing .blog-tag class instead */
+
+/* Rehype Code Titles - Match site styling */
+.rehype-code-title {
+	font-family: 'Fira Code', 'JetBrains Mono', monospace;
+	font-size: 0.85rem;
+	font-weight: 600;
+	background: rgba(40, 80, 83, 0.4);
+	border: 1px solid var(--primary);
+	color: var(--color-text);
+	padding: 0.5rem 1rem;
+	border-radius: 8px 8px 0 0;
+	margin-top: 1.5rem;
+	margin-bottom: 0; /* Connect to code block below */
+	display: block;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	letter-spacing: 0.02em;
+	position: relative;
+	border-bottom: none; /* Will connect to code block */
+}
+
+/* Alternative selector in case the structure is different */
+div[data-rehype-code-title],
+.remark-code-title,
+.code-title {
+	font-family: 'Fira Code', 'JetBrains Mono', monospace;
+	font-size: 0.85rem;
+	font-weight: 600;
+	background: rgba(40, 80, 83, 0.4);
+	border: 1px solid var(--primary);
+	color: var(--color-text);
+	padding: 0.5rem 1rem;
+	border-radius: 8px 8px 0 0;
+	margin-top: 1.5rem;
+	margin-bottom: 0;
+	display: block;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	letter-spacing: 0.02em;
+	position: relative;
+	border-bottom: none;
+}
+
+/* Ensure code block below title has no top border radius */
+.rehype-code-title + pre,
+div[data-rehype-code-title] + pre,
+.remark-code-title + pre,
+.code-title + pre {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	margin-top: 0;
+}
+
+/* Basic code block styling if not already present */
+pre {
+	background: rgba(40, 40, 40, 0.9);
+	border: 1px solid rgba(69, 133, 136, 0.3);
+	border-radius: 8px;
+	padding: 1rem;
+	overflow-x: auto;
+	margin: 1rem 0;
+	font-family: 'Fira Code', 'JetBrains Mono', monospace;
+	font-size: 0.9rem;
+	line-height: 1.5;
+}
+
+code {
+	font-family: 'Fira Code', 'JetBrains Mono', monospace;
+	font-size: 0.9em;
+	background: rgba(40, 40, 40, 0.6);
+	padding: 0.2em 0.4em;
+	border-radius: 4px;
+	border: 1px solid rgba(69, 133, 136, 0.2);
+}
+
+/* Don't double-style code inside pre blocks */
+pre code {
+	background: none;
+	padding: 0;
+	border: none;
+	border-radius: 0;
+}
+
+/* Info Panels for Blog Posts - Clean minimal style */
+.info-panel {
+	padding: 1rem 1.5rem;
+	border-radius: 4px;
+	margin: 1.5rem 0;
+	border-left: 4px solid;
+	background: rgba(255, 255, 255, 0.02);
+}
+
+.info-panel.success {
+	border-left-color: #10b981;
+	background: rgba(16, 185, 129, 0.05);
+}
+
+.info-panel.info {
+	border-left-color: #3b82f6;
+	background: rgba(59, 130, 246, 0.05);
+}
+
+.info-panel.warning {
+	border-left-color: #f59e0b;
+	background: rgba(245, 158, 11, 0.05);
+}
+
+.info-panel.error {
+	border-left-color: #ef4444;
+	background: rgba(239, 68, 68, 0.05);
+}
+
+.info-panel strong {
+	color: var(--accent);
+}
+
+/* Blog Tag Styles - Global so they work in markdown content */
+.blog-tag {
+	background: rgba(40, 80, 83, 0.3);
+	border: 1px solid var(--primary);
+	border-radius: 20px;
+	padding: var(--space-2) var(--space-4);
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: var(--color-text);
+	text-decoration: none;
+	transition: all 0.3s ease;
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+	margin: 0.2rem 0.3rem 0.2rem 0;
+}
+
+.blog-tag::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+	transition: left 0.5s ease;
+}
+
+.blog-tag:hover::before {
+	left: 100%;
+}
+
+.blog-tag:hover {
+	background: var(--primary);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(69, 133, 136, 0.4);
 }

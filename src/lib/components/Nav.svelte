@@ -29,7 +29,6 @@
 			scrollY = window.scrollY;
 		};
 
-
 		window.addEventListener('scroll', handleScroll);
 
 		return () => {
@@ -108,13 +107,14 @@
 		z-index: 100;
 		-webkit-filter: drop-shadow(5px 5px 5px var(--gruv-blown));
 		filter: drop-shadow(5px 5px 5px var(--gruv-blown));
+		/* Allow logo to overflow for flame effect */
+		overflow: visible;
 	}
 
 	/* Container for the navigation links */
 	.nav-container {
 		height: 100%;
 	}
-
 
 	/* Navigation links - RAM PATTERN RESPONSIVE TEXT! */
 	.nav-links {

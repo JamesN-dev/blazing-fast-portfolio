@@ -54,9 +54,7 @@
 </script>
 
 <div class="work-container">
-	<UnderConstructionModal
-		bind:show={showModal}
-	/>
+	<UnderConstructionModal bind:show={showModal} />
 
 	{#if visible}
 		<div class="work-header" transition:fade={{ duration: showModal ? 0 : 500 }}>
@@ -87,7 +85,7 @@
 						<p class="project-description">{project.description}</p>
 						<div class="project-technologies">
 							{#each project.technologies as tech}
-								<span class="tech-tag">{tech}</span>
+								<span class="blog-tag">{tech}</span>
 							{/each}
 						</div>
 						<div class="project-links">
@@ -218,19 +216,7 @@
 		margin-bottom: var(--space-5);
 	}
 
-	.tech-tag {
-		font-family: 'Nunito Sans', sans-serif;
-		font-size: 12px;
-		color: var(--color-text);
-		background: var(--primary);
-		padding: 4px 8px;
-		border-radius: 4px;
-		transition: background 0.3s ease;
-	}
-
-	.tech-tag:hover {
-		background: var(--gruv-darkblue);
-	}
+	/* tech-tag styles removed - now using global .blog-tag class */
 
 	.project-links {
 		display: flex;

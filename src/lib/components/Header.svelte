@@ -35,6 +35,8 @@
 		padding: 0;
 		border-bottom: none;
 		z-index: 50;
+		/* Allow logo to overflow into page */
+		overflow: visible;
 	}
 
 	.container {
@@ -45,5 +47,7 @@
 		height: 100%;
 		display: flex;
 		align-items: center;
+		/* Allow fireball logo to overflow */
+		overflow: visible;
 	}
 </style>
