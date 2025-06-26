@@ -15,11 +15,11 @@ tags: ['cli', 'ai', 'openai', 'anthropic', 'gemini', 'opencode', 'agents', 'scro
 
 ## The Terminal AI Tool Explosion
 
-I'm a terminal addict and I'm absolutely loving this moment. Claude Code, Codex CLI, Gemini CLI—even tried the new Google Gemini CLI today (getting rate limited to hell, but hey, first release, has potential). The whole space is exploding and it's fucking exciting.
 
-Lately I've been playing with a side project called **ScrollScribe**—a command-line ML toolkit for running structured evals, chaining LLMs together, and actually getting work done from a shell.
+Any time i get to spend inside the terminal is when im happy. Claude Code, Codex CLI, Gemini CLI—even tried the new Google Gemini CLI today (getting rate limited to hell, but hey, first release, has potential). The whole space is exploding and it's fucking exciting.
 
-Of course I always find time to slip in some shiny dev toys that catch my attention. Recently that was Warp.dev—wild stuff. Not perfect, but it's technically a terminal emulator packed with baked-in AI tooling and slick UX. Maybe a little too much flash for my taste, but undeniably cool.
+Lately I've been working on a side project called **ScrollScribe**, a command-line ML toolkit for running structured evals, chaining LLMs together, web scraper, and more.
+Of course theres always some shiny new dev toys that catch my attention. I figure as long as i'm using it to build something. Recently that was Warp.dev—wild stuff. Not perfect, but it's technically a terminal emulator packed with baked-in AI tooling and slick UX. Maybe a little too much flash for my taste, but undeniably cool.
 
 What's wild right now is how fast the dev world is flooding with shiny new AI tooling—everyone building their own next-level take on the workflow. But the part that actually makes me happy? A lot of that energy is finally landing back in the terminal. Not just another web IDE wrapper. Real, local, terminal-first tools made by and for people who actually live in the shell.
 
