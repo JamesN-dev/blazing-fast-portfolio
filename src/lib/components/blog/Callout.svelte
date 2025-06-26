@@ -39,6 +39,12 @@
 		background: rgba(245, 158, 11, 0.1);
 	}
 
+	.callout-quote {
+		border-color: #ffffff;
+		background: rgba(255, 255, 255, 0.2);
+		font-style: italic;
+	}
+
 	.callout-title {
 		margin: 0 0 0.5rem 0;
 		font-weight: 600;

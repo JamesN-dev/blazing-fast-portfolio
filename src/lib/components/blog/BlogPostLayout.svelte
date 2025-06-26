@@ -249,9 +249,10 @@
 		display: grid;
 		grid-template-columns: 1fr 300px; /* Main content + TOC sidebar */
 		gap: var(--space-12);
-		align-items: start;
 		max-width: 100%;
 		width: 100%;
+		height: auto;
+		min-height: 100vh; /* Ensure container is tall enough for sticky */
 	}
 
 	.main-content {
@@ -445,14 +446,17 @@
 	}
 
 	/* Blockquotes */
-	.main-content :global(blockquote) {
-		border-left: 4px solid var(--primary);
-		padding-left: var(--space-4);
-		margin: var(--space-6) 0;
+	.main-content :global(blockquote),
+	.blog-main-content :global(blockquote) {
+		border-left: 3px solid var(--primary);
+		margin: var(--space-4) 0 var(--space-4) var(--space-6);
+		padding: var(--space-3) var(--space-4);
 		font-style: italic;
-		background: rgba(40, 80, 83, 0.1);
-		padding: var(--space-4);
-		border-radius: 0 8px 8px 0;
+		background: rgba(255, 255, 255, 0.08);
+		border-radius: 0 6px 6px 0;
+		font-size: 0.9rem;
+		line-height: 1.4;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 	}
 
 	/* Lists */

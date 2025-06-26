@@ -38,8 +38,8 @@
 <style>
 	.toc-sidebar {
 		position: sticky;
-		top: 20vh; /* Lower position to avoid nav overlap */
-		transform: translateY(0); /* Remove centering transform */
+		top: 60vh;
+		transform: translateY(-50%);
 		width: 300px;
 		max-height: 400px;
 		overflow-y: auto;
@@ -52,7 +52,7 @@
 		transition: all 0.4s ease;
 		scrollbar-width: thin;
 		scrollbar-color: var(--gruv-yellow) transparent;
-		z-index: 1; /* Lower z-index to stay behind nav */
+		z-index: 10;
 	}
 
 	.toc-sidebar::before {

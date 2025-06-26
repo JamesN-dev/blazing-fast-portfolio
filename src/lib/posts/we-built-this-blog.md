@@ -2,7 +2,7 @@
 title: 'We Built This Blog'
 subtitle: 'A Multi-AI Survival Story'
 description: 'The real story of building a modern blog with MDsveX, featuring AI handoffs, LaTeX corruption, and the quest for perfect syntax highlighting'
-date: '2025-01-16'
+date: '2025-06-19'
 published: true
 featured: true
 archived: false

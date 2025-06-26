@@ -751,6 +751,8 @@ pre {
 	line-height: 1.5;
 }
 
+/* Basic code block styling if not already present */
+
 code {
 	font-family: 'Fira Code', 'JetBrains Mono', monospace;
 	font-size: 0.9em;
