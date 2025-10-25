@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
-	import { fade, fly, scale } from 'svelte/transition';
-	import { quintOut, elasticOut } from 'svelte/easing';
+	import { fade, fly } from 'svelte/transition';
+	import { quintOut } from 'svelte/easing';
 
 	let visible = $state(false);
 	let year = new Date().getFullYear();
@@ -51,7 +51,7 @@
 					<a href="/" class="footer-logo-link" aria-label="blazingfast.app">
 						<div class="footer-logo">Jn</div>
 					</a>
-					<p class="footer-tagline">Building high performance web experiences</p>
+					<p class="tagline">Go Fast</p>
 				</div>
 
 				<div
@@ -72,6 +72,7 @@
 									aria-label="Résumé">Résumé</a
 								>
 							</li>
+							<li><a href="/sitemap.xml">Sitemap</a></li>
 						</ul>
 					</div>
 				</div>
@@ -139,7 +140,11 @@
 
 			<div class="footer-bottom" transition:fade={{ duration: 800, delay: 400 }}>
 				<p>&copy; {year} blazingfast.app. All rights reserved.</p>
-				<p class="made-with">Made with <span class="heart">❤</span> using SvelteKit</p>
+				<button
+					class="back-to-top"
+					onclick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+					aria-label="Back to top">Back to Top</button
+				>
 			</div>
 		{/if}
 	</div>
@@ -225,22 +230,24 @@
 	.footer-content {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
-		gap: 30px;
-		margin-bottom: 40px;
-		max-width: 900px;
+		gap: 20px;
+		margin-bottom: 20px;
+		max-width: 1200px;
 		margin-left: auto;
 		margin-right: auto;
+		align-items: start;
 	}
 
 	/* Left column - Logo & Tagline */
 	.footer-left {
 		display: flex;
 		flex-direction: column;
-		align-items: flex-start;
+		align-items: center;
+		padding-top: 24px;
 	}
 
 	.footer-logo {
-		width: 67px;
+		width: 60px;
 		height: 60px;
 		display: flex;
 		justify-content: center;
@@ -255,21 +262,32 @@
 	}
 
 	.footer-logo:hover {
-		transform: scale(1.1) rotate(-5deg);
+		transform: scale(1.1) rotate(-2deg);
 	}
 
-	.footer-tagline {
-		color: var(--description);
-		margin-top: 10px;
+	.tagline {
 		font-size: 14px;
+		color: var(--description);
+		margin: 10px 0 0 0;
+		text-align: center;
+		font-style: italic;
+	}
+
+	.footer-center,
+	.footer-right {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: left;
 	}
 
 	/* Center column - Quick Links */
 	.quick-links h3 {
-		font-size: 20px;
-		margin-bottom: 20px;
+		font-size: 16px;
+		margin-bottom: 16px;
+		margin-top: 0;
 		position: relative;
-		display: inline-block;
+		display: block;
 		color: var(--accent);
 	}
 
@@ -278,8 +296,8 @@
 		position: absolute;
 		bottom: -5px;
 		left: 0;
-		width: 40px;
-		height: 2px;
+		width: 85px;
+		height: 1.25px;
 		background: var(--accent);
 	}
 
@@ -287,10 +305,7 @@
 		list-style: none;
 		padding: 0;
 		margin: 0;
-	}
-
-	.quick-links li {
-		margin-bottom: 12px;
+		font-size: 12px;
 	}
 
 	.quick-links a {
@@ -300,7 +315,6 @@
 			color 0.3s ease,
 			transform 0.3s ease;
 		display: inline-block;
-		padding: 2px 0;
 	}
 
 	.quick-links a:hover {
@@ -310,10 +324,11 @@
 
 	/* Right column - Contact */
 	.contact-links h3 {
-		font-size: 20px;
-		margin-bottom: 20px;
+		font-size: 16px;
+		margin-bottom: 16px;
+		margin-top: 0;
 		position: relative;
-		display: inline-block;
+		display: block;
 		color: var(--accent);
 	}
 
@@ -322,8 +337,8 @@
 		position: absolute;
 		bottom: -5px;
 		left: 0;
-		width: 40px;
-		height: 2px;
+		width: 60px;
+		height: 1.25px;
 		background: var(--accent);
 	}
 
@@ -331,14 +346,15 @@
 		list-style: none;
 		padding: 0;
 		margin: 0;
+		font-size: 12px;
 	}
 
 	.contact-links li {
-		margin-bottom: 12px;
+		margin-bottom: 5px;
 	}
 
 	.social-link {
-		display: flex !important;
+		display: flex;
 		align-items: center;
 		gap: 10px;
 		color: var(--description);
@@ -350,7 +366,7 @@
 
 	.social-link:hover {
 		color: var(--color-text);
-		transform: translateX(5px);
+		transform: translateX(2px);
 	}
 
 	.social-icon {
@@ -358,33 +374,48 @@
 	}
 
 	.social-link:hover .social-icon {
-		transform: scale(1.2);
+		transform: scale(1.125);
 	}
 
-	/* Footer bottom */
 	.footer-bottom {
 		border-top: 1px solid rgba(255, 255, 255, 0.1);
-		padding-top: 20px;
+		padding-top: 5px;
 		text-align: center;
-		font-size: 14px;
+		font-size: 10px;
 		color: var(--description);
-		max-width: 900px;
+		max-width: 1200px;
 		margin-left: auto;
 		margin-right: auto;
-	}
-
-	.made-with {
-		margin-top: 10px;
 		display: flex;
+		justify-content: space-between;
 		align-items: center;
-		justify-content: center;
-		gap: 5px;
+		flex-wrap: wrap;
+		gap: 10px;
 	}
 
-	.heart {
-		color: var(--gruv-red);
-		animation: pulse 1.5s ease infinite;
-		display: inline-block;
+	.footer-bottom p {
+		color: var(--description);
+		margin-top: 10px;
+		margin-bottom: 0;
+		font-size: 12px;
+	}
+
+	.back-to-top {
+		background: var(--accent);
+		color: var(--background);
+		border: none;
+		padding: 8px 16px;
+		font-size: 12px;
+		border-radius: 4px;
+		cursor: pointer;
+		transition: background 0.3s ease;
+		margin-top: 10px;
+		font-weight: 500;
+	}
+
+	.back-to-top:hover {
+		background: var(--primary);
+		color: var(--color-text);
 	}
 
 	@keyframes pulse {
@@ -424,6 +455,11 @@
 
 		.social-link {
 			justify-content: center;
+		}
+
+		.footer-bottom {
+			flex-direction: column;
+			text-align: center;
 		}
 	}
 </style>

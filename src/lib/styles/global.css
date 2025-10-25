@@ -129,7 +129,7 @@
 
 	/* Layout */
 	--max-width: 1200px;
-	--header-height: 5rem;
+	--header-height: 4rem;
 }
 
 /* Mobile-first responsive base */
@@ -686,8 +686,6 @@ p,
 	color: #e0def4;
 }
 
-/* Tech Stack Badges for Blog Posts - Use existing .blog-tag class instead */
-
 /* Rehype Code Titles - Match site styling */
 .rehype-code-title {
 	font-family: 'Fira Code', 'JetBrains Mono', monospace;
@@ -805,19 +803,26 @@ pre code {
 
 /* Blog Tag Styles - Global so they work in markdown content */
 .blog-tag {
-	background: rgba(40, 80, 83, 0.3);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background: linear-gradient(135deg, rgba(40, 80, 83, 0.3) 0%, rgba(69, 133, 136, 0.2) 100%);
 	border: 1px solid var(--primary);
-	border-radius: 20px;
-	padding: var(--space-2) var(--space-4);
-	font-size: 0.8rem;
-	font-weight: 600;
-	color: var(--color-text);
+	border-radius: 999px;
+	padding: 0.2em 1em;
+	font-size: 0.7em;
+	font-weight: 400;
+	white-space: nowrap;
+	color: var(--color-text, #fff);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 	text-decoration: none;
 	transition: all 0.3s ease;
 	position: relative;
 	overflow: hidden;
-	display: inline-block;
-	margin: 0.2rem 0.3rem 0.2rem 0;
+	margin: 0.1em 0.2em;
+	transition:
+		background 0.2s,
+		box-shadow 0.2s;
 }
 
 .blog-tag::before {
@@ -835,8 +840,17 @@ pre code {
 	left: 100%;
 }
 
-.blog-tag:hover {
-	background: var(--primary);
-	transform: translateY(-2px);
-	box-shadow: 0 4px 12px rgba(69, 133, 136, 0.4);
+.blog-tag:hover,
+.blog-tag:focus {
+	background: linear-gradient(135deg, var(--primary, #458588) 0%, rgba(69, 133, 136, 0.8) 100%);
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+	outline: none;
+}
+
+@media screen and (max-width: 768px) {
+	.blog-tag {
+		font-size: 0.4em;
+		font-weight: 300;
+		padding: 0.15em 0.8em;
+	}
 }

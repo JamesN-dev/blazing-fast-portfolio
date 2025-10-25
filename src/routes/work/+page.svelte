@@ -118,12 +118,12 @@
 
 	.work-header {
 		text-align: center;
-		margin-bottom: 60px;
+		margin: 60px 0 60px;
 	}
 
 	.work-header h1 {
 		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
-		font-size: 48px;
+		font-size: 40px;
 		color: var(--color-text);
 		margin-bottom: 16px;
 	}
@@ -139,7 +139,7 @@
 	.work-intro {
 		max-width: 600px;
 		margin: 24px auto 0;
-		font-size: 18px;
+		font-size: 14px;
 		color: var(--description);
 		line-height: 1.6;
 	}
@@ -148,8 +148,8 @@
 		display: grid;
 		/* Enhanced RAM pattern with better responsive behavior */
 		grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
-		gap: var(--space-8);
-		margin-top: var(--space-10);
+		gap: 20px;
+		margin-top: 40px;
 	}
 
 	.project-card {
@@ -184,52 +184,52 @@
 
 	.project-placeholder span {
 		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
-		font-size: 64px;
+		font-size: 48px;
 		color: var(--color-text);
 		font-weight: bold;
 	}
 
 	.project-content {
-		padding: 24px;
+		padding: 20px;
 	}
 
 	.project-title {
 		font-family: 'Nunito Sans', sans-serif;
-		font-size: 24px;
+		font-size: 20px;
 		color: var(--color-text);
-		margin: 0 0 12px 0;
+		margin: 0 0 8px 0;
 	}
 
 	.project-description {
 		font-family: 'Nunito Sans', sans-serif;
-		font-size: 16px;
+		font-size: 14px;
 		line-height: 1.6;
 		color: var(--description);
-		margin: 0 0 20px 0;
+		margin: 0 0 16px 0;
 	}
 
 	.project-technologies {
 		/* Enhanced tech tags with RAM pattern */
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(80px, max-content));
-		gap: var(--space-2);
-		margin-bottom: var(--space-5);
+		gap: 4px;
+		margin-bottom: 12px;
 	}
 
 	/* tech-tag styles removed - now using global .blog-tag class */
 
 	.project-links {
 		display: flex;
-		gap: 12px;
+		gap: 8px;
 	}
 
 	.project-link {
 		font-family: 'Nunito Sans', sans-serif;
 		font-size: 14px;
 		font-weight: 600;
-		color: var(--color-text);
+		color: var(--background);
 		background: var(--accent);
-		padding: 8px 16px;
+		padding: 6px 12px;
 		border-radius: 6px;
 		text-decoration: none;
 		transition:

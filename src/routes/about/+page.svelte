@@ -66,8 +66,8 @@
 							<li>SvelteKit</li>
 							<li>Django</li>
 							<li>TailwindCSS</li>
-							<li>FastAPI</li>
-							<li>Flask</li>
+							<li>Rest API</li>
+							<li>PostgreSQL</li>
 						</ul>
 					</div>
 
@@ -75,9 +75,9 @@
 						<h3>Tools & Platforms</h3>
 						<ul>
 							<li>Git/GitHub</li>
-							<li>VSCode</li>
+							<li>Zed IDE</li>
 							<li>Figma</li>
-							<li>AWS</li>
+							<li>DigitalOcean</li>
 							<li>Netlify/Vercel</li>
 						</ul>
 					</div>
@@ -108,14 +108,15 @@
 
 	.about-header {
 		text-align: center;
-		margin-bottom: 40px;
+		margin: 60px 0px 60px;
 	}
 
 	.about-header h1 {
 		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
-		font-size: var(--h1);
+		font-size: 40px;
 		color: var(--color-text);
 		margin-bottom: 16px;
+		letter-spacing: 1px;
 	}
 
 	.underline {
@@ -133,17 +134,19 @@
 	}
 
 	.about-text p {
-		font-size: var(--p-size);
+		font-family: 'Nunito Sans', sans-serif;
+		font-size: 14px;
 		line-height: 1.6;
-		margin-bottom: 24px;
 		color: var(--description);
+		margin-bottom: 16px;
 	}
 
 	.about-skills h2 {
 		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
-		font-size: var(--h2);
+		font-size: 24px;
 		color: var(--color-text);
-		margin-bottom: 24px;
+		margin-bottom: 5px;
+		letter-spacing: 1px;
 	}
 
 	.skills-grid {
@@ -156,24 +159,22 @@
 	.skill-category {
 		background: #333333;
 		border-radius: 8px;
-		padding: 24px;
+		padding: 20px;
 		transition:
 			transform 0.3s ease,
 			box-shadow 0.3s ease;
 	}
 
 	.skill-category:hover {
-		transform: translateY(-5px);
 		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 	}
 
 	.skill-category h3 {
 		font-family: 'Nunito Sans', sans-serif;
-		font-size: var(--h5);
+		font-size: 16px;
 		color: var(--accent);
-		margin-bottom: 16px;
+		margin-bottom: 10px;
 		border-bottom: 1px solid var(--primary);
-		padding-bottom: 8px;
 	}
 
 	.skill-category ul {
@@ -186,7 +187,7 @@
 		color: var(--color-text);
 		padding: 8px 0;
 		position: relative;
-		padding-left: 20px;
+		padding-left: 13px;
 	}
 
 	.skill-category li::before {
