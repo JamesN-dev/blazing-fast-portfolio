@@ -1,5 +1,5 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
 	import { fade, fly, scale } from 'svelte/transition';
 	import { quintOut, elasticOut } from 'svelte/easing';
@@ -16,19 +16,42 @@
 	let fireballEntranceComplete = $state(false);
 	let fireballGlowContainer = $state();
 	let fireballGlowHovering = $state(false);
-
-	// Reactive variable to control scroll indicator visibility
+	let heroEl = $state(null);
+	let typer = $state(null);
+	let io;
 	let showScrollIndicator = $state(true);
-
-	// Skills physics state
 	let throwingSkillsSet = $state(new Set());
 
 	// Function to handle parallax effect
 	function handleMouseMove(e) {
-		// Get mouse position relative to viewport center
 		mousePosX = (e.clientX / window.innerWidth - 0.5) * 2;
 		mousePosY = (e.clientY / window.innerHeight - 0.5) * 2;
 	}
+
+	// Tagline typer runes
+	function handleVisibility() {
+		if (!typer) return;
+		document.hidden ? typer.pause() : typer.resume();
+	}
+	$effect(() => {
+		if (!heroEl || !typer) return;
+
+		const io = new IntersectionObserver(
+			([entry]) => {
+				if (!typer) return;
+				entry.isIntersecting ? typer.resume() : typer.pause();
+			},
+			{ threshold: 0.1 }
+		); // use 0.5 if for stricter visibility
+
+		io.observe(heroEl);
+		document.addEventListener('visibilitychange', handleVisibility);
+
+		return () => {
+			io.disconnect();
+			document.removeEventListener('visibilitychange', handleVisibility);
+		};
+	});
 
 	// Skills for floating cloud
 	const skills = [
@@ -481,7 +504,7 @@
 </script>
 
 <!-- HERO SECTION WRAPPER -->
-<div class="hero">
+<div class="hero" bind:this={heroEl}>
 	<!-- Text Content Container -->
 	<div class="hero-text-container">
 		{#if visible}
@@ -495,29 +518,51 @@
 
 			<div class="typed-text-wrapper" transition:fade={{ delay: 700, duration: 500 }}>
 				<TypedText
+					bind:this={typer}
 					strings={[
 						'Professional Overthinker',
-						'Web App Tinkerer',
-						'CSS Wrangler',
-						'Full-Stack Fiddler',
+						'Full-Stack Lackey',
+						'Chronic Git Pusher',
+						'Django Janitor',
+						'Postgres Papi',
+						'JavaScript Flunkie',
+						'Svelte Zealot',
+						'Pythonic Plumber',
+						'Feature Creeper',
+						'Annual SQL Relearner',
+						'Database Overlord',
 						'Bug Hunter',
-						'Home Lab Janitor',
-						'Button Clicker',
+						'Spreadsheet Uploader',
+						'CSS Wrangler',
+						'Tailwind Truther',
+						'WebP Compressionista',
+						'Corny Content Decider',
+						'Marketing Menace',
+						'Data Dominator',
+						'Creative Cloud Hostage',
+						'Blender Apologist',
+						'Render Rapscallion',
+						'Photoshop Evangelist',
+						'Home Lab Hermit',
+						'Docker Dork',
 						'Wielder of Fireballs',
-						'90s Jungle Enthusiast'
+						'Eldest Millennial',
+						'Junglist Archivist'
 					]}
 					typeSpeed={60}
 					backSpeed={30}
 					backDelay={1500}
 					startDelay={500}
 					loop={true}
+					smartBackspace={true}
+					pauseOnHover={true}
 				/>
 			</div>
 
-			<p class="description" transition:fade={{ delay: 800, duration: 800 }}>
-				Marketing veteran turned full-stack developer. I build, break, and ship web apps,
-				automations, and digital tools under the Blazing Fast Labs name.
-			</p>
+			<!-- <p class="description" transition:fade={{ delay: 800, duration: 800 }}>
+				Marketing technologist & developer with a background in design, now building full-stack web
+				apps, automations, and creative tools under the Blazing Fast Labs name.
+			</p> -->
 
 			<div class="cta-buttons">
 				<div class="button-wrapper">
@@ -1552,19 +1597,19 @@
 		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
 		font-style: normal;
 		font-weight: 400;
-		margin: 0;
+		margin: -2rem 0 0 0;
 		background: linear-gradient(135deg, #ff7a30 0%, var(--secondary) 50%, var(--gruv-red) 100%);
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
 		background-clip: text;
 	}
 
-	.description {
+	/*.description {
 		font-family: 'Inter', 'Nunito Sans', sans-serif;
 		color: var(--description);
 		margin-bottom: 36px;
-		max-width: 50ch;
-		font-size: clamp(0.9rem, 1.5vw, 1rem);
+		max-width: 65ch;
+		font-size: clamp(0.8rem, 1.2vw, 0.9rem);
 		margin: 0;
-	}
+	}*/
 </style>

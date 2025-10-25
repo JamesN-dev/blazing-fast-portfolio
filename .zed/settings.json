@@ -1,0 +1,17 @@
+{
+	"file_types": {
+		"Text": ["**/bun.lock", "**/bun.lockb"]
+	},
+	"languages": {
+		"JSON": {
+			"enable_language_server": true
+		},
+		"JSONC": {
+			"enable_language_server": false,
+			"format_on_save": "off"
+		}
+	},
+	"diagnostics": {
+		"include_warnings": true
+	}
+}
