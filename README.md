@@ -1,38 +1,36 @@
-# sv
+# James Niemerg - Portfolio
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+**_Blazing Fast Labs_**
 
-## Creating a project
+A collection of my work in web, design, and development. This repo contains the source code for my
+personal site and portfolio.
 
-If you're seeing this, you've probably already done this step. Congrats!
+_Visit the live site: [https://blazingfast.app](https://blazingfast.app)_
+
+## Overview
+
+This portfolio highlights my work history and experience. It will eventually be a home for my
+completed projects like:
+
+- **Python + Django projects** for backend development
+- **SvelteKit apps** Modern frontend interfaces
+- **3D & design workflows** (Substance, Blender, Figma)
+- **Automation tools** built for marketing and product data
+- **Addons & Plugins** for popular software and web apps
+- **Design systems** for consistent branding and user experience
+
+## About Me
+
+Marketing technologist & developer with a background in design, now building creative tools and
+full-stack web platforms.
+
+## Setup
+
+Clone and install dependencies:
 
 ```bash
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
+git clone git@github.com:JamesN-dev/blazing-fast-portfolio.git
+cd blazing-fast-portfolio
+bun install
+bun run dev
 ```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.

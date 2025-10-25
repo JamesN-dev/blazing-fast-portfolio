@@ -1,0 +1,21 @@
+# Project markdownlint configuration (YAML)
+# Relax MD013 (line-length) while keeping most defaults enabled
+default: true
+
+# MD013 (line-length) configuration
+# - allow general lines up to 100 characters
+# - allow headings up to 120 characters
+# - do not enforce line-length for fenced code blocks or tables
+# - not strict; long URLs without spaces remain exempt
+MD013:
+  line_length: 100
+  heading_line_length: 120
+  code_block_line_length: 120
+  code_blocks: false
+  tables: false
+  headings: true
+  stern: false
+  strict: false
+
+# Allow duplicate headings if they appear in different nesting contexts
+MD024: true

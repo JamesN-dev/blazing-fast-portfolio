@@ -87,7 +87,7 @@
 					<div class="skill-category">
 						<h3>Design & UI</h3>
 						<ul>
-							<li>UI/UX Design & interactive transitions (Svelte)</li>
+							<li>UI/UX Design</li>
 							<li>Responsive Design</li>
 							<li>Animation</li>
 							<li>Graphic Design</li>
