@@ -62,6 +62,7 @@ async function archivePosts() {
             await mkdir(ARCHIVED_DIR, { recursive: true });
         } catch (e) {
             // Directory might already exist
+            console.error('Error creating archived directory:', e);
         }
 
         // Read all markdown files in posts directory (not archived subfolder)

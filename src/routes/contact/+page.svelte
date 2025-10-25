@@ -87,7 +87,7 @@
 							<span>LinkedIn</span>
 						</a>
 						<a
-							href="https://twitter.com/yourhandle"
+							href="https://x.com/atetraxx"
 							target="_blank"
 							rel="noopener noreferrer"
 							class="social-link"
