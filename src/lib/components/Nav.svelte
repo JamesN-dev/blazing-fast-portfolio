@@ -64,7 +64,6 @@
 			<li><a href="/about" onclick={handleLinkClick}>About</a></li>
 			<li><a href="/experience" onclick={handleLinkClick}>Experience</a></li>
 			<li><a href="/work" onclick={handleLinkClick}>Work</a></li>
-			<!-- <li><a href="/blog" onclick={handleLinkClick}>Blog</a></li> -->
 			<li><a href="/contact" onclick={handleLinkClick}>Contact</a></li>
 			<li class="resume-link">
 				<a

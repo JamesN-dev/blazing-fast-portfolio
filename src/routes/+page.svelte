@@ -1,16 +1,12 @@
 <script>
-	import { onMount, onDestroy } from 'svelte';
+	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 	import { fade, fly, scale } from 'svelte/transition';
 	import { quintOut, elasticOut } from 'svelte/easing';
 	import TypedText from '$lib/components/TypedText.svelte';
-	import { Zap } from '@lucide/svelte';
 
 	let visible = $state(false);
 	let visibleFeatures = $state(false);
-	let visibleStats = $state(false);
-	let mousePosX = $state(0);
-	let mousePosY = $state(0);
 	let scrollY = $state(0);
 	let skillsContainer;
 	let fireballEntranceComplete = $state(false);
@@ -18,15 +14,8 @@
 	let fireballGlowHovering = $state(false);
 	let heroEl = $state(null);
 	let typer = $state(null);
-	let io;
 	let showScrollIndicator = $state(true);
 	let throwingSkillsSet = $state(new Set());
-
-	// Function to handle parallax effect
-	function handleMouseMove(e) {
-		mousePosX = (e.clientX / window.innerWidth - 0.5) * 2;
-		mousePosY = (e.clientY / window.innerHeight - 0.5) * 2;
-	}
 
 	// Tagline typer runes
 	function handleVisibility() {
@@ -41,7 +30,7 @@
 				if (!typer) return;
 				entry.isIntersecting ? typer.resume() : typer.pause();
 			},
-			{ threshold: 0.1 }
+			{ threshold: 0.5 }
 		); // use 0.5 if for stricter visibility
 
 		io.observe(heroEl);
@@ -72,14 +61,14 @@
 		'Linux',
 		'Ubuntu Server',
 		'Docker',
-		'ProxMox',
+		'Proxmox',
 		'SQL',
 		'Django',
-		'PostgresSQL',
+		'PostgreSQL',
 		'UI/UX',
 		'Design',
 		'Figma',
-		"API's",
+		'APIs',
 		'Performance',
 		'Animation',
 		'Responsive',
@@ -88,7 +77,7 @@
 
 	// Reactive skill positions using runes
 	let skillPositions = $state(
-		skills.map((skill, index) => ({
+		skills.map((skill) => ({
 			x: -300 + Math.random() * 600,
 			y: -50 + Math.random() * 100,
 			skill: skill,
@@ -255,7 +244,7 @@
 				return;
 			}
 
-			skillPositions.forEach((position, i) => {
+			skillPositions.forEach((position) => {
 				// Don't animate position if being dragged
 				if (position.mode === 'dragging') return;
 
@@ -426,8 +415,6 @@
 	}
 
 	onMount(() => {
-		// Add mouse move listener for parallax effect
-		document.addEventListener('mousemove', handleMouseMove);
 		// Add drag listeners
 		document.addEventListener('mousemove', handleDocumentMouseMove);
 		document.addEventListener('mouseup', handleDocumentMouseUp);
@@ -474,31 +461,15 @@
 			{ threshold: 0.2 }
 		);
 
-		const statsObserver = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						visibleStats = true;
-						statsObserver.disconnect();
-					}
-				});
-			},
-			{ threshold: 0.2 }
-		);
-
 		const features = document.querySelector('.features-section');
-		const statsSection = document.querySelector('.stats-section');
 
 		if (features) featuresObserver.observe(features);
-		if (statsSection) statsObserver.observe(statsSection);
 
 		return () => {
-			document.removeEventListener('mousemove', handleMouseMove);
 			document.removeEventListener('mousemove', handleDocumentMouseMove);
 			document.removeEventListener('mouseup', handleDocumentMouseUp);
 			window.removeEventListener('scroll', handleScroll);
 			featuresObserver.disconnect();
-			statsObserver.disconnect();
 		};
 	});
 </script>
@@ -691,7 +662,7 @@
 		<div class="skills-cloud-container" bind:this={skillsContainer}>
 			{#if visibleFeatures}
 				<div class="skills-cloud">
-					{#each skillPositions as position, i}
+					{#each skillPositions as position, i (position.skill)}
 						{@const transform = skillTransforms[i]}
 						{@const zIndex =
 							transform?.zIndex ??
