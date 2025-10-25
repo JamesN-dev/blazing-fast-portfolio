@@ -34,29 +34,29 @@
 	const skills = [
 		'SvelteKit',
 		'JavaScript',
-		'CSS3',
-		'HTML5',
+		'HTML/CSS',
 		'TailwindCSS',
 		'Python',
 		'Git',
 		'Github',
+		'Data Governance',
+		'Data',
 		'Terminal',
 		'Bash',
 		'VS Code',
-		'NeoVim',
 		'MCP Servers',
+		'NGINX',
 		'Linux',
 		'Ubuntu Server',
 		'Docker',
 		'ProxMox',
 		'SQL',
-		'PostgresSQL',
 		'Django',
 		'PostgresSQL',
 		'UI/UX',
 		'Design',
 		'Figma',
-		'API Integration',
+		"API's",
 		'Performance',
 		'Animation',
 		'Responsive',
@@ -1429,37 +1429,6 @@
 		box-shadow:
 			0 4px 8px rgba(0, 0, 0, 0.2),
 			0 2px 4px rgba(0, 0, 0, 0.1);
-	}
-
-	.stats-grid {
-		/* Enhanced RAM pattern for better responsiveness */
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
-		gap: var(--space-8);
-	}
-
-	.stat-card {
-		background: #333333;
-		border-radius: 10px;
-		padding: 30px;
-		text-align: center;
-		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-		transition:
-			transform 0.3s ease,
-			box-shadow 0.3s ease;
-	}
-
-	.stat-card:hover {
-		transform: translateY(-10px);
-		box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-	}
-
-	.stat-icon {
-		font-size: 40px;
-		margin-bottom: 16px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
 	}
 
 	/* ===== FIREBALL STYLES ===== */
