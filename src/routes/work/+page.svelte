@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import { fade, fly, scale } from 'svelte/transition';
+	import { fade, fly } from 'svelte/transition';
 	import UnderConstructionModal from '$lib/components/modals/UnderConstructionModal.svelte';
 
 	let showModal = $state(true);
@@ -66,7 +66,7 @@
 		</div>
 
 		<div class="projects-grid">
-			{#each projects as project, i}
+			{#each projects as project, i (project.title)}
 				<div
 					class="project-card"
 					transition:fly={{
@@ -84,7 +84,7 @@
 						<h3 class="project-title">{project.title}</h3>
 						<p class="project-description">{project.description}</p>
 						<div class="project-technologies">
-							{#each project.technologies as tech}
+							{#each project.technologies as tech (tech)}
 								<span class="blog-tag">{tech}</span>
 							{/each}
 						</div>
