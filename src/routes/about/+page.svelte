@@ -22,26 +22,25 @@
 		<div class="about-content">
 			<div class="about-text" transition:fly={{ duration: 600, y: 20 }}>
 				<p>
-					I’m a marketing professional turned developer—building full-stack apps with SvelteKit and
-					Python, making scripts and CLI tools, and learning fast. I run the marketing operation for
-					a mid-size foodservice equipment brand—from strategy and creative to eCommerce, analytics,
-					and tech stack implementation & management.
+					I’m a marketing technologist & developer who builds data-driven, UX-focused full-stack
+					tools & applications. I run the marketing operations for a national foodservice equipment
+					manufacturer, overseeing strategy, creative, data, e-commerce, analytics, and the
+					marketing technical systems that tie it all together.
 				</p>
 
 				<p>
-					Outside of work, I’m deep into full-stack web development: designing interfaces, writing
-					backend APIs, and deploying real-world tools. My focus is building clean, fast, useful
-					applications while sharpening my JavaScript and Python fundamentals.
+					MMy design background shapes how I approach development. I build tools and applications
+					centered on user experience, modern design, and simplifying complex processes. Outside of
+					work, I spend time developing plugins and creative tools like a Blender add-on, a macOS
+					app, and an Android app, while also running my homelab and experimenting with 3D and game
+					development in Godot.
 				</p>
 
-				<p>
-					This site documents what I’ve built—and the technical path I’m carving for myself next.
-				</p>
+				<p>This site documents what I’ve built so far and where I’m headed next.</p>
 
 				<p>
-					When I’m not building, learning, or shipping, I’m probably out hiking, making or listening
-					to jungle tunes, or going down some retro electronic music gear rabbit hole. I’m into
-					clean design and tools that don’t waste people’s time.
+					When I’m not coding or creating, you’ll probably find me hiking, mushroom hunting, digging
+					through old jungle records, or getting lost in vintage electronic gear or software relics.
 				</p>
 			</div>
 
@@ -52,11 +51,12 @@
 					<div class="skill-category">
 						<h3>Languages</h3>
 						<ul>
-							<li>JavaScript (ES6+)</li>
+							<li>JavaScript</li>
 							<li>Python</li>
-							<li>CSS3/SCSS</li>
-							<li>HTML5</li>
 							<li>SQL</li>
+							<li>HTML/CSS</li>
+							<li>GDScript</li>
+							<li>SwiftUI</li>
 						</ul>
 					</div>
 
@@ -65,8 +65,9 @@
 						<ul>
 							<li>SvelteKit</li>
 							<li>Django</li>
+							<li>Node / Bun</li>
 							<li>TailwindCSS</li>
-							<li>Rest API</li>
+							<li>REST API</li>
 							<li>PostgreSQL</li>
 						</ul>
 					</div>
@@ -76,9 +77,10 @@
 						<ul>
 							<li>Git/GitHub</li>
 							<li>Zed IDE</li>
+							<li>WezTerm</li>
 							<li>Figma</li>
-							<li>DigitalOcean</li>
-							<li>Netlify/Vercel</li>
+							<li>DigitalOcean/Vercel</li>
+							<li>Godot & Blender</li>
 						</ul>
 					</div>
 
