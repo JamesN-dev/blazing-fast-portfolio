@@ -10,7 +10,7 @@
 			company: 'Blazing Fast Labs',
 			period: '2020 - Present',
 			description:
-				'I build and ship full-stack web projects—SvelteKit, Python, Postgres, and automation scripts, under my own brand. I run a home lab on Proxmox, manage Linux VMs, Docker containers, version control with custom Git workflows, and deploy production projects with modern platforms like Vercel. Fully capable of maintaining my own infra, but know when to use the right tool for the job.',
+				'I design and develop full-stack web applications using SvelteKit, Python, and PostgreSQL. My workflow includes managing a home lab on Proxmox, orchestrating Linux VMs and Docker containers, and maintaining version control with custom Git strategies. Deployments span modern platforms like Vercel as well as self-hosted infrastructure on DigitalOcean with Nginx. I automate processes with Python scripts and focus on building reliable, efficient systems. I also create and manage 3D product content pipelines, including material creation, asset standardization, rendering workflows, and integration with web platforms.',
 			skills: [
 				'SvelteKit',
 				'JavaScript',
@@ -21,6 +21,10 @@
 				'Proxmox',
 				'Linux',
 				'Automation Scripting',
+				'3D Asset Pipeline',
+				'Material Creation',
+				'Rendering',
+				'Blender',
 				'Figma'
 			]
 		},
@@ -28,37 +32,48 @@
 			title: 'Marketing Technology Manager',
 			company: 'BK Resources, Inc.',
 			period: '2020 - Present',
-			description:
-				'Run all marketing ops and tech. Website management, PIM/CMS improvements, process automation, internal tools, asset workflows, and analytics. I modernize legacy systems and make sure end users can use them. Build landing pages and email campaigns that support digital ad funnels and lead capture, and 3D asset flows from scratch.',
+			description: `Oversee all marketing operations & technical infrastructure for a national foodservice equipment manufacturer. Built the company’s data foundation from the ground up, implemented and administer a PIM system for 4,000+ SKUs, developing structured data standards, and establishing automated workflows for internal operations and external data distribution.
+
+            From that foundation, designed and deployed a unified digital ecosystem powered by this data. Built a Django Ninja + PostgreSQL REST API hosted on a hardened VPS, serving as the single source of truth for our stack. This API powers configurator web apps, internal tools, and the public-facing digital asset hub - a modern SvelteKit platform that also includes admin layer enabling employees to generate and share complete product asset packages without needing direct access to the PIM.
+
+            The same infrastructure supports our product configurators, replacing redundant backends and enabling real-time product  & pricing synchronization. These connected systems now underpin every marketing and content initiative, from catalog production and 3D rendering pipelines to SEO, analytics, and future AI integrations like product expert chatbots and automated content generation.`,
 			skills: [
-				'CMS/PIM',
-				'E-commerce',
+				'Data Engineering',
+				'E-Commerce',
+				'PIM/CMS',
 				'Python',
+				'Django',
 				'JavaScript',
-				'HTML/CSS',
 				'SvelteKit',
 				'PostgreSQL',
 				'REST APIs',
-				'Git',
-				'Adobe CC',
-				'Analytics'
+				'Automation',
+				'AI',
+				'Web Dev',
+				'Server Ops',
+				'SEO',
+				'Analytics',
+				'UI/UX',
+				'Design',
+				'Leadership',
+				'Mentorship'
 			]
 		},
 		{
 			title: 'Web Developer & Designer',
 			company: 'BK Resources, Inc.',
 			period: '2016 - 2020',
-			description:
-				'Designed and launched e-commerce UI, landing pages, and built a 3D-to-web asset pipeline. Managed campaigns and assets from print to digital, learned how things break in production, and how to fix them. Built a modern web presence from the ground up, rolling out a new CMS and PIM system, and integrating with existing tools.',
+			description: `Launched and managed the company’s e-commerce website and content platform, developing site structure, product content, product image library, spec sheets, and frontend design to align with brand standards. Managed campaigns and assets from print to digital, and built a 3D-to-web asset pipeline for time consuming and difficultly large to photo/manage products. In 2020, led the rollout of a new PIM system that unified product data across departments, laying the groundwork for the company’s modern digital ecosystem and leading to a promotion into marketing technology management.`,
 			skills: [
-				'HTML',
-				'CSS',
+				'E-commerce',
+				'HTML/CSS',
 				'JavaScript',
 				'Figma',
+				'Catalog Creation',
 				'Adobe CC',
 				'3D Asset Pipeline',
-				'Git',
-				'E-commerce'
+				'Blender',
+				'Git'
 			]
 		},
 		{
@@ -106,7 +121,9 @@
 						<div class="experience-period">{exp.period}</div>
 						<h3 class="experience-title">{exp.title}</h3>
 						<h4 class="experience-company">{exp.company}</h4>
-						<p class="experience-description">{exp.description}</p>
+						{#each exp.description.split('\n').filter(Boolean) as paragraph}
+							<p class="experience-description">{paragraph}</p>
+						{/each}
 						<div class="experience-skills">
 							{#each exp.skills as skill}
 								<span class="blog-tag">{skill}</span>
@@ -129,14 +146,15 @@
 
 	.experience-header {
 		text-align: center;
-		margin-bottom: 60px;
+		margin: 60px 0px 60px;
 	}
 
 	.experience-header h1 {
 		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
-		font-size: 48px;
+		font-size: 40px;
 		color: var(--color-text);
 		margin-bottom: 16px;
+		letter-spacing: 1px;
 	}
 
 	.underline {
@@ -173,8 +191,8 @@
 
 	.experience-dot {
 		position: absolute;
-		left: -40px;
-		top: 5px;
+		left: -36.5px;
+		top: 16px;
 		width: 24px;
 		height: 24px;
 		border-radius: 50%;
@@ -191,10 +209,6 @@
 		transition: transform 0.3s ease;
 	}
 
-	.experience-content:hover {
-		transform: translateY(-5px);
-	}
-
 	.experience-period {
 		display: inline-block;
 		font-family: 'Nunito Sans', sans-serif;
@@ -203,52 +217,54 @@
 		background: rgba(251, 189, 46, 0.1);
 		padding: 6px 12px;
 		border-radius: 30px;
-		margin-bottom: 16px;
+		margin-bottom: 12px;
 	}
 
 	.experience-title {
 		font-family: 'Nunito Sans', sans-serif;
-		font-size: 24px;
+		font-size: 20px;
 		color: var(--color-text);
-		margin: 0 0 8px 0;
+		margin: 0;
+		margin-bottom: 10px;
 	}
 
 	.experience-company {
 		font-family: 'Nunito Sans', sans-serif;
-		font-size: 18px;
+		font-size: 13px;
 		color: var(--secondary);
-		margin: 0 0 16px 0;
+		margin: 0;
 		font-weight: normal;
 	}
 
 	.experience-description {
 		font-family: 'Nunito Sans', sans-serif;
-		font-size: 16px;
+		font-size: 14px;
 		line-height: 1.6;
 		color: var(--description);
 		margin-bottom: 16px;
 	}
 
 	.experience-skills {
-		/* Enhanced skills grid with RAM pattern */
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(80px, max-content));
+		display: flex;
+		flex-wrap: wrap;
 		gap: var(--space-2);
 		justify-content: start;
+		align-items: start;
 	}
-
-	/* skill-tag styles removed - now using global .blog-tag class */
 
 	/* Responsive adjustments for smaller screens */
 	@media screen and (max-width: 768px) {
-		/* Replaced var(--breakpoint-mobile) */
-		.timeline-item {
+		.experience-header h1 {
+			font-size: 34px;
+		}
+		.experience-item {
 			flex-direction: column;
 			align-items: flex-start;
 		}
 
 		.experience-dot {
-			left: -30px;
+			left: -34px;
+			top: 16px;
 			width: 20px;
 			height: 20px;
 		}
@@ -263,22 +279,20 @@
 		}
 
 		.experience-title {
-			font-size: 20px;
+			font-size: 19px;
 		}
 
 		.experience-company {
-			font-size: 16px;
+			font-size: 11px;
 		}
 
 		.experience-description {
-			font-size: 14px;
+			font-size: 12px;
 		}
 
 		.experience-skills {
-			flex-direction: column;
+			flex-direction: row;
 			align-items: flex-start;
 		}
-
-		/* blog-tag styles are now global, no mobile overrides needed */
 	}
 </style>

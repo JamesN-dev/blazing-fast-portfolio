@@ -123,7 +123,7 @@
 		align-items: center;
 		padding: 0;
 		/* Dynamic gap that shrinks on smaller screens */
-		gap: clamp(16px, 5vw, 39px);
+		gap: clamp(12px, 4vw, 28px);
 		height: 100%;
 		margin: 0;
 		list-style: none;
@@ -137,7 +137,7 @@
 		font-family: 'Nunito Sans', sans-serif;
 		font-weight: 400;
 		/* Dynamic font size that never breaks layout */
-		font-size: clamp(14px, 4vw, 19.25px);
+		font-size: clamp(14px, 4vw, 16px);
 		line-height: 130%;
 		color: var(--color-text);
 		text-decoration: none;
@@ -170,15 +170,15 @@
 		justify-content: center;
 		align-items: center;
 		/* Dynamic padding that scales with viewport */
-		padding: clamp(6px, 2vw, 10px) clamp(12px, 4vw, 24px);
-		gap: 10px;
+		padding: clamp(4px, 1.5vw, 8px) clamp(10px, 3vw, 16px);
+		gap: 8px;
 		/* Dynamic width that never breaks */
-		width: clamp(80px, 20vw, 103px);
-		height: clamp(36px, 8vw, 44px);
+		width: clamp(70px, 18vw, 90px);
+		height: clamp(32px, 7vw, 38px);
 		border: 1.5px solid var(--primary);
-		border-radius: 9px;
+		border-radius: 6px;
 		/* Dynamic font size */
-		font-size: clamp(12px, 3vw, 15px);
+		font-size: clamp(12px, 3vw, 14px);
 		line-height: 160%;
 		transition:
 			background-color 0.3s ease,

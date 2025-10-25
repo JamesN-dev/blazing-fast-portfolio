@@ -596,10 +596,10 @@
 						transition:fly={{ y: 30, duration: 800, delay: 100, easing: quintOut }}
 					>
 						<div class="feature-icon">⚡️</div>
-						<h3>Fast Performance</h3>
+						<h3>Blazing Fast</h3>
 						<p>
-							I build websites that load quickly and run smoothly, ensuring a great user experience
-							regardless of device or connection speed.
+							Optimized for speed with modern frameworks, efficient code, and performance best
+							practices. Every millisecond counts.
 						</p>
 					</div>
 
@@ -608,10 +608,10 @@
 						transition:fly={{ y: 30, duration: 800, delay: 200, easing: quintOut }}
 					>
 						<div class="feature-icon">📱</div>
-						<h3>Responsive Design</h3>
+						<h3>Responsive</h3>
 						<p>
-							My designs adapt seamlessly to any screen size, providing a consistent experience
-							across desktops, tablets, and mobile devices.
+							Seamlessly adapts to any screen size. Perfect experience on phones, tablets, and
+							desktops.
 						</p>
 					</div>
 
@@ -620,10 +620,10 @@
 						transition:fly={{ y: 30, duration: 800, delay: 300, easing: quintOut }}
 					>
 						<div class="feature-icon">🎨</div>
-						<h3>Creative UI/UX</h3>
+						<h3>Creative Design</h3>
 						<p>
-							I create visually appealing interfaces with intuitive navigation and smooth
-							interactions that engage users and drive conversions.
+							Beautiful, intuitive interfaces with smooth animations and user-centered design
+							principles.
 						</p>
 					</div>
 
@@ -631,11 +631,11 @@
 						class="feature-card"
 						transition:fly={{ y: 30, duration: 800, delay: 400, easing: quintOut }}
 					>
-						<div class="feature-icon">🔍</div>
-						<h3>SEO Optimization</h3>
+						<div class="feature-icon">♿</div>
+						<h3>Accessible</h3>
 						<p>
-							I implement best practices to ensure your website ranks well in search engines and
-							attracts organic traffic.
+							Built with accessibility in mind. WCAG compliant, screen reader friendly, for all
+							users.
 						</p>
 					</div>
 				{/if}
@@ -692,7 +692,7 @@
 </section>
 
 <!-- Stats Section -->
-<section class="stats-section section">
+<!-- <section class="stats-section section">
 	<div class="container">
 		<div class="stats-grid">
 			{#if visibleStats}
@@ -730,17 +730,16 @@
 			{/if}
 		</div>
 	</div>
-</section>
+</section> -->
 
 <style>
 	.hero {
 		min-height: clamp(600px, 100vh, 900px);
-		padding: 8rem 4rem 2rem 4rem;
+		padding: 6rem 4rem 2rem 4rem;
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
 		gap: clamp(1rem, 4vw, 3rem);
 		align-items: center;
-		background: linear-gradient(135deg, var(--background) 0%, #2a2a2a 100%);
 
 		/* Crucial for centering and constraining the hero block */
 		width: 100%; /* Takes full width of its parent */
@@ -788,29 +787,29 @@
 
 	.cta-buttons {
 		display: flex;
-		gap: 24px;
+		gap: 16px;
 		width: 100%;
-		max-width: 764px;
-		margin-bottom: 60px;
+		max-width: 600px;
+		margin-bottom: 40px;
 		align-self: flex-start;
 	}
 
 	.button-primary,
 	.button-secondary {
 		position: relative;
-		border-radius: 0.6rem;
+		border-radius: 0.5rem;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		padding: 16px 28px;
+		padding: 12px 20px;
 		text-decoration: none;
 		font-family: 'Nunito Sans', sans-serif;
-		font-size: 16px;
+		font-size: 14px;
 		font-weight: 500;
 		flex: 1;
 		isolation: auto;
 		color: var(--color-text-light);
-		max-width: 370px;
+		max-width: 300px;
 		z-index: 0;
 
 		transition:
@@ -1075,7 +1074,7 @@
 
 	/* Features section */
 	.features-section {
-		padding: 100px 0;
+		padding: 80px 0;
 		background-color: var(--background);
 		position: relative;
 	}
@@ -1088,12 +1087,12 @@
 
 	.section-header {
 		text-align: center;
-		margin-bottom: 60px;
+		margin-bottom: 40px;
 	}
 
 	.section-header h2 {
 		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
-		font-size: 48px;
+		font-size: 40px;
 		color: var(--color-text);
 		margin-bottom: 16px;
 	}
@@ -1133,7 +1132,7 @@
 	.section-intro {
 		max-width: 700px;
 		margin: 24px auto 0;
-		font-size: 18px;
+		font-size: 14px;
 		color: var(--description);
 		line-height: 1.6;
 	}
@@ -1141,56 +1140,66 @@
 	.features-content {
 		display: grid;
 		grid-template-columns: 1fr;
-		gap: 40px;
+		gap: 30px;
 		align-items: center;
 	}
 
 	.feature-cards-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr));
-		gap: var(--space-8);
+		grid-template-columns: repeat(4, 1fr);
+		gap: 15px;
 		margin: 0 auto;
 	}
 
 	.feature-card {
 		background: #333333;
-		border-radius: 10px;
-		padding: 30px;
-		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-		transition:
-			transform 0.3s ease,
-			box-shadow 0.3s ease;
+		border-radius: 8px;
+		padding: 16px;
+		box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+		transition: box-shadow 0.3s ease;
 	}
 
 	.feature-card:hover {
-		transform: translateY(-10px);
-		box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+		box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 	}
 
 	.feature-icon {
-		font-size: 36px;
-		margin-bottom: 16px;
+		font-size: 28px;
+		margin-bottom: 12px;
 	}
 
 	.feature-card h3 {
 		font-family: 'Nunito Sans', sans-serif;
-		font-size: 20px;
+		font-size: 18px;
 		color: var(--accent);
-		margin: 0 0 16px 0;
+		margin: 0 0 12px 0;
 	}
 
 	.feature-card p {
 		font-family: 'Nunito Sans', sans-serif;
-		font-size: 16px;
-		line-height: 1.6;
+		font-size: 14px;
+		line-height: 1.5;
 		color: var(--description);
 		margin: 0;
 	}
 
+	/* Responsive: stack on smaller screens */
+	@media screen and (max-width: 1024px) {
+		.feature-cards-grid {
+			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		}
+	}
+
+	@media screen and (max-width: 768px) {
+		.feature-cards-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
 	.skills-cloud-container {
 		width: 100%;
-		height: 400px;
-		margin: 60px 0;
+		height: 350px;
+		margin: 40px 0;
 		position: relative;
 		perspective: 1000px;
 		perspective-origin: center center;
@@ -1422,14 +1431,6 @@
 			0 2px 4px rgba(0, 0, 0, 0.1);
 	}
 
-	/* Stats section */
-	.stats-section {
-		padding: 80px 0;
-		background: linear-gradient(to bottom, #282828, #303030);
-		position: relative;
-		z-index: 10;
-	}
-
 	.stats-grid {
 		/* Enhanced RAM pattern for better responsiveness */
 		display: grid;
@@ -1459,45 +1460,6 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-	}
-
-	.stat-icon.component-icon {
-		color: var(--accent);
-	}
-
-	.stat-icon.emoji-icon {
-		font-size: 40px;
-	}
-
-	/* Hover effects for different icon types */
-	.stat-card:hover .stat-icon.component-icon {
-		color: var(--secondary);
-		transform: scale(1.1);
-		transition: all 0.3s ease;
-	}
-
-	.stat-card:hover .stat-icon.emoji-icon {
-		transform: scale(1.1);
-		transition: all 0.3s ease;
-	}
-
-	.stat-value {
-		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
-		font-size: 48px;
-		font-weight: 700;
-		color: var(--accent);
-		margin-bottom: 8px;
-		background: linear-gradient(333deg, var(--gruv-darkorange), var(--gruv-orange), var(--accent));
-		background-size: 140% 140%;
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-	}
-
-	.stat-label {
-		font-family: 'Nunito Sans', sans-serif;
-		font-size: 16px;
-		color: var(--description);
 	}
 
 	/* ===== FIREBALL STYLES ===== */

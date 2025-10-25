@@ -182,19 +182,19 @@
 <style>
 	.contact-container {
 		width: 90%;
-		max-width: var(--max-width);
-		margin: 0 auto;
-		padding: calc(var(--header-height) + 2rem) var(--space-6) var(--space-8);
+		max-width: 1200px;
+		margin: 40px auto;
+		padding: 20px;
 	}
 
 	.contact-header {
 		text-align: center;
-		margin-bottom: var(--space-16);
+		margin: 60px 0 60px;
 	}
 
 	.contact-header h1 {
 		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
-		font-size: var(--h1);
+		font-size: 40px;
 		color: var(--color-text);
 		margin-bottom: 16px;
 	}
@@ -210,7 +210,7 @@
 	.contact-intro {
 		max-width: 600px;
 		margin: 24px auto 0;
-		font-size: var(--p-size);
+		font-size: 14px;
 		color: var(--description);
 		line-height: 1.6;
 	}
@@ -219,7 +219,7 @@
 		/* RAM PATTERN for responsive layout - 50/50 split on desktop, stack on mobile */
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(min(399px, 100%), 1fr));
-		gap: var(--space-8);
+		gap: 20px;
 		align-items: start;
 		container-type: inline-size;
 	}
@@ -247,8 +247,8 @@
 	.contact-info {
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-8);
-		padding: var(--space-4);
+		gap: 16px;
+		padding: 16px;
 		justify-content: center;
 		align-items: flex-start;
 		max-width: 300px;
@@ -258,20 +258,20 @@
 	.info-header {
 		display: flex;
 		align-items: center;
-		gap: var(--space-3);
-		margin-bottom: var(--space-4);
+		gap: 8px;
+		margin-bottom: 8px;
 	}
 
 	.info-header h3 {
 		font-family: 'Nunito Sans', sans-serif;
-		font-size: var(--h5);
+		font-size: 16px;
 		color: var(--accent);
 		margin: 0;
 	}
 
 	.info-item p {
 		font-family: 'Nunito Sans', sans-serif;
-		font-size: var(--p);
+		font-size: 14px;
 		line-height: 1.6;
 		color: var(--description);
 		margin: 0;
@@ -290,22 +290,22 @@
 	.social-links {
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-3);
+		gap: 8px;
 		align-items: flex-start;
 	}
 
 	.social-link {
 		display: flex;
 		align-items: center;
-		gap: var(--space-3);
-		padding: var(--space-3) var(--space-4);
+		gap: 8px;
+		padding: 8px 12px;
 		background: rgba(69, 133, 136, 0.1);
 		border: 1px solid var(--primary);
 		border-radius: var(--border-radius-sm);
 		color: var(--description) !important;
 		text-decoration: none;
 		transition: all var(--transition-normal);
-		font-size: 16px;
+		font-size: 14px;
 		font-weight: 500;
 		width: 130px;
 	}
@@ -330,32 +330,32 @@
 	.contact-form {
 		background: #333333;
 		border-radius: var(--border-radius-lg);
-		padding: var(--space-8);
+		padding: 20px;
 		box-shadow: var(--shadow-lg);
 		border: 1px solid var(--primary);
 	}
 
 	.form-group {
-		margin-bottom: var(--space-6);
+		margin-bottom: 16px;
 	}
 
 	.form-group label {
 		display: block;
 		font-family: 'Nunito Sans', sans-serif;
-		font-size: 16px;
+		font-size: 14px;
 		color: var(--color-text);
-		margin-bottom: var(--space-3);
+		margin-bottom: 8px;
 	}
 
 	.form-group input,
 	.form-group textarea {
 		width: 100%;
-		padding: 12px 16px;
+		padding: 10px 12px;
 		background: var(--background);
 		border: 1px solid var(--primary);
 		border-radius: 4px;
 		font-family: 'Nunito Sans', sans-serif;
-		font-size: 16px;
+		font-size: 14px;
 		color: var(--color-text);
 		transition:
 			border-color 0.3s ease,
@@ -377,12 +377,12 @@
 	.submit-button {
 		display: block;
 		width: 100%;
-		padding: 14px 24px;
+		padding: 12px 16px;
 		background: var(--primary);
 		border: none;
 		border-radius: 4px;
 		font-family: 'Nunito Sans', sans-serif;
-		font-size: 16px;
+		font-size: 14px;
 		font-weight: 600;
 		color: var(--color-text);
 		cursor: pointer;
