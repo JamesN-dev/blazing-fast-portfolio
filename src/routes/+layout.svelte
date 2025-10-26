@@ -8,12 +8,13 @@
 	import FloatingParticles from '$lib/components/FloatingParticles.svelte';
 	import { crossfade } from 'svelte/transition';
 	import { navigating, page } from '$app/stores';
-	import { browser } from '$app/environment';
 	import { injectAnalytics } from '@vercel/analytics/sveltekit';
 	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
 
 	injectSpeedInsights();
 	injectAnalytics();
+
+	let { children } = $props();
 
 	// Create crossfade transition
 	const [send, receive] = crossfade({
