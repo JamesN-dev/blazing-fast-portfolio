@@ -9,33 +9,49 @@ import svelteConfig from './svelte.config.js';
 const gitignorePath = fileURLToPath(new URL('./.gitignore', import.meta.url));
 
 export default [
-  // Respect .gitignore (files in .gitignore are ignored by the linter)
+  // Respect .gitignore
   includeIgnoreFile(gitignorePath),
 
-  // Use ESLint’s recommended JS rules
+  // ESLint JS base
   js.configs.recommended,
 
-  // Use Svelte plugin’s recommended rules for Svelte components
+  // Svelte rules
   ...svelte.configs.recommended,
 
-  // Extend Prettier to avoid rule conflicts with Prettier
+  // Prettier compatibility
   prettier,
   ...svelte.configs.prettier,
 
+  // Global defaults
   {
     languageOptions: {
-      // Make browser and Node globals available in the linter environment
       globals: { ...globals.browser, ...globals.node }
     },
     rules: {
-      // Disable rule that warns about <a href="…"> without resolve()
+      // You don't use route-relative hrefs; allow plain <a href="/...">
       'svelte/no-navigation-without-resolve': 'off'
     }
   },
 
-  // For .svelte and .svelte.js files, provide your svelte.config.js to the parser
+  // Parse Svelte files with your svelte.config.js
   {
     files: ['**/*.svelte', '**/*.svelte.js'],
     languageOptions: { parserOptions: { svelteConfig } }
+  },
+
+  // SvelteKit-specific: layouts MUST accept `children`
+  {
+    files: ['src/routes/**/+layout.svelte'],
+    rules: {
+      'svelte/valid-prop-names-in-kit-pages': 'off'
+    }
+  },
+
+  // Keep rule enforced on pages (only `data`/`errors`)
+  {
+    files: ['src/routes/**/+page.svelte'],
+    rules: {
+      'svelte/valid-prop-names-in-kit-pages': 'error'
+    }
   }
 ];

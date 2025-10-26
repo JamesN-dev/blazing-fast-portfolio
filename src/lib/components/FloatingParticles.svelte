@@ -48,7 +48,7 @@
 </script>
 
 <div class="particles-container" style="--opacity: {opacity};">
-	{#each Array(count) as item, i (i)}
+	{#each Array.from({ length: count }, (_, i) => i) as i (i)}
 		<div
 			class="particle"
 			style="--size: {minSize + Math.random() * (maxSize - minSize)}px;
