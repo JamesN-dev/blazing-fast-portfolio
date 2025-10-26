@@ -286,7 +286,7 @@
 			Segoe UI,
 			Roboto,
 			sans-serif;
-		font-size: 1.25em;
+		font-size: clamp(1rem, 2.5vw, 1.25em);
 		font-style: italic;
 		color: var(--gruv-darkwhite);
 	}

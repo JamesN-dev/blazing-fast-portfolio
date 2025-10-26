@@ -254,19 +254,19 @@
 					position.y += position.speedY;
 
 					// Boundary bouncing for throwing mode - wider boundaries for more action
-					if (position.x > 400) {
-						position.x = 400;
+					if (position.x > 490) {
+						position.x = 490;
 						position.speedX = Math.abs(position.speedX) * -0.8; // Bouncier for throwing
-					} else if (position.x < -400) {
-						position.x = -400;
+					} else if (position.x < -610) {
+						position.x = -610;
 						position.speedX = Math.abs(position.speedX) * 0.8; // Bouncier for throwing
 					}
 
-					if (position.y > 120) {
-						position.y = 120;
+					if (position.y > 150) {
+						position.y = 150;
 						position.speedY = Math.abs(position.speedY) * -0.8; // Bouncier for throwing
-					} else if (position.y < -120) {
-						position.y = -120;
+					} else if (position.y < -165) {
+						position.y = -165;
 						position.speedY = Math.abs(position.speedY) * 0.8; // Bouncier for throwing
 					}
 
@@ -294,19 +294,19 @@
 					position.y += ySpeedComponent;
 
 					// Boundary bouncing for floating mode
-					if (position.x > 350) {
-						position.x = 350;
+					if (position.x > 440) {
+						position.x = 440;
 						position.speedX = Math.abs(position.speedX) * -0.8; // Reverse direction with damping
-					} else if (position.x < -350) {
-						position.x = -350;
+					} else if (position.x < -560) {
+						position.x = -560;
 						position.speedX = Math.abs(position.speedX) * 0.8; // Reverse direction with damping
 					}
 
-					if (position.y > 80) {
-						position.y = 80;
+					if (position.y > 135) {
+						position.y = 135;
 						position.speedY = Math.abs(position.speedY) * -0.8; // Reverse direction with damping
-					} else if (position.y < -80) {
-						position.y = -80;
+					} else if (position.y < -150) {
+						position.y = -150;
 						position.speedY = Math.abs(position.speedY) * 0.8; // Reverse direction with damping
 					}
 
@@ -424,7 +424,7 @@
 			scrollY = window.scrollY;
 			// Update showScrollIndicator only on the client
 			if (browser) {
-				showScrollIndicator = scrollY < window.innerHeight / 2;
+				showScrollIndicator = scrollY <= 10;
 			}
 		};
 
@@ -432,7 +432,7 @@
 
 		// Initial check for scroll indicator visibility on mount
 		if (browser) {
-			showScrollIndicator = scrollY < window.innerHeight / 2;
+			showScrollIndicator = scrollY <= 10;
 		}
 
 		// Small delay before showing animations
@@ -537,19 +537,19 @@
 
 			<div class="cta-buttons">
 				<div class="button-wrapper">
-					<a href="/about" class="button-primary">
-						<span>Follow Me</span>
+					<a href="/work" class="button-primary">
+						<span>See My Work</span>
 					</a>
 				</div>
 				<div class="button-wrapper">
 					<a href="/contact" class="button-secondary">
-						<span>Let's Collaborate!</span>
+						<span>Get in Touch</span>
 					</a>
 				</div>
 			</div>
 
-			{#if visible && showScrollIndicator}
-				<div class="scroll-indicator" transition:fade={{ delay: 1200, duration: 500 }}>
+			{#if visible}
+				<div class="scroll-indicator" class:visible={showScrollIndicator}>
 					<div class="mouse">
 						<div class="wheel"></div>
 					</div>
@@ -750,17 +750,16 @@
 
 <style>
 	.hero {
-		min-height: clamp(600px, 100vh, 900px);
-		padding: 6rem 4rem 2rem 4rem;
+		min-height: clamp(560px, 92vh, 860px);
+		padding: 6.75rem 4rem 1.75rem 4rem;
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
 		gap: clamp(1rem, 4vw, 3rem);
 		align-items: center;
 
-		/* Crucial for centering and constraining the hero block */
-		width: 100%; /* Takes full width of its parent */
-		max-width: 1200px; /* But not more than 1200px */
-		margin-left: auto; /* Centers the block horizontally */
+		width: 100%;
+		max-width: 1200px;
+		margin-left: auto;
 		margin-right: auto;
 
 		container-type: inline-size;
@@ -774,18 +773,31 @@
 		min-width: 0;
 	}
 
+	.intro-text,
+	.name,
+	.tagline,
+	.typed-text-wrapper,
+	.cta-buttons {
+		transform: translateY(-40px);
+	}
+
 	.hero-fireball-container {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		min-height: 300px;
+		transform: translateY(-55px);
 	}
 
 	.name,
 	.tagline {
-		font-size: clamp(3rem, 5vw, 4rem);
+		font-size: clamp(2.8rem, 5vw, 4.2rem);
 		line-height: normal;
 		margin: 0;
+	}
+
+	.tagline {
+		font-size: clamp(2.2rem, 4.2vw, 3.8rem);
 	}
 
 	.intro-text {
@@ -801,12 +813,19 @@
 		inherits: false;
 	}
 
+	.typed-text-wrapper {
+		font-size: 1.35em;
+		font-weight: 500;
+		margin-bottom: 10px;
+	}
+
 	.cta-buttons {
 		display: flex;
 		gap: 16px;
 		width: 100%;
 		max-width: 600px;
 		margin-bottom: 40px;
+		margin-top: 6px;
 		align-self: flex-start;
 	}
 
@@ -918,7 +937,7 @@
 	}
 
 	/* Add more left padding when window gets narrow */
-	@container hero-section (600px <= width <= 900px) {
+	@container hero-section (600px <= width <= 860px) {
 		.hero {
 			padding-left: 3rem;
 		}
@@ -933,11 +952,18 @@
 			padding-left: 2rem; /* Reset to normal when stacked */
 		}
 
-		.cta-buttons {
-			/* Center the buttons when layout stacks */
+		.hero-text-container {
+			/* Center the container but keep text left-aligned */
+			/*max-width: 500px;*/
+			margin: 0 auto;
+			text-align: left;
+		}
+
+		/*.cta-buttons {
+
 			align-self: center;
 			justify-content: center;
-		}
+		}*/
 
 		.hero-fireball-container {
 			/* Move fireball below text and reduce excessive height */
@@ -951,22 +977,21 @@
 		}
 	}
 
-	@container hero-section (475px <= width <= 795.02px) {
+	/*@container hero-section (width <= 862px) {
+		.name {
+			font-size: clamp(2.4rem, 6vw, 4.2rem);
+		}
+
+		.tagline {
+			font-size: clamp(2rem, 5.5vw, 3.8rem);
+		}
+	}*/
+
+	@container hero-section (475px <= width <= 795px) {
 		.button-primary,
 		.button-secondary {
 			flex: 0 0 auto;
 			min-width: 140px;
-		}
-	}
-
-	@container hero-section (600px <= width <= 795px) {
-		.cta-buttons {
-			margin: 0 auto;
-			width: fit-content;
-		}
-
-		.hero-fireball-container {
-			min-height: 220px;
 		}
 	}
 
@@ -1013,7 +1038,13 @@
 		background: var(--gruv-darkorange);
 	}
 	.button-secondary {
+		background: transparent;
+		border: 1px solid var(--primary);
+		color: var(--color-text-light);
+	}
+	.button-secondary:hover {
 		background: var(--primary);
+		color: var(--background);
 	}
 
 	.button-primary span,
@@ -1039,6 +1070,13 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		opacity: 0;
+		z-index: 1000;
+		transition: opacity 0.3s ease;
+		pointer-events: none;
+	}
+
+	.scroll-indicator.visible {
 		opacity: 0.8;
 	}
 
@@ -1091,6 +1129,7 @@
 	/* Features section */
 	.features-section {
 		padding: 80px 0;
+		margin-top: 60px;
 		background-color: var(--background);
 		position: relative;
 	}
@@ -1256,7 +1295,6 @@
 		}
 	}
 
-	/* When container width is 920px or less, switch to 4x4 grid layout using container queries */
 	@container skills-cloud (width <= 920px) {
 		.skills-cloud-container {
 			perspective: none;
@@ -1283,7 +1321,6 @@
 		}
 
 		.skill-tag {
-			/* CHANGE: Keep position: absolute for transforms to work */
 			position: relative;
 			backface-visibility: visible;
 			display: flex;
@@ -1315,6 +1352,7 @@
 		left: 50%;
 		width: 1px;
 		height: 1px;
+		transform: translate(-50%, -50%);
 		transform-style: preserve-3d;
 	}
 
@@ -1463,8 +1501,9 @@
 		align-items: center;
 		justify-content: center;
 		/* RAM PATTERN - Responsive scaling without media queries! */
-		width: clamp(200px, 35vw, 350px);
-		height: clamp(200px, 35vw, 350px);
+		width: clamp(180px, 30vw, 350px);
+		height: clamp(180px, 30vw, 350px);
+		transform: translate(2%, -6%);
 	}
 
 	.fireball-logo {
@@ -1568,7 +1607,7 @@
 		font-family: 'Kilimanjaro Sans Round1', 'Nunito Sans', sans-serif;
 		font-style: normal;
 		font-weight: 400;
-		margin: -2rem 0 0 0;
+		margin: clamp(-1.5rem, -2.5vw, -2rem) 0 0 0;
 		background: linear-gradient(135deg, #ff7a30 0%, var(--secondary) 50%, var(--gruv-red) 100%);
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
