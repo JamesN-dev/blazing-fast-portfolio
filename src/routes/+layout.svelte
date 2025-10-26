@@ -4,7 +4,7 @@
 	import '$lib/styles/global.css';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
-	import { onMount } from 'svelte';
+
 	import FloatingParticles from '$lib/components/FloatingParticles.svelte';
 	import { crossfade } from 'svelte/transition';
 	import { navigating, page } from '$app/stores';
@@ -15,33 +15,15 @@
 	injectSpeedInsights();
 	injectAnalytics();
 
-	let scrollY = $state(0);
-	let { children } = $props();
-
 	// Create crossfade transition
 	const [send, receive] = crossfade({
 		duration: 300,
-		fallback(node) {
+		fallback() {
 			return {
 				duration: 300,
 				css: (t) => `opacity: ${t}`
 			};
 		}
-	});
-
-	$effect(() => {
-		if (!browser) return;
-
-		// Add scroll listener for particle background
-		const handleScroll = () => {
-			scrollY = window.scrollY;
-		};
-
-		window.addEventListener('scroll', handleScroll);
-
-		return () => {
-			window.removeEventListener('scroll', handleScroll);
-		};
 	});
 </script>
 

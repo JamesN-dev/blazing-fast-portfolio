@@ -107,7 +107,7 @@
 		</div>
 
 		<div class="timeline">
-			{#each experiences as exp, i}
+			{#each experiences as exp, i (i)}
 				<div
 					class="experience-item"
 					transition:fly={{
@@ -121,11 +121,11 @@
 						<div class="experience-period">{exp.period}</div>
 						<h3 class="experience-title">{exp.title}</h3>
 						<h4 class="experience-company">{exp.company}</h4>
-						{#each exp.description.split('\n').filter(Boolean) as paragraph}
+						{#each exp.description.split('\n').filter(Boolean) as paragraph, j (j)}
 							<p class="experience-description">{paragraph}</p>
 						{/each}
 						<div class="experience-skills">
-							{#each exp.skills as skill}
+							{#each exp.skills as skill, k (k)}
 								<span class="blog-tag">{skill}</span>
 							{/each}
 						</div>

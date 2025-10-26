@@ -1,12 +1,12 @@
 <script>
 	import { onMount } from 'svelte';
 	import { fade, fly } from 'svelte/transition';
-	import { Github, Linkedin, Mail, MapPin, Twitter } from '@lucide/svelte';
+	import { Github, Linkedin, MapPin, Twitter } from '@lucide/svelte';
 	import { toast, Toaster } from 'svelte-sonner';
 	import { enhance } from '$app/forms';
 
 	/** @type {import('./$types').PageProps} */
-	let { data, form } = $props();
+	let { form } = $props();
 
 	let visible = $state(false);
 

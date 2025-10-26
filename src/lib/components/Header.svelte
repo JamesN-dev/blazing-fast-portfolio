@@ -1,20 +1,5 @@
 <script>
 	import Nav from '$lib/components/Nav.svelte';
-	import { onMount } from 'svelte';
-
-	let scrollY = $state(0);
-
-	onMount(() => {
-		const handleScroll = () => {
-			scrollY = window.scrollY;
-		};
-
-		window.addEventListener('scroll', handleScroll);
-
-		return () => {
-			window.removeEventListener('scroll', handleScroll);
-		};
-	});
 </script>
 
 <header class="site-header">
