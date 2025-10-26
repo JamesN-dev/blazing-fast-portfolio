@@ -1,9 +1,5 @@
 <script>
-	import { onMount } from 'svelte';
-
 	let isMenuOpen = $state(false);
-	let scrollY = $state(0);
-	let isScrolled = $derived(scrollY > 20);
 
 	function toggleMenu() {
 		isMenuOpen = !isMenuOpen;
@@ -23,18 +19,6 @@
 			document.body.style.overflow = '';
 		}
 	}
-
-	onMount(() => {
-		const handleScroll = () => {
-			scrollY = window.scrollY;
-		};
-
-		window.addEventListener('scroll', handleScroll);
-
-		return () => {
-			window.removeEventListener('scroll', handleScroll);
-		};
-	});
 </script>
 
 <nav class="main-nav" aria-label="Main Navigation">
