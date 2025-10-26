@@ -10,7 +10,7 @@
 			company: 'Blazing Fast Labs',
 			period: '2020 - Present',
 			description:
-				'I design and develop full-stack web applications using SvelteKit, Python, and PostgreSQL. My workflow includes managing a home lab on Proxmox, orchestrating Linux VMs and Docker containers, and maintaining version control with custom Git strategies. Deployments span modern platforms like Vercel as well as self-hosted infrastructure on DigitalOcean with Nginx. I automate processes with Python scripts and focus on building reliable, efficient systems. I also create and manage 3D product content pipelines, including material creation, asset standardization, rendering workflows, and integration with web platforms.',
+				'Design and develop full-stack web applications using SvelteKit, Python, and PostgreSQL. My workflow includes managing a home lab on Proxmox, orchestrating Linux VMs and Docker containers, and maintaining version control with custom Git strategies. Deployments span modern platforms like Vercel as well as self-hosted infrastructure on DigitalOcean with Nginx. I automate processes with Python scripts and focus on building reliable, efficient systems. I also create and manage 3D product content pipelines, including material creation, asset standardization, rendering workflows, and integrations with web platforms.',
 			skills: [
 				'SvelteKit',
 				'JavaScript',

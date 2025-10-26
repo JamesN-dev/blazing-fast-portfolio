@@ -22,25 +22,25 @@
 		<div class="about-content">
 			<div class="about-text" transition:fly={{ duration: 600, y: 20 }}>
 				<p>
-					I’m a marketing technologist & developer who builds data-driven, UX-focused full-stack
-					tools & applications. I run the marketing operations for a national foodservice equipment
-					manufacturer, overseeing strategy, creative, data, e-commerce, analytics, and the
-					marketing technical systems that tie it all together.
+					I’m a veteran marketing pro & web developer who builds ecosystems centered around data. My
+					day job is running marketing operations for a national foodservice equipment manufacturer,
+					overseeing strategy, creative, data, e-commerce, analytics, and the marketing technical
+					systems that tie it all together.
 				</p>
 
 				<p>
-					MMy design background shapes how I approach development. I build tools and applications
-					centered on user experience, modern design, and simplifying complex processes. Outside of
-					work, I spend time developing plugins and creative tools like a Blender add-on, a macOS
-					app, and an Android app, while also running my homelab and experimenting with 3D and game
-					development in Godot.
+					My design and marketing background shapes how I approach development. The tools and
+					applications I build are data-driven and centered on user experience, modern design, and
+					simplifying complex processes. Outside of work, I spend time developing creative tools
+					learning new technologies, exploring AI and machine learning, while also running my
+					homelab and experimenting with 3D, audio, and game development.
 				</p>
-
 				<p>This site documents what I’ve built so far and where I’m headed next.</p>
 
 				<p>
 					When I’m not coding or creating, you’ll probably find me hiking, mushroom hunting, digging
-					through old jungle records, or getting lost in vintage electronic gear or software relics.
+					through old electronic music records, getting lost in vintage electronic hardware, or
+					discovering creative software relics.
 				</p>
 			</div>
 
@@ -152,16 +152,29 @@
 	}
 
 	.skills-grid {
-		/* Enhanced RAM pattern with better responsiveness */
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
-		gap: var(--space-6);
+		grid-template-columns: repeat(4, 1fr);
+		gap: var(--space-4);
+	}
+
+	/* Tablet: 2x2 grid */
+	@media screen and (max-width: 900px) {
+		.skills-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	/* Mobile: stack vertically */
+	@media screen and (max-width: 600px) {
+		.skills-grid {
+			grid-template-columns: 1fr;
+		}
 	}
 
 	.skill-category {
 		background: #333333;
-		border-radius: 8px;
-		padding: 20px;
+		border-radius: 6px;
+		padding: 12px;
 		transition:
 			transform 0.3s ease,
 			box-shadow 0.3s ease;
@@ -173,10 +186,11 @@
 
 	.skill-category h3 {
 		font-family: 'Nunito Sans', sans-serif;
-		font-size: 16px;
+		font-size: 15px;
 		color: var(--accent);
-		margin-bottom: 10px;
+		margin: 0 0 6px 0;
 		border-bottom: 1px solid var(--primary);
+		padding-bottom: 4px;
 	}
 
 	.skill-category ul {
@@ -187,9 +201,10 @@
 
 	.skill-category li {
 		color: var(--color-text);
-		padding: 8px 0;
+		padding: 4px 0;
 		position: relative;
-		padding-left: 13px;
+		padding-left: 12px;
+		font-size: 13px;
 	}
 
 	.skill-category li::before {
