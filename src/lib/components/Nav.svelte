@@ -47,11 +47,11 @@
 		<ul class="nav-links" aria-label="Navigation Links">
 			<li><a href="/about" onclick={handleLinkClick}>About</a></li>
 			<li><a href="/experience" onclick={handleLinkClick}>Experience</a></li>
-			<li><a href="/work" onclick={handleLinkClick}>Work</a></li>
+			<!-- <li><a href="/work" onclick={handleLinkClick}>Work</a></li> -->
 			<li><a href="/contact" onclick={handleLinkClick}>Contact</a></li>
 			<li class="resume-link">
 				<a
-					href="https://g15vtr55yw.ufs.sh/f/Bh1ffWkP18dQ9jq8INEAMI4PXa63rRpkOGoC0QejZcUx5gDB"
+					href="https://g15vtr55yw.ufs.sh/f/Bh1ffWkP18dQ675STsuzJAGTQxdaysu5FKIpUErcLwiemSkO"
 					onclick={handleLinkClick}
 					aria-label="Download Resume"
 					target="_blank"
